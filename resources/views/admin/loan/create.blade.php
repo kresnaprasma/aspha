@@ -5,11 +5,6 @@
 	<script type="text/javascript" src="{{ asset('assets/js/dropzone.js') }}"></script>
 	<script src="http://demo.itsolutionstuff.com/plugin/jquery.js"></script>
 
-
-
-	{{-- <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/dropzone.css') }}"> --}}
-    {{-- <link rel="stylesheet" href="http://demo.itsolutionstuff.com/plugin/bootstrap-3.min.css">
-    <link rel="stylesheet" type="text/css" href="http://demo.itsolutionstuff.com/plugin/bootstrap-3.min.css"> --}}
 	<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/4.2.0/min/dropzone.min.js"></script>  <!-- js for the add files area /-->
 

@@ -109,27 +109,9 @@
 			<span class="text-danger">{{ $errors->first('tenor') }}</span>
 		</div>
 		
-		<div class="form-group col-sm-6 col-md-6 col-xs-6 {{ $errors->has('price_request') ? 'has-error' : '' }}">
+		<div class="form-group col-sm-4 col-md-4 col-xs-4 {{ $errors->has('price_request') ? 'has-error' : '' }}">
 			{!! Form::label('price_request', 'Jumlah Pinjaman :') !!}
-			<select class="select form-control" name="price_request" id="price_request" style="width: 370px">
-				<option value="">--- Jumlah Peminjaman ---</option>
-				<option value="3000000">Rp 3.000.000</option>
-				<option value="3500000">Rp 3.500.000</option>
-				<option value="4000000">Rp 4.000.000</option>
-				<option value="4500000">Rp 4.500.000</option>
-				<option value="5000000">Rp 5.000.000</option>
-				<option value="5500000">Rp 5.500.000</option>
-				<option value="6000000">Rp 6.000.000</option>
-				<option value="6500000">Rp 6.500.000</option>
-				<option value="7000000">Rp 7.000.000</option>
-				<option value="7500000">Rp 7.500.000</option>
-				<option value="8000000">Rp 8.000.000</option>
-				<option value="8500000">Rp 8.500.000</option>
-				<option value="9000000">Rp 9.000.000</option>
-				<option value="9500000">Rp 9.500.000</option>
-				<option value="10000000">Rp 10.000.000</option>
-			</select>
-			<span class="text-danger">{{ $errors->first('price_request') }}</span>
+			{!! Form::text('price_request', null, ['class'=>'form-control', 'id'=>'price_request']) !!}
 		</div>
 		
 		<div class="form-group col-sm-6 col-md-6 col-xs-6">

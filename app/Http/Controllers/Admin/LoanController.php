@@ -132,6 +132,9 @@ class LoanController extends Controller
     {
         // $loan = Loan::findOrFail($id);
         //return view('admin.loan.edit', compact('loan'));
+        $merkall = Merk::pluck('name', 'id');
+        $loan = Loan::find($id);
+        return view('admin.loan.edit', compact('loan', 'id', 'merkall'));
     }
 
     /**
@@ -170,14 +173,4 @@ class LoanController extends Controller
         $pdf::writeHTML($html, true, false, true, false, '');
         $pdf::Output('hello_world.pdf');
     }
-
-    /*public function exportExcel($type)
-    {
-        $data = Loan::get(['id', 'type', 'vehicle_color', 'vehicle_cc', 'bpkb', 'chassis_number', 'machine_number', 'stnk_due_date', 'vehicle_date', 'tenor', 'price_request', 'approval', 'user_approval', 'created_at', 'updated_at'])->toArray();
-        return Excel::create('export_to_excel_example', function($excel) use ($data) {
-            $excel->sheet('Loan', function($sheet) use ($data) {
-                $sheet->fromArray($data);
-            });
-        })->download($type);
-    }*/
 }

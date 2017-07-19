@@ -33,23 +33,31 @@
         <ul class="sidebar-menu">
             <li class="header">ADMIN AREA</li>
             <!-- Optionally, you can add icons to the links -->
-            <li><a href="{{ url('/admin/merk') }}"><span>Merk</span></a></li>
-            <li><a href="{{ url('/admin/type') }}"><span>Type</span></a></li>
-            <li><a href="{{ url('/admin/vehiclecollateral') }}"><span>Vehicle Collateral</span></a></li>
-            {{-- <li class="active"><a href="{{ url('/admin/loan') }}"><span>Loan</span></a></li> --}}
+            <li class="treeview">
+                <a href="#"><span>Master Data</span> <i class="fa fa-angle-left pull-right"></i></a>
+                <ul class="treeview-menu">
+                    <li><a href="{{ url('/admin/merk') }}">Merk</a></li>
+                    <li><a href="{{ url('/admin/type') }}">Type</a></li>
+                    <li><a href="{{ url('/admin/vehiclecollateral') }}">Vehicle Collateral</a></li>
+                </ul>
+            </li>
             <li class="treeview">
                 <a href="#"><span>Loan</span> <i class="fa fa-angle-left pull-right"></i></a>
                 <ul class="treeview-menu">
                     <li><a href="{{ url('/admin/loan') }}">Data Peminjaman</a></li>
-                    <li><a href="{{ url('/admin/loan/create') }}">Tambah Peminjaman</a></li>
-                    <li><a href="{{ url('/admin/fileentry') }}">Upload File</a></li>
+                    <li><a href="{{ url('/admin/fileentry') }}">Upload Berkas</a></li>
                 </ul>
             </li>
             <li class="treeview">
                 <a href="#"><span>Motor Bekas</span><i class="fa fa-angle-left pull-right"></i></a>
                 <ul class="treeview-menu">
-                    <li><a href="{{ url('/admin/motor/create') }}">Input Mokas</a></li>
                     <li><a href="{{ url('/admin/motor') }}">Data Mokas</a></li>
+                </ul>
+            </li>
+            <li class="treeview">
+                <a href="#"><span>Customer</span><i class="fa fa-angle-left pull-right"></i></a>
+                <ul class="treeview-menu">
+                    <li><a href="{{ url('/admin/customer') }}">Data Customer</a></li>
                 </ul>
             </li>
         </ul><!-- /.sidebar-menu -->

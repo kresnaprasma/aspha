@@ -20,11 +20,11 @@
 		</div>
 
 		<div class="form-group">
-			{!! Form::label('vehicle_date', 'Vehicle Date:') !!}
+			{!! Form::label('vehicle_date', 'Tahun Pembuatan Motor:') !!}
 			{!! Form::date('vehicle_date', null, ['class'=>'form-control']) !!}
 		</div>
 		<div class="form-group">
-			{!! Form::label('vehicle_price', 'Vehicle Price:') !!}
+			{!! Form::label('vehicle_price', 'Harga:') !!}
 			{!! Form::text('vehicle_price', null, ['class'=>'form-control']) !!}
 		</div>
 			{!! Form::submit('save' , ['class' =>'btn btn-primary']) !!}

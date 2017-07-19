@@ -58,6 +58,7 @@
 							<th>Tenor</th>
 							<th>Permohonan Pinjaman</th>
 							<th>Approval</th>
+							{{-- <th>Actions</th> --}}
 							{{-- <th>User Approval</th> --}}
 						</thead>
 						<tbody>
@@ -118,7 +119,9 @@
 										{{ $l->approval }}
 										<input type="hidden" id="approvalTableLoan" name="approval[]" value="{{ $l->approval }}">
 									</td>
-									
+									{{-- <td>
+										<a href="{{ route('admin.loan.edit', $l->id) }}" class="btn btn-warning">Edit</a>
+									</td> --}}
 									{{-- <td> --}}
 									{{-- @if(count($l->users) > 0) --}}
 										{{-- {{ $l->user_approval }} --}}

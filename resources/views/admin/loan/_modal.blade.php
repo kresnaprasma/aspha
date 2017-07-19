@@ -72,23 +72,7 @@
 					</div>
 					<div class="form-group">
 						{!! Form::label('price_request', 'Price Request:') !!}
-						<select class="select form-control" name="price_request" id="requestLoan" style="width: 270px">
-							<option value="3000000">Rp 3.000.000</option>
-							<option value="3500000">Rp 3.500.000</option>
-							<option value="4000000">Rp 4.000.000</option>
-							<option value="4500000">Rp 4.500.000</option>
-							<option value="5000000">Rp 5.000.000</option>
-							<option value="5500000">Rp 5.500.000</option>
-							<option value="6000000">Rp 6.000.000</option>
-							<option value="6500000">Rp 6.500.000</option>
-							<option value="7000000">Rp 7.000.000</option>
-							<option value="7500000">Rp 7.500.000</option>
-							<option value="8000000">Rp 8.000.000</option>
-							<option value="8500000">Rp 8.500.000</option>
-							<option value="9000000">Rp 9.000.000</option>
-							<option value="9500000">Rp 9.500.000</option>
-							<option value="10000000">Rp 10.000.000</option>
-						</select>
+						{!! Form::text('price_request', null, ['class'=>'form-control', 'id'=>'requestLoan']) !!}
 					</div>
 					<div class="form-group">
 						{!! Form::label('approval', 'Approval:') !!}
