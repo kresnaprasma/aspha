@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Bank;
 use App\Branch;
-use App\Customer;
 use App\Http\Controllers\Controller;
+use App\Supplier;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Ramsey\Uuid\Uuid;
 
-class CustomerController extends Controller
+class SupplierController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,9 +19,9 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        $customer = Customer::all();
+        $supplier = Supplier::all();
 
-        return view('admin.customer.index', compact('customer'));
+        return view('admin.master.supplier.index', compact('supplier'));
     }
 
     /**
@@ -30,9 +31,10 @@ class CustomerController extends Controller
      */
     public function create()
     {
+        $bank_list = Bank::pluck('alias', 'id');
         $branch_list = Branch::pluck('name', 'id');
 
-        return view('admin.customer.create', compact('branch_list'));
+        return view('admin.master.supplier.create', compact('bank_list','branch_list'));
     }
 
     /**
@@ -44,10 +46,9 @@ class CustomerController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'branch_id'=>'required',
+            // 'supplier_no'=>'required|string|max:10',
             'name'=>'required',
             'email'=>'required|string|unique:suppliers',
-            'address'=>'required',
         ]);
 
         if ($validator->fails()) {
@@ -56,34 +57,27 @@ class CustomerController extends Controller
             return redirect()->back()->withInput()->withErrors($validator);
         }
 
-        $customer = new Customer();
-        $customer->id = Uuid::uuid4()->getHex();
-        $customer->customer_no = Customer::Maxno();
-        $customer->name = $request->input('name');
-        $customer->address = $request->input('address');
-        $customer->email = $request->input('email');
-        $customer->phone = $request->input('phone');
-        $customer->active = $request->input('active');
-        $customer->birthdate = $request->input('birthdate');
-        $customer->birthplace = $request->input('birthplace');
-        $customer->identity_number = $request->input('identity_number');
-        $customer->gender = $request->input('gender');
-        $customer->rt = $request->input('rt');
-        $customer->rw = $request->input('rw');
-        $customer->postalcode = $request->input('postalcode');
-        $customer->kelurahan = $request->input('kelurahan');
-        $customer->kecamatan = $request->input('kecamatan');
-        $customer->kabupaten = $request->input('kabupaten');
-        $customer->city = $request->input('city');
-        $customer->province = $request->input('province');
-        $customer->kk_number = $request->input('kk_number');
-        $customer->branch_id = $request->input('branch_id');
-        $customer->save();
+        $supplier = new Supplier();
+        $supplier->id = Uuid::uuid4()->getHex();
+        $supplier->supplier_no = Supplier::Maxno();
+        $supplier->name = $request->input('name');
+        $supplier->email = $request->input('email');
+        $supplier->address = $request->input('address');
+        $supplier->phone = $request->input('phone');
+        $supplier->npwp = $request->input('npwp');
+        $supplier->pic_name = $request->input('pic_name');
+        $supplier->pic_phone = $request->input('pic_phone');
+        $supplier->account_no = $request->input('account_no');
+        $supplier->account_name = $request->input('account_name');
+        $supplier->bank_id = $request->input('bank_id');
+        $supplier->bank_branch = $request->input('bank_branch');
+        $supplier->branch_id = $request->input('branch_id');
+        $supplier->save();
 
-        if (!$customer) {
-            return redirect()->back()->withInput()->withError('cannot create customer');
+        if (!$supplier) {
+            return redirect()->back()->withInput()->withError('cannot create supplier');
         }else{
-            return redirect('/admin/customer')->with('success', 'Successfully create customer');
+            return redirect()->back()->with('success', 'Successfully create supplier');
         }
     }
 
@@ -106,11 +100,12 @@ class CustomerController extends Controller
      */
     public function edit($id)
     {
-        $customer = Customer::find($id);
+        $supplier = Supplier::find($id);
 
+        $bank_list = Bank::pluck('alias', 'id');
         $branch_list = Branch::pluck('name', 'id');
 
-        return view('admin.customer.edit', compact('customer','branch_list'));
+        return view('admin.master.supplier.edit', compact('supplier','bank_list','branch_list'));
     }
 
     /**
@@ -123,6 +118,7 @@ class CustomerController extends Controller
     public function update(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
+            // 'supplier_no'=>'required|string|max:10',
             'name'=>'required',
         ]);
 
@@ -132,13 +128,13 @@ class CustomerController extends Controller
             return redirect()->back()->withInput()->withErrors($validator);
         }
 
-        $customer = Customer::find($id);
-        $customer->update($request->all());
+        $supplier = Supplier::find($id);
+        $supplier->update($request->all());
 
-        if (!$customer) {
-            return redirect()->back()->withInput()->withError('cannot update customer');
+        if (!$supplier) {
+            return redirect()->back()->withInput()->withError('cannot update supplier');
         }else{
-            return redirect('/admin/customer')->with('success', 'Successfully update customer');
+            return redirect()->back()->with('success', 'Successfully update supplier');
         }
     }
 
@@ -166,14 +162,14 @@ class CustomerController extends Controller
         }
 
         foreach ($request->input('id') as $key => $value) {
-            $supplier = Customer::find($value);
+            $supplier = Supplier::find($value);
             $supplier->delete();   
         }
 
         if (!$supplier) {
-            return redirect()->back()->withInput()->withError('cannot delete customer');
+            return redirect()->back()->withInput()->withError('cannot delete supplier');
         }else{
-            return redirect()->back()->with('success', 'Successfully delete customer');
+            return redirect()->back()->with('success', 'Successfully delete supplier');
         }
     }
 }
