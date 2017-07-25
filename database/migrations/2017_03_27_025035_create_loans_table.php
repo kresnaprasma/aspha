@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCashLoansTable extends Migration
+class CreateLoansTable extends Migration
 {
     /**
      * Run the migrations.
@@ -20,7 +20,7 @@ class CreateCashLoansTable extends Migration
             $table->string('type');
             $table->string('vehicle_year');
             $table->string('vehicle_cc');
-            $table->varchar('bpkb');
+            $table->string('bpkb');
             $table->string('chassis_number');
             $table->string('machine_number');
             $table->date('stnk_due_date');
