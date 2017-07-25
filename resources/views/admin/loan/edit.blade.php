@@ -18,11 +18,10 @@
     				</div>
     			</div>
     			<div class="box-body">
-    				{!! Form::model($loan, ['method' => 'PATCH', 'route' => ['admin.loan.update', $loan->id]]) !!}
-    				<input type="hidden" name="_token" value={{ csrf_token() }} />
+    				{!! Form::model($loan, ['route' => ['admin.loan.update', $loan->id], 'method' => 'PUT']) !!}
 
-    				{{-- @include('admin.loan._form') --}}
-
+    				@include('admin.loan._form')
+    				{!! Form::close() !!}
     			</div>
     		</div>
     	</div>
@@ -37,7 +36,7 @@
 		            var merkID = $(this).val();
 		            if(merkID) {
 		                $.ajax({
-		                    url: '/admin/loan/ajax/'+merkID,
+		                    url: '/admin/loan/edit/ajax/'+merkID,
 		                    type: "GET",
 		                    dataType: "json",
 		                    success:function(data) {

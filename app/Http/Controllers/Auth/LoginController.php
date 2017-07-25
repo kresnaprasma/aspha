@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Foundation\Auth\ThrottlesLogins;
+use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 
 class LoginController extends Controller
 {
@@ -25,9 +28,9 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/admin/loan/create';
     protected $redirectAfterLogout = '/login';
-
+    protected $redirectTo = '/admin/loan';
+    
     /**
      * Create a new controller instance.
      *

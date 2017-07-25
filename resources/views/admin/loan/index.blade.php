@@ -52,7 +52,7 @@
 						<thead>
 							<th><input type="checkbox" id="check_all"></th>
 							{{-- <th>Id</th> --}}
-							<th>Collateral Id</th>
+							{{-- <th>Collateral Id</th> --}}
 							{{-- <th>Merk</th> --}}
 							<th>Type</th>
 							<th>Warna Mesin</th>
@@ -74,10 +74,10 @@
 									<td>
 										<input type="checkbox" id="idTableLoan" name="id[]" class="checkin" value="{{ $l->id }}">
 									</td>
-									<td>
+									{{-- <td>
 										{{ $l->collateral_id }}
 										<input type="hidden" id="collateralTableLoan" name="collateral_id[]" value="{{ $l->collateral_id }}">
-									</td>
+									</td> --}}
 									{{-- <td>
 										{{ $l->merk }}
 										<input type="hidden" id="merkTableLoan" name="merk[]" value="{{ $l->merk }}">
@@ -126,16 +126,15 @@
 										{{ $l->approval }}
 										<input type="hidden" id="approvalTableLoan" name="approval[]" value="{{ $l->approval }}">
 									</td>
-									{{-- <td>
-										<a href="{{ route('admin.loan.edit', $l->id) }}" class="btn btn-warning">Edit</a>
-									</td> --}}
-									{{-- <td> --}}
 									{{-- @if(count($l->users) > 0) --}}
 										{{-- {{ $l->user_approval }} --}}
 										{{-- <input type="hidden" id="userapprovalTableLoan" name="user_approval[] value="{{ $l->user_approval }}"> --}}
 									{{-- @endif --}}
 									{{-- </td> --}}
-									
+									<td>
+										<a href="{{ action('Admin\LoanController@edit', $l['id']) }}" class="btn btn-warning">
+										Edit
+									</td>
 								</tr>
 							@endforeach
 						</tbody>
@@ -163,7 +162,7 @@
 		$("#searchDtbox").keyup(function() {
       		tableLoan.search($(this).val()).draw();
     	});
-    	$('#tableLoan tbody').on('dblclick', 'tr', function () {
+    	/*$('#tableLoan tbody').on('dblclick', 'tr', function () {
       		if ( $(this).hasClass('selected') ) {
         		$(this).removeClass('selected');
       	}
@@ -209,7 +208,7 @@
     		$("#approvalLoan").val(approval);
     		$("#userapprovalLoan").val(user_approval);
     		$("#editLoanModal").modal("show");
-    	}
+    	}*/
 
 		function deleteLoan() {
 			if ($('.checkin').is(':checked')) 

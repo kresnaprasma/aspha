@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -17,8 +17,8 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        $customer = Customer::all();
-        return view('admin.customer.index', compact('customer'));
+        $customers = Customer::all();
+        return view('admin.customer.index', compact('customers'));
     }
 
     /**
@@ -40,10 +40,81 @@ class CustomerController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'ktp_number' => 'unique|required|numeric',
+            'ktp_number' => 'required|numeric',
             'familycard_number' => 'required|numeric',
             'fullname' => 'required',
-            'address', => 'required',
+            'address' => 'required',
+            'post_code' => 'required|numeric',
+            'birth_date' => 'required',
+            'job' => 'required',
+            'company_address' => 'required',
+            'handphone' => 'required',
+            'salary' => 'required',
+            'email' => 'required|email',
+            'password' => 'required|min:6|max:20',
+        ],[
+            /*'ktp_number.unique' => 'KTP anda sudah terdaftar',*/
+            'ktp_number.required' => 'No. KTP wajib diisi',
+            'ktp_number.numeric' => 'Hanya diisi dengan angka',
+            'familycard_number.required' => 'No. Kartu Keluarga wajib diisi',
+            'familycard_number.numeric' => 'Hanya diisi dengan angka',
+            'fullname.required' => 'Nama langkap wajib diisi',
+            'address.required' => 'Alamat wajib diisi',
+            'post_code.required' => 'Kode Post wajib diisi',
+            'post_code.numeric' => 'Hanya diisi dengan angka',
+            'birth_date.required' => 'Wajib mengisikan tanggal lahir',
+            'job.required' => 'Pekerjaan wajib diisi',
+            'company_address.required' => 'Alamat kantor wajib diisi',
+            'handphone.required' => 'No. Handphone wajib diisi',
+            'salary.required' => 'Gaji Wajib diisi',
+            'email.required' => 'Email wajib diisi',
+            'email.email' => 'Harus diisi dengan email yang valid',
+            'password.required' => 'Password wajib diisi',
+            'password.min' => 'Minimal diisi dengan 6 karakter',
+            'password.max' => 'Maksimal diisi dengan 20 karakter'
+        ]);
+
+        Customer::create($request->all());
+        return redirect('/admin/customer')->with('Success', 'Customer Created Successfully');
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        $customer = Customer::find($id);
+        return view('admin.customer.edit', compact('customer', 'id'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        $this->validate($request, [
+            'ktp_number' => 'required|numeric',
+            'familycard_number' => 'required|numeric',
+            'fullname' => 'required',
+            'address' => 'required',
             'post_code' => 'required|numeric',
             'birth_date' => 'required',
             'job' => 'required',
@@ -73,44 +144,8 @@ class CustomerController extends Controller
             'password.min' => 'Minimal diisi dengan 6 karakter',
             'password.max' => 'Maksimal diisi dengan 20 karakter'
         ]);
-
-        Customer::create($request->all());
-        return redirect()->back()->with('Success', 'Customer Created Successfully');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
         $edit = Customer::find($id)->update($request->all());
-        return redirect()->back()->with('Success', 'Customer updated Successfully');
+        return redirect('admin/customer')->with('Success', 'Customer updated Successfully');
     }
 
     /**

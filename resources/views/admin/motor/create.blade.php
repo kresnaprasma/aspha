@@ -21,8 +21,12 @@
 				<div class="box-header with-border">
 					<h3 class="box-title">Mokas<small>» Input Mokas</small></h3>
 					<div class="box-tools pull-right">
+						<a href="/admin/loan/">
+                            {{-- <i aria-hidden="true"></i>
+                            <b>Back</b> --}}
+                            <span class="glyphicon glyphicon-chevron-left"></span>
+                        </a>
 						<button class="btn btn-box-tool" data-widget="collapse" data-toogle="tooltip" title="Collapse"><i class="fa fa-minus"></i></button>
-						<button class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove"><i class="fa fa-times"></i></button>
 					</div>
 				</div>
 				<div class="box-body">

@@ -63,6 +63,7 @@
 							<th>Gaji</th>
 							<th>Email</th>
 							<th>Password</th>
+							<th>Action</th>
 						</thead>
 						<tbody>
 							@foreach($customers as $c)
@@ -107,12 +108,21 @@
 										<input type="hidden" id="handphoneTableCustomer" name="handphone[]" value="{{ $c->handphone }}">
 									</td>
 									<td>
+										{{ $c->salary }}
+										<input type="hidden" id="salaryTableCustomer" name="salary[]" value="{{ $c->salary }}">
+									</td>
+									<td>
 										{{ $c->email }}
 										<input type="hidden" id="emailTableCustomer" name="email[]" value="{{ $c->email }}">
 									</td>
 									<td>
 										{{ $c->password }}
 										<input type="hidden" id="passwordTableCustomer" name="password[]" value="{{ $c->password }}">
+									</td>
+									<td>
+										<a href="{{ action('Admin\CustomerController@edit', $c['id']) }}" class="btn btn-warning">
+											Edit
+										</a>
 									</td>
 								</tr>
 							@endforeach
@@ -125,7 +135,7 @@
 		</div>
 	</div>
 
-	@include('admin.Customer._modal')
+	@include('admin.customer._modal')
 @stop
 
 @section('scripts')
@@ -141,7 +151,7 @@
 		$("#searchDtbox").keyup(function() {
       		tableCustomer.search($(this).val()).draw();
     	});
-    	$('#tableCustomer tbody').on('dblclick', 'tr', function () {
+    	/*$('#tableCustomer tbody').on('dblclick', 'tr', function () {
       		if ( $(this).hasClass('selected') ) {
         		$(this).removeClass('selected');
       	}
@@ -167,27 +177,7 @@
         	
         	EditCustomer(id, collateral_id, merk, type, vehicle_color, vehicle_cc, bpkb, chassis_number, machine_number, vehicle_date, stnk_due_date, tenor, price_request, approval, user_approval);
       		}
-    	});
-
-    	function EditCustomer(id, collateral_id, merk, type, vehicle_color, vehicle_cc, bpkb, chassis_number, machine_number, vehicle_date, stnk_due_date, tenor, price_request, approval, user_approval) {
-    		$("#editCustomer").attr('action', '/admin/Customer/' + id);
-    		$('#idCustomer').val(id);
-    		$("#collateralCustomer").val(collateral_id);
-    		$("#merkCustomer").val(merk);
-    		$("#typeCustomer").val(type);
-    		$("#colorCustomer").val(vehicle_color);
-    		$("#ccCustomer").val(vehicle_cc);
-    		$("#bpkbCustomer").val(bpkb);
-    		$("#chassisCustomer").val(chassis_number);
-    		$("#machineCustomer").val(machine_number);
-    		$("#dateCustomer").val(vehicle_date);
-    		$("#stnkCustomer").val(stnk_due_date);
-    		$("#tenorCustomer").val(tenor);
-    		$("#requestCustomer").val(price_request);
-    		$("#approvalCustomer").val(approval);
-    		$("#userapprovalCustomer").val(user_approval);
-    		$("#editCustomerModal").modal("show");
-    	}
+    	}); */
 
 		function deleteCustomer() {
 			if ($('.checkin').is(':checked')) 
@@ -195,7 +185,7 @@
 				$('#deleteCustomerModal').modal("show");
 			} else {
 				$('#deleteNoModal').modal("show");
-				}
+			}
 		}
 
 		function DeleteCustomer() {

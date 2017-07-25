@@ -15,6 +15,11 @@
 				<div class="box-header with-border">
 				   <h3 class="box-title">Cash Loan<small>» Request New Loan</small></h3>
 				   <div class="box-tools pull-right">
+				   		<a href="/admin/loan/">
+                            {{-- <i aria-hidden="true"></i>
+                            <b>Back</b> --}}
+                            <span class="glyphicon glyphicon-chevron-left"></span>
+                        </a>
 				      <button class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse"><i class="fa fa-minus"></i></button>
 				   </div>
 				</div>

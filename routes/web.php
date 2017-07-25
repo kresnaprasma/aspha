@@ -23,7 +23,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::group([
 	'prefix' => 'admin',
-	/*'middleware' => 'auth',*/
+	'middleware' => 'auth',
 ], function(){
 	Route::resource('/merk', 'Admin\MerkController');
 	Route::post('/merk/store', ['as'=>'admin.merk.store', 'uses'=>'Admin\MerkController@store']);
@@ -63,24 +63,31 @@ Route::group([
 	Route::post('/loan/delete', ['as'=>'admin.loan.delete', 'uses'=>'Admin\LoanController@delete']);
 	Route::get('/loan/create', ['as'=>'myForm', 'uses'=>'Admin\LoanController@create']);
 	Route::get('/loan/ajax/{id}', ['as'=>'myForm.ajax', 'uses'=>'Admin\LoanController@myformAjax']);
-	Route::post('/loan/import', 'Admin\LoanController@import');
-	
-	/*Route::get('/loan/edit/{id}', ['as'=>'admin.loan.edit', 'uses'=>'Admin\LoanController@edit']);
+	Route::post('/loan/edit/ajax/{id}', ['as' => 'myForm.loan', 'uses' => 'Admin\LoanController@myformEdit']);
+	Route::get('/loan/edit/{id}', ['as'=>'admin.loan.edit', 'uses'=>'Admin\LoanController@edit']);
 	Route::patch('/loan/{id}', [
 		'as' => 'admin.loan.update',
-		'uses' => 'Admin\LoanController@update']);*/
+		'uses' => 'Admin\LoanController@update']);
 
 
 	Route::resource('/motor', 'Admin\MotorController');
 	Route::post('/motor/store', ['as'=>'admin.motor.store', 'uses'=>'Admin\MotorController@store']);
 	Route::post('/motor/delete', ['as'=>'admin.motor.delete', 'uses'=>'Admin\MotorController@delete']);
 	Route::get('/motor/create', ['as'=>'admin.motor.create', 'uses' => 'Admin\MotorController@create']);
+	Route::get('/motor/edit/{id}', ['as' => 'admin.motor.edit', 'uses' => 'Admin\MotorController@edit']);
+	Route::patch('/motor/{id}', ['as' => 'admin.motor.update', 'uses' => 'Admin\MotorController@update']);
 	Route::get('/motor/type/{id}', ['as'=>'myForm.type', 'uses'=>'Admin\MotorController@myformAjax']);
 	Route::get('/motor/type/edit/{id}', ['as'=>'myForm.ajax', 'uses'=>'Admin\MotorController@myformEdit']);
 
 
-/*	Route::resource('/client', 'Admin\ClientController');
-	Route::post('/client/delete', ['as'=>'admin.client.delete', 'uses'=>'Admin\ClientController@delete']);*/
+
+	Route::resource('/customer', 'Admin\CustomerController');
+	Route::post('/customer/store', ['as' => 'admin.customer.store', 'uses' => 'Admin\CustomerController@store']);
+	Route::post('/customer/delete', ['as' => 'admin.customer.delete', 'uses' => 'Admin\CustomerController@delete']);
+	Route::get('/customer/create', ['as' => 'admin.customer.create', 'uses' => 'Admin\CustomerController@create']);
+	Route::get('/customer/edit/{id}', ['as' => 'admin.customer.edit', 'uses' => 'Admin\CustomerController@edit']);
+	Route::patch('/customer/{id}', ['as' => 'admin.customer.update', 'uses' => 'Admin\CustomerController@update']);
+
 
 
 	/*Route::resource('/fileentry', 'HomeController');

@@ -32,10 +32,10 @@ class Loan extends Model
         return $this->belongsTo("App\User", "user_approval", "id");
     }
 
-    public function customers()
+    /*public function customers()
     {
         return $this->belongsTo("App\Customer");
-    }
+    }*/
 
     public function merks()
     {

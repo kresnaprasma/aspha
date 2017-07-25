@@ -102,7 +102,9 @@ class MotorController extends Controller
      */
     public function edit($id)
     {
-        //
+        $merkall = Merk::pluck('name', 'id');
+        $motor = Motor::find($id);
+        return view('admin.motor.edit', compact('motor', 'merkall'));
     }
 
     /**

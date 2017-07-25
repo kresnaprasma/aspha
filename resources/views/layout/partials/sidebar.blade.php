@@ -12,8 +12,8 @@
             <div class="pull-left info">
                {{--  <p>Alexander Pierce</p> --}}
                 <!-- Status -->
-                {{-- <p> {{ Auth::user()->name }} <span class="caret"></p> --}}
-                
+                <p> {{ Auth()->user()->name }} <span class="caret"></p>
+
                 <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
             </div>
         </div>
@@ -38,7 +38,7 @@
                 <ul class="treeview-menu">
                     <li><a href="{{ url('/admin/merk') }}">Merk</a></li>
                     <li><a href="{{ url('/admin/type') }}">Type</a></li>
-                    <li><a href="{{ url('/admin/vehiclecollateral') }}">Vehicle Collateral</a></li>
+                    <li><a href="{{ url('/admin/vehiclecollateral') }}">List Harga Motor</a></li>
                 </ul>
             </li>
             <li class="treeview">

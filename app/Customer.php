@@ -22,8 +22,8 @@ class Customer extends Model
     	'password',
     ];
 
-    public function loans()
+/*    public function loans()
     {
     	return $this->hasMany("App\Loan");
-    }
+    }*/
 }

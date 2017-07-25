@@ -48,6 +48,13 @@ class LoanController extends Controller
                 ->pluck("name", "name");
         return json_encode($typeall);
     }
+
+    public function myformEdit($id)
+    {
+        $typeedit = Type::where("merk_id", $id)
+                ->pluck("name", "name");
+        return json_encode($typeedit);
+    }
     /**
      * Store a newly created resource in storage.
      *
@@ -130,8 +137,6 @@ class LoanController extends Controller
      */
     public function edit($id)
     {
-        // $loan = Loan::findOrFail($id);
-        //return view('admin.loan.edit', compact('loan'));
         $merkall = Merk::pluck('name', 'id');
         $loan = Loan::find($id);
         return view('admin.loan.edit', compact('loan', 'id', 'merkall'));
@@ -146,6 +151,41 @@ class LoanController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $this->validate($request, [
+                'merk' => 'required',
+                'type' => 'required',
+                'vehicle_color' => 'required',
+                'vehicle_cc' => 'required|numeric',
+                'bpkb' => 'required|min:10|max:10',
+                'chassis_number' => 'required|unique:loan|min:17|max:17',
+                'machine_number' => 'required|unique:loan|min:12|max:12',
+                'stnk_due_date' => 'required',
+                'vehicle_date' => 'required',
+                'tenor' => 'required',
+                'price_request' => 'required|numeric',
+            ],[
+                'merk.required' => 'Kolom merk harus diisi',
+                'type.required' => 'Kolom type harus diisi',
+                'vehicle_color.required' => 'Warna motor harus diisi',
+                'vehicle_cc.required' => 'CC Motor wajib diisi',
+                'bpkb.required' => 'Kolom BPKB wajib diisi',
+                'bpkb.min' => 'BPKB wajib 10 karakter',
+                'bpkb.max' => 'Terlalu banyak karakter yang dimasukkan',
+                'chassis_number.unique' => 'Nomor angka sudah terdaftar',
+                'chassis_number.required' => 'Nomor Rangka harus diisi',
+                'chassis_number.min' => 'Wajib diisi dengan 17 karakter',
+                'chassis_number.max' => 'Wajib diisi dengan 17 karakter',
+                'machine_number.unique' => 'Nomor mesin sudah terdaftar',
+                'machine_number.required' => 'Nomor mesin harus diisi',
+                'machine_number.min' => 'Wajib diisi dengan 12 karakter', 
+                'machine_number.max' => 'Wajib diisi dengan 12 karakter',
+                'stnk_due_date.required' => 'Masa berlaku pajak kendaraan harap diisi',
+                'vehicle_date.required' => 'Tahun pembuatan kendaraan wajib diisi',
+                'tenor' => 'Tenor Jangka waktu peminjaman harap diisi',
+                'price_request.required' => 'Isilah permohonan peminjaman anda',
+                'price_request.numeric' => 'Harus diisi dengan angka tanpa simbol',
+        ]);
+        
         $edit = Loan::find($id)->update($request->all());
         return redirect()->back()->with('Success', 'Loan Updated Successfully');
     }
@@ -164,13 +204,4 @@ class LoanController extends Controller
         return redirect()->back()->with('Success', 'Loan deleted Successfully');
     }
 
-    public function pdf()
-    {
-        $html = '<h1>Hello World</h1>';
-        $pdf = new TCPDF();
-        $pdf::setTitle('Hello World');
-        $pdf::AddPage();
-        $pdf::writeHTML($html, true, false, true, false, '');
-        $pdf::Output('hello_world.pdf');
-    }
 }

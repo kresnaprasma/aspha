@@ -53,49 +53,55 @@
 								<th>Kondisi</th>
 								<th>Deskripsi Motor</th>
 								<th>Status</th>
+								<th>Action</th>
 							</thead>
 							<tbody>
-								@foreach($motors as $motor)
+								@foreach($motors as $mo)
 								<tr>
 									<td>
 										<input type="checkbox" id="idTableMotor"
-										name="id[]" class="checkin" value="{{ $motor->id }}">
+										name="id[]" class="checkin" value="{{ $mo->id }}">
 									</td>
 									<td>
-										{{ $motor->merks['name'] }}
-										<input type="hidden" id="merkTableMotor" name="merk[]" value="{{ $motor->merk }}">
+										{{ $mo->merks['name'] }}
+										<input type="hidden" id="merkTableMotor" name="merk[]" value="{{ $mo->merk }}">
 									</td>
 									<td>
-										{{ $motor->types['name'] }}
-										<input type="hidden" id="typeTableMotor" name="type[]" value="{{ $motor->type }}">
+										{{ $mo->types['name'] }}
+										<input type="hidden" id="typeTableMotor" name="type[]" value="{{ $mo->type }}">
 									</td>
 									<td>
-										{{ $motor->post_name }}
-										<input type="hidden" id="postTableMotor" name="post_name[]" value="{{ $motor->post_name }}">
+										{{ $mo->post_name }}
+										<input type="hidden" id="postTableMotor" name="post_name[]" value="{{ $mo->post_name }}">
 									</td>
 									<td>
-										{{ $motor->post_price }}
-										<input type="hidden" id="priceTableMotor" name="post_name[]" value="{{ $motor->post_price }}">
+										{{ $mo->post_price }}
+										<input type="hidden" id="priceTableMotor" name="post_name[]" value="{{ $mo->post_price }}">
 									</td>
 									<td>
-										{{ $motor->fitur }}
-										<input type="hidden" id="fiturTableMotor" name="post_name[]" value="{{ $motor->fitur }}">
+										{{ $mo->fitur }}
+										<input type="hidden" id="fiturTableMotor" name="post_name[]" value="{{ $mo->fitur }}">
 									</td>
 									<td>
-										{{ $motor->stnk_address }}
-										<input type="hidden" id="stnkTableMotor" name="post_name[]" value="{{ $motor->stnk_address }}">
+										{{ $mo->stnk_address }}
+										<input type="hidden" id="stnkTableMotor" name="post_name[]" value="{{ $mo->stnk_address }}">
 									</td>
 									<td>
-										{{ $motor->condition }}
-										<input type="hidden" id="conditionTableMotor" name="post_name[]" value="{{ $motor->condition }}">
+										{{ $mo->condition }}
+										<input type="hidden" id="conditionTableMotor" name="post_name[]" value="{{ $mo->condition }}">
 									</td>
 									<td>
-										{{ $motor->description }}
-										<input type="hidden" id="descriptionTableMotor" name="post_name[]" value="{{ $motor->description }}">
+										{{ $mo->description }}
+										<input type="hidden" id="descriptionTableMotor" name="post_name[]" value="{{ $mo->description }}">
 									</td>
 									<td>
-										{{ $motor->status }}
-										<input type="hidden" id="statusTableMotor" name="post_name[]" value="{{ $motor->status }}">
+										{{ $mo->status }}
+										<input type="hidden" id="statusTableMotor" name="post_name[]" value="{{ $mo->status }}">
+									</td>
+									<td>
+										<a href="{{ action('Admin\MotorController@edit', $mo['id']) }}" class="btn btn-warning">
+											Edit
+										</a>
 									</td>
 								</tr>
 								@endforeach
