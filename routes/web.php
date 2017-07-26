@@ -91,6 +91,14 @@ Route::group([
 	Route::post('customer/delete', ['as'=>'admin.customer.delete','uses'=>'Admin\CustomerController@delete']);
 	Route::resource('customer', 'Admin\CustomerController',['as'=>'admin']);
 
+	Route::post('master/user/delete',['as'=>'admin.master.user.delete','uses'=>'Admin\UserController@delete']);
+	Route::resource('master/user','Admin\UserController',['as'=>'admin.master']);
+
+	Route::post('master/role/delete',['as'=>'admin.master.role.delete','uses'=>'Admin\RoleController@delete']);
+	Route::resource('master/role','Admin\RoleController',['as'=>'admin.master']);
+
+	Route::post('master/permission/delete',['as'=>'admin.master.permission.delete','uses'=>'Admin\PermissionController@delete']);
+	Route::resource('master/permission', 'Admin\PermissionController',['as'=>'admin.master']);
 	/*Route::resource('/fileentry', 'HomeController');
 	Route::get('/fileentry/', 'HomeController@index');
 	Route::get('/fileentry/get/{ filename }', ['as' => 'getentry', 'uses' => 'HomeController@get']);
