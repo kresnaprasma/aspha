@@ -99,7 +99,6 @@ Route::group([
 	Route::post('master/user/delete',['as'=>'admin.master.user.delete','uses'=>'Admin\UserController@delete']);
 	Route::resource('master/user','Admin\UserController',['as'=>'admin.master']);
 
-<<<<<<< HEAD
 	Route::post('master/role/delete',['as'=>'admin.master.role.delete','uses'=>'Admin\RoleController@delete']);
 	Route::resource('master/role','Admin\RoleController',['as'=>'admin.master']);
 
@@ -111,12 +110,11 @@ Route::group([
 	Route::post('/fileentry/add', ['as' => 'addentry', 'uses' => 'FileEntryController@add']);
 	Route::post('/fileentry/addmultiple', ['as' => 'multiple_upload', 'uses' => 'FileEntryController@multiple_upload']);
 	Route::delete('/fileentry/{id}', 'FileEntryController@destroy');*/
-=======
+
 	Route::resource('/upload', 'UploadController');
 	Route::get('/upload/', 'UploadController@index');
 	Route::get('/upload/get/{filename}', ['as' => 'getupload', 'uses'=>'UploadController@get']);
 	Route::post('/upload/add', ['as'=>'addupload', 'uses' => 'UploadController@add']);
 	Route::delete('/upload/{id}', 'UploadController@destroy');
->>>>>>> upload-for-loan
 
 });
