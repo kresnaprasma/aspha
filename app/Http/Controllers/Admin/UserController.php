@@ -61,7 +61,7 @@ class UserController extends Controller
 
         $user->roles()->sync($request->input('role_id'));
 
-        return redirect()->back()->with('success', 'Successfully create user');
+        return redirect('admin/master/user')->with('success', 'Successfully create user');
     }
 
     /**
