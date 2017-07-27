@@ -5,24 +5,29 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
-class Customer extends Model
+class Supplier extends Model
 {
-    protected $fillable = ['customer_no','name','address','email','phone','active','branch_id','birthdate','birthplace','identity_number','gender','rt','rw','postalcode','kelurahan','kecamatan','kabupaten','city','province','kk_number'];
+    protected $fillable = ['supplier_no','name','email','address','phone','npwp','pic_name','pic_phone','account_no','account_name','bank_id','bank_branch','branch_id'];
 
     public $incrementing = false;
-    
+
+    public function bank()
+    {
+    	return $this->belongsTo('App\Bank');
+    }
+
     public function branch()
     {
-        return $this->belongsTo('App\Branch');
+    	return $this->belongsTo('App\Branch');
     }
 
     public function scopeMaxno($query)
     {
         $year=substr(date('Y'), 2);
-        $queryMax =  $query->select(DB::raw('SUBSTRING(`customer_no` ,8) AS kd_max'))
+        $queryMax =  $query->select(DB::raw('SUBSTRING(`supplier_no` ,8) AS kd_max'))
             ->where(DB::raw('MONTH(created_at)'), '=', date('m'))
             ->where(DB::raw('YEAR(created_at)'), '=', date('Y'))
-            ->orderBy('customer_no', 'asc')
+            ->orderBy('supplier_no', 'asc')
             ->get();
 
         $arr1 = array();
@@ -44,7 +49,7 @@ class Customer extends Model
             $kd_fix = '0001';
         }
 
-        return 'CRM'.$year.date('m').$kd_fix;
+        return 'SUP'.$year.date('m').$kd_fix;
 
     }
 }

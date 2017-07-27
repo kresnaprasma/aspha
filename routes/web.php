@@ -79,17 +79,26 @@ Route::group([
 	Route::get('/motor/type/{id}', ['as'=>'myForm.type', 'uses'=>'Admin\MotorController@myformAjax']);
 	Route::get('/motor/type/edit/{id}', ['as'=>'myForm.ajax', 'uses'=>'Admin\MotorController@myformEdit']);
 
+	Route::post('master/bank/delete', ['as'=>'admin.master.bank.delete','uses'=>'Admin\BankController@delete']);
+	Route::resource('master/bank', 'Admin\BankController',['as'=>'admin.master']);
 
+	Route::post('master/branch/delete', ['as'=>'admin.master.branch.delete','uses'=>'Admin\BranchController@delete']);
+	Route::resource('master/branch', 'Admin\BranchController',['as'=>'admin.master']);
 
-	Route::resource('/customer', 'Admin\CustomerController');
-	Route::post('/customer/store', ['as' => 'admin.customer.store', 'uses' => 'Admin\CustomerController@store']);
-	Route::post('/customer/delete', ['as' => 'admin.customer.delete', 'uses' => 'Admin\CustomerController@delete']);
-	Route::get('/customer/create', ['as' => 'admin.customer.create', 'uses' => 'Admin\CustomerController@create']);
-	Route::get('/customer/edit/{id}', ['as' => 'admin.customer.edit', 'uses' => 'Admin\CustomerController@edit']);
-	Route::patch('/customer/{id}', ['as' => 'admin.customer.update', 'uses' => 'Admin\CustomerController@update']);
+	Route::post('master/supplier/delete',['as'=>'admin.master.supplier.delete','uses'=>'Admin\SupplierController@delete']);
+	Route::resource('master/supplier','Admin\SupplierController',['as'=>'admin.master']);
 
+	Route::post('customer/delete', ['as'=>'admin.customer.delete','uses'=>'Admin\CustomerController@delete']);
+	Route::resource('customer', 'Admin\CustomerController',['as'=>'admin']);
 
+	Route::post('master/user/delete',['as'=>'admin.master.user.delete','uses'=>'Admin\UserController@delete']);
+	Route::resource('master/user','Admin\UserController',['as'=>'admin.master']);
 
+	Route::post('master/role/delete',['as'=>'admin.master.role.delete','uses'=>'Admin\RoleController@delete']);
+	Route::resource('master/role','Admin\RoleController',['as'=>'admin.master']);
+
+	Route::post('master/permission/delete',['as'=>'admin.master.permission.delete','uses'=>'Admin\PermissionController@delete']);
+	Route::resource('master/permission', 'Admin\PermissionController',['as'=>'admin.master']);
 	/*Route::resource('/fileentry', 'HomeController');
 	Route::get('/fileentry/', 'HomeController@index');
 	Route::get('/fileentry/get/{ filename }', ['as' => 'getentry', 'uses' => 'HomeController@get']);
