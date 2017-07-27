@@ -8,6 +8,8 @@ use App\Merk;
 use App\Type;
 use App\Http\Controllers\Controller;
 
+use Excel;
+
 class MotorController extends Controller
 {
     /**
@@ -133,5 +135,15 @@ class MotorController extends Controller
         }
 
         return redirect()->back()->with('Success', 'Motor Deleted Successfully');
+    }
+
+    public function downloadExcel()
+    {
+        $data = Motor::get()->toArray();
+        return Excel::create('Post Motor List', function ($excel) use ($data) {
+            $excel->sheet('Sheet Motor', function($sheet) use ($data) {
+                $sheet->fromArray($data);
+            });
+        })->export('xls');
     }
 }

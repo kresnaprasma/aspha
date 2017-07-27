@@ -8,6 +8,8 @@ use App\Merk;
 use App\Type;
 use App\Http\Controllers\Controller;
 
+use Excel;
+
 class VehicleCollateralController extends Controller
 {
     /**
@@ -110,5 +112,15 @@ class VehicleCollateralController extends Controller
         }
 
         return redirect()->back()->with('Success', "Collateral Deleted Successfully");
+    }
+
+    public function downloadExcel()
+    {
+        $data = VehicleCollateral::get()->toArray();
+        return Excel::create('Daftar Harga Motor', function($excel) use ($data) {
+            $excel->sheet('Sheet Harga Motor', function($sheet) use ($data) {
+                $sheet->fromArray($data);
+            });
+        })->export('xls');
     }
 }

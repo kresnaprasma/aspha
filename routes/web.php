@@ -56,6 +56,8 @@ Route::group([
 		'as'=>'myForm.ajax', 
 		'uses'=>'Admin\VehicleCollateralController@myformEdit'
 	]);
+	Route::get('vehiclecollateral/downloadExcel/xls', 'Admin\VehicleCollateralController@downloadExcel');
+
 
 
 	Route::resource('/loan', 'Admin\LoanController');
@@ -68,6 +70,8 @@ Route::group([
 	Route::patch('/loan/{id}', [
 		'as' => 'admin.loan.update',
 		'uses' => 'Admin\LoanController@update']);
+	Route::get('loan/downloadExcel/xls', 'Admin\LoanController@downloadExcel');
+
 
 
 	Route::resource('/motor', 'Admin\MotorController');
@@ -78,6 +82,7 @@ Route::group([
 	Route::patch('/motor/{id}', ['as' => 'admin.motor.update', 'uses' => 'Admin\MotorController@update']);
 	Route::get('/motor/type/{id}', ['as'=>'myForm.type', 'uses'=>'Admin\MotorController@myformAjax']);
 	Route::get('/motor/type/edit/{id}', ['as'=>'myForm.ajax', 'uses'=>'Admin\MotorController@myformEdit']);
+	Route::get('motor/downloadExcel/xls', 'Admin\MotorController@downloadExcel');
 
 
 
@@ -90,11 +95,10 @@ Route::group([
 
 
 
-	/*Route::resource('/fileentry', 'HomeController');
-	Route::get('/fileentry/', 'HomeController@index');
-	Route::get('/fileentry/get/{ filename }', ['as' => 'getentry', 'uses' => 'HomeController@get']);
-	Route::post('/fileentry/add', ['as' => 'addentry', 'uses' => 'FileEntryController@add']);
-	Route::post('/fileentry/addmultiple', ['as' => 'multiple_upload', 'uses' => 'FileEntryController@multiple_upload']);
-	Route::delete('/fileentry/{id}', 'FileEntryController@destroy');*/
+	Route::resource('/upload', 'UploadController');
+	Route::get('/upload/', 'UploadController@index');
+	Route::get('/upload/get/{filename}', ['as' => 'getupload', 'uses'=>'UploadController@get']);
+	Route::post('/upload/add', ['as'=>'addupload', 'uses' => 'UploadController@add']);
+	Route::delete('/upload/{id}', 'UploadController@destroy');
 
 });
