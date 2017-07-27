@@ -1,6 +1,7 @@
 @extends('layout.admin')
 
 @section('content')
+
 	<div class="row">
 		<div class="col-md-12">
 			<div class="box box-primary">
@@ -21,21 +22,21 @@
 					      <button type="button" class="btn btn-default" onclick="deleteLoan()">
 					      <i class="fa fa-times" aria-hidden="true"></i> Delete
 					      </button>
-					      <div class="btn-group">
-					         <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-					         Action <span class="caret"></span>
-					         </button>
-					         <ul class="dropdown-menu">
-					            <li><a href="#">Print</a></li>
-					            <li><a href="#">Import</a></li>
-					            <li><a href="{{ url('admin/loan/xls') }}">Export</a></li>
-					            <li role="separator" class="divider"></li>
-					            <li><a href="#">Find</a></li>
-					         </ul>
-					      </div>
-					   </div>
-					   <div class="col-md-4">
-					      <input type="text" id="searchDtbox" class="form-control" placeholder="Search">
+						    <div class="btn-group">
+						         <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						         Action <span class="caret"></span>
+						         </button>
+						         <ul class="dropdown-menu">
+						            <li><a href="#">Print</a></li>
+						            <li><a href="#">Import</a></li>
+						            <li><a href="{{ url('admin/loan/downloadExcel/xls') }}">Export</a></li>
+						            <li role="separator" class="divider"></li>
+						            <li><a href="#">Find</a></li>
+						         </ul>
+	        				</div>
+						</div>
+						<div class="col-md-4">
+					    	<input type="text" id="searchDtbox" class="form-control" placeholder="Search">
 				   		</div>
 					</div>
 

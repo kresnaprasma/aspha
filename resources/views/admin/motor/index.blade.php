@@ -28,7 +28,7 @@
 					         <ul class="dropdown-menu">
 					            <li><a href="#">Print</a></li>
 					            <li><a href="#">Import</a></li>
-					            <li><a href="#">Export</a></li>
+					            <li><a href="{{ url('admin/motor/downloadExcel/xls') }}">Export</a></li>
 					            <li role="separator" class="divider"></li>
 					            <li><a href="#">Find</a></li>
 					         </ul>

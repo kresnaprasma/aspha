@@ -204,4 +204,24 @@ class LoanController extends Controller
         return redirect()->back()->with('Success', 'Loan deleted Successfully');
     }
 
+    /*public function export()
+    {
+        $loans = Loan::all();
+        Excel::create('loans', function($excel) use($loans) {
+            $excel->sheet('ExportFile', function($sheet) use($loans) {
+                $sheet->fromArray($loans);
+            });
+        })->export('xls');
+    }*/
+
+    public function downloadExcel()
+    {
+        $data = Loan::get()->toArray();
+        return Excel::create('Daftar Peminjaman', function($excel) use ($data) {
+            $excel->sheet('Sheet1', function($sheet) use ($data) {
+                $sheet->fromArray($data);
+            });
+        })->export('xls');
+    }
+
 }
