@@ -20,27 +20,31 @@
 			<span class="text-danger">{{ $errors->first('type') }}</span>
 		</div>
 		
-		<div class="form-group col-sm-6 col-xs-6 col-md-6 {{ $errors->has('post_name') ? 'has-error' : '' }}">
+		<div class="form-group col-sm-5 col-xs-5 col-md-5 {{ $errors->has('post_name') ? 'has-error' : '' }}">
 			{!! Form::label('post_name', 'Nama Barang :') !!}
-			<input type="text" class="form-control" name="post_name" id="post_name" style="width: 400px">
+			{!! Form::text('post_name', null, ['class'=>'form-control', 'id' => 'post_name'])!!}
+{{-- 			<input type="text" class="form-control" name="post_name" id="post_name" style="width: 400px"> --}}
 			<span class="text-danger">{{ $errors->first('post_name') }}</span>
 		</div>
 		
-		<div class="form-group col-sm-6 col-xs-6 col-md-6 {{ $errors->has('post_price') ? 'has-error' : '' }}">
+		<div class="form-group col-sm-5 col-xs-5 col-md-5 {{ $errors->has('post_price') ? 'has-error' : '' }}">
 			{!! Form::label('post_price', 'Harga :') !!}
-			<input type="text" class="form-control" name="post_price" id="post_price" style="width: 400px">
+			{!! Form::text('post_price', null, ['class'=>'form-control', 'id'=>'post_price']) !!}
+			{{-- <input type="text" class="form-control" name="post_price" id="post_price" style="width: 400px"> --}}
 			<span class="text-danger">{{ $errors->first('post_price') }}</span>
 		</div>
 		
-		<div class="form-group col-sm-6 col-xs-6 col-md-6 {{ $errors->has('fitur') ? 'has-error' : '' }}">
+		<div class="form-group col-sm-5 col-xs-5 col-md-5 {{ $errors->has('fitur') ? 'has-error' : '' }}">
 			{!! Form::label('fitur', 'Kelengkapan : ') !!}
-			<input type="text" name="fitur" class="form-control" id="fitur" style="width: 400px">
+			{!! Form::text('fitur', null, ['class'=>'form-control', 'id'=>'fitur']) !!}
+			{{-- <input type="text" name="fitur" class="form-control" id="fitur" style="width: 400px"> --}}
 			<span class="text-danger">{{ $errors->first('fitur') }}</span>
 		</div>
 		
-		<div class="form-group col-sm-6 col-xs-6 col-md-6 {{ $errors->has('stnk_address') ? 'has-error' : '' }}">
+		<div class="form-group col-sm-5 col-xs-5 col-md-5 {{ $errors->has('stnk_address') ? 'has-error' : '' }}">
 			{!! Form::label('stnk_address', 'Alamat STNK :') !!}
-			<input type="text" name="stnk_address" class="form-control" id="stnk_address" style="width: 400px">
+			{!! Form::text('stnk_address', null, ['class' => 'form-control', 'id' => 'stnk_address']) !!}
+			{{-- <input type="text" name="stnk_address" class="form-control" id="stnk_address" style="width: 400px"> --}}
 			<span class="text-danger">{{ $errors->first('stnk_address') }}</span>
 		</div>
 		

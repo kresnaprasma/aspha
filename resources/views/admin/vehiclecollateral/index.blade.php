@@ -19,7 +19,7 @@
                 <i class="fa fa-plus" aria-hidden="true"></i> New
               </a>
               {{-- <button type="button" class="btn btn-default" onclick="AddCollateral()">
-                <i class="fa fa-plus" aria-hidden="true"> New
+                <i class="fa fa-plus" aria-hidden="true"> New</i>
               </button> --}}
               <button type="button" class="btn btn-default" onclick="deleteCollateral()">
                 <i class="fa fa-times" aria-hidden="true"></i> Delete
@@ -41,9 +41,17 @@
             <div class="col-md-4">
                 <input type="text" id="searchDtbox" class="form-control" placeholder="Search">
             </div>
+
+            {!! Form::open(['route'=>'admin.vehiclecollateral.delete', 'id'=>'formDeleteCollateral']) !!}
+
           </div>
 
-          {!! Form::open(['route'=>'admin.vehiclecollateral.delete', 'id'=>'formDeleteCollateral']) !!}
+              @if ($message = Session::get('success'))
+                  <div class="alert alert-success">
+                      <p>{{ $message }}</p>
+                  </div>
+              @endif
+
           <table class="table table-bordered table-striped table-color" id="tableCollateral">
             <thead>
               <th><input type="checkbox" name="check_all"></th>
@@ -91,6 +99,30 @@
 @stop
 
 @section('scripts')
+  {{-- <script type="text/javascript">
+  $(document).ready(function() {
+        $('select[id="merk_id"]').on('change', function() {
+            var merkID = $(this).val();
+            if(merkID) {
+                $.ajax({
+                    url: '/admin/vehiclecollateral/type/'+merkID,
+                    type: "GET",
+                    dataType: "json",
+                    success:function(data) {
+                        
+                        $('select[id="type_id"]').empty();
+                        $.each(data, function(key, value) {
+                            $('select[id="type_id"]').append('<option value="'+ key +'">'+ value +'</option>');
+            });
+          }
+        });
+      }else{
+        $('select[id="type_id"]').empty();
+      }
+    });
+    });
+  </script> --}}
+
   <script type="text/javascript">
     var tableCollateral = $('#tableCollateral').DataTable({
       "sDom": 'rt',

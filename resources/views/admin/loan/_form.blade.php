@@ -25,20 +25,7 @@
 		
 		<div class="form-group col-sm-4 col-md-4 col-xs-4 {{ $errors->has('vehicle_color') ? 'has-error' : '' }}">
 			{!! Form::label('vehicle_color', 'Warna :') !!}
-			<select class="select form-control" name="vehicle_color" id="vehicle_color" style="width: 370px">
-				<option value="">--- Pilih Warna ---</option>
-				<option value="merah">Merah</option>
-				<option value="kuning">Kuning</option>
-				<option value="biru">Biru</option>
-				<option value="hijau">Hijau</option>
-				<option value="putih">Putih</option>
-				<option value="hitam">Hitam</option>
-				<option value="orange">Orange</option>
-				<option value="Cokelat">Cokelat</option>
-				<option value="Abu-abu">Abu-abu</option>
-				<option value="Silver">Silver</option>
-				<option value="Ungu">Ungu</option>
-			</select>
+			{!! Form::text('vehicle_color', null, ['class'=>'form-control']) !!}
 			<span class="text-danger">{{ $errors->first('vehicle_color') }}</span>
 		</div>
 
@@ -48,17 +35,7 @@
 		
 		<div class="form-group col-sm-4 col-md-4 col-xs-4 {{ $errors->has('vehicle_cc') ? 'has-error' : '' }}">
 			{!! Form::label('vehicle_cc', 'Kapasitas Mesin (cc): ') !!}
-			<select class="select form-control" name="vehicle_cc" id="vehicle_cc" style="width: 370px">
-				<option value=""></option>
-				<option value="100">100</option>
-				<option value="110">110</option>
-				<option value="125">125</option>
-				<option value="135">135</option>
-				<option value="150">150</option>
-				<option value="155">155</option>
-				<option value="225">225</option>
-				<option value="250">250</option>	
-			</select>
+			{!! Form::text('vehicle_cc', null, ['class'=>'form-control']) !!}
 			<span class="text-danger">{{ $errors->first('vehicle_cc') }}</span>
 		</div>
 		

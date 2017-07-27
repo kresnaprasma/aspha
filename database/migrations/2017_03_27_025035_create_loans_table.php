@@ -18,7 +18,7 @@ class CreateLoansTable extends Migration
             $table->string('collateral_id');
             $table->string('merk');
             $table->string('type');
-            $table->string('vehicle_year');
+            $table->string('vehicle_color');
             $table->string('vehicle_cc');
             $table->string('bpkb');
             $table->string('chassis_number');
@@ -28,7 +28,7 @@ class CreateLoansTable extends Migration
             $table->string('tenor');
             $table->double('price_request');
             $table->string('approval');
-            $table->integer('user_approval');
+            $table->boolean('user_approval')->default(0);
             $table->timestamps();
         });
     }

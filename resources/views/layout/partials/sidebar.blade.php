@@ -38,7 +38,7 @@
                 <ul class="treeview-menu">
                     <li><a href="{{ url('/admin/merk') }}">Merk</a></li>
                     <li><a href="{{ url('/admin/type') }}">Type</a></li>
-                    <li><a href="{{ url('/admin/vehiclecollateral') }}">List Harga Motor</a></li>
+                    <li><a href="{{ url('/admin/vehiclecollateral') }}">Vehicle Collateral</a></li>
                     <li><a href="{{ route('admin.master.bank.index') }}">Bank</a></li>
                     <li><a href="{{ route('admin.master.branch.index') }}">Branch</a></li
                     >

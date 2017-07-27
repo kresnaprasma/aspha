@@ -13,7 +13,7 @@ class CreateTypesTable extends Migration
     public function up()
     {
         Schema::create('types', function (Blueprint $table) {
-            $table->string('code_type');
+            $table->string('id');
             $table->string('name');
             
             $table->string('merk_id');

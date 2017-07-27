@@ -13,8 +13,8 @@ class UploadController extends Controller
 {
     public function index()
     {
-    	$imageuploads = Upload::where('user_id', auth()->user()->id)->get();
-    	return view('admin.upload.index', compact('imageuploads'));
+    	$imageuploads = Upload::all();/*where('user_id', auth()->user()->id)->get();*/
+    	return view('index', compact('imageuploads'));
     }
 
     public function uploadStore()
@@ -25,8 +25,9 @@ class UploadController extends Controller
 
     	$upload = new Upload();
     	$upload->original_name = time().$imageSave->getClientOriginalName();
+        $upload->mime = $imageSave->getMimeType();
     	$upload->filename = $imageSave->getFileName();
-    	$upload->user_id = auth()->user()->id;
+    	/*$upload->user_id = auth()->user()->id;*/
     	$upload->save();
 
     	return response()->json(['success'=>$imageName]);

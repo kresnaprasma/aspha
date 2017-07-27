@@ -20,7 +20,7 @@ class VehicleCollateralController extends Controller
     public function index()
     {
         $VehicleCollaterals = VehicleCollateral::all();
-        $merkall = Merk::pluck('name', 'id');
+        $merkall = Merk::pluck("name", "id");
         $merkedit = Merk::pluck("name", "id");
         $typeall = Type::pluck('name', 'id');
         return view('admin.vehiclecollateral.index', compact('VehicleCollaterals', 'merkall', 'merkedit', 'typeall'));

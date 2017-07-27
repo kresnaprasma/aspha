@@ -17,12 +17,13 @@ class Upload extends Model
 
 	protected $fillable = [
 		'original_name',
+		'mime',
 		'filename',
-		'user_id'
+		/*'user_id'*/
 	];
 
-	public function user()
+	/*public function user()
 	{
 		return $this->belongsTo("App\User", 'user_id', 'id');
-	}
+	}*/
 }

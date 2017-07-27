@@ -132,10 +132,10 @@
 										{{-- <input type="hidden" id="userapprovalTableLoan" name="user_approval[] value="{{ $l->user_approval }}"> --}}
 									{{-- @endif --}}
 									{{-- </td> --}}
-									<td>
+									{{-- <td>
 										<a href="{{ action('Admin\LoanController@edit', $l['id']) }}" class="btn btn-warning">
 										Edit
-									</td>
+									</td> --}}
 								</tr>
 							@endforeach
 						</tbody>
@@ -163,7 +163,7 @@
 		$("#searchDtbox").keyup(function() {
       		tableLoan.search($(this).val()).draw();
     	});
-    	/*$('#tableLoan tbody').on('dblclick', 'tr', function () {
+    	$('#tableLoan tbody').on('dblclick', 'tr', function () {
       		if ( $(this).hasClass('selected') ) {
         		$(this).removeClass('selected');
       	}
@@ -172,44 +172,9 @@
         	$(this).addClass('selected');
 
 	        var id = $(this).find('#idTableLoan').val();
-	        var collateral_id = $(this).find('#collateralTableLoan').val();
-	        var merk = $(this).find('#merkTableLoan').val();
-	        var type = $(this).find('#typeTableLoan').val();
-    	    var vehicle_color = $(this).find('#colorTableLoan').val();
-        	var vehicle_cc = $(this).find('#ccTableLoan').val();
-        	var bpkb = $(this).find('#bpkbTableLoan').val();
-        	var chassis_number = $(this).find('#chassisTableLoan').val();
-        	var machine_number = $(this).find('#machineTableLoan').val();
-        	var vehicle_date = $(this).find('#dateTableLoan').val();
-    	    var stnk_due_date = $(this).find('#stnkTableLoan').val();
-    	    var tenor = $(this).find('#tenorTableLoan').val();
-        	var price_request = $(this).find('#requestTableLoan').val();
-        	var approval = $(this).find('#approvalTableLoan').val(); 
-        	var user_approval = $(this).find('#userapprovalTableLoan').val();
-        	
-        	EditLoan(id, collateral_id, merk, type, vehicle_color, vehicle_cc, bpkb, chassis_number, machine_number, vehicle_date, stnk_due_date, tenor, price_request, approval, user_approval);
+	    	window.location.href = "/admin/loan/"+id+"/edit";
       		}
     	});
-
-    	function EditLoan(id, collateral_id, merk, type, vehicle_color, vehicle_cc, bpkb, chassis_number, machine_number, vehicle_date, stnk_due_date, tenor, price_request, approval, user_approval) {
-    		$("#editLoan").attr('action', '/admin/loan/' + id);
-    		$('#idLoan').val(id);
-    		$("#collateralLoan").val(collateral_id);
-    		$("#merkLoan").val(merk);
-    		$("#typeLoan").val(type);
-    		$("#colorLoan").val(vehicle_color);
-    		$("#ccLoan").val(vehicle_cc);
-    		$("#bpkbLoan").val(bpkb);
-    		$("#chassisLoan").val(chassis_number);
-    		$("#machineLoan").val(machine_number);
-    		$("#dateLoan").val(vehicle_date);
-    		$("#stnkLoan").val(stnk_due_date);
-    		$("#tenorLoan").val(tenor);
-    		$("#requestLoan").val(price_request);
-    		$("#approvalLoan").val(approval);
-    		$("#userapprovalLoan").val(user_approval);
-    		$("#editLoanModal").modal("show");
-    	}*/
 
 		function deleteLoan() {
 			if ($('.checkin').is(':checked')) 

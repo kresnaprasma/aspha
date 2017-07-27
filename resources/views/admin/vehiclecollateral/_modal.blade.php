@@ -1,3 +1,6 @@
+	
+
+
 	{{-- Edit Modal --}}
 	<div class="modal fade" id="editCollateralModal" tabindex="-1" role="dialog" aria-labelledby="EditBranch">
 		<div class="modal-dialog" role="document">
