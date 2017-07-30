@@ -13,9 +13,9 @@ class CreateLoansTable extends Migration
     public function up()
     {
         Schema::create('loans', function (Blueprint $table) {
-            $table->increments('id');
+            $table->string('id')->index();
 
-            $table->string('collateral_id');
+            $table->string('loan_no')->unique();
             $table->string('merk');
             $table->string('type');
             $table->string('vehicle_color');
@@ -27,8 +27,17 @@ class CreateLoansTable extends Migration
             $table->date('vehicle_date');
             $table->string('tenor');
             $table->double('price_request');
-            $table->string('approval');
-            $table->boolean('user_approval')->default(0);
+            $table->enum('user_approval', ['YES', 'NO']);
+            
+            $table->integer('approval')->unsigned();
+            $table->foreign('approval')->references('id')->on('users');
+
+            $table->integer('customer_id')->unsigned();
+            $table->foreign('customer_id')->references('id')->on('customers');
+
+            $table->integer('branch_id')->unsigned();
+            $table->foreign('branch_id')->references('id')->on('branches');   
+
             $table->timestamps();
         });
     }

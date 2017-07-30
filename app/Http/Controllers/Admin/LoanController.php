@@ -10,13 +10,15 @@ use App\Merk;
 use App\Loan;
 use App\VehicleCollateral;
 use App\Type;
+use App\Branch;
+use App\Customer;
+use App\User;
 
 use App\Http\Controllers\Controller;
+use Ramsey\Uuid\Uuid;
 use DB;
 use Illuminate\Facades\Input;
 use Excel;
-use PDF;
-use Elibyy\TCPDF\Facades\TCPDF;
 
 class LoanController extends Controller
 {
@@ -39,7 +41,9 @@ class LoanController extends Controller
     public function create()
     {
         $merkall = Merk::pluck('name', 'id');
-        return view('admin.loan.create', compact('merkall'));
+        $branch_list = Branch::pluck('name', 'id');
+        $customer_list = Customer::pluck('name', 'id');
+        return view('admin.loan.create', compact('merkall', 'customer_list', 'branch_list'));
     }
 
     public function myformAjax($id)
@@ -99,7 +103,10 @@ class LoanController extends Controller
         ]);
         
         $loan = new Loan();
-        $merk_id = $request->input('merk');
+        $loan->id = Uuid::uuid4()->getHex();
+        $loan->loan_no = Loan::Maxno();
+
+        /*$merk_id = $request->input('merk');
         $type_id = $request->input('type');
         $vehicle_date = $request->input('vehicle_date');
         
@@ -114,8 +121,25 @@ class LoanController extends Controller
         $request->request->add(['collateral_id' => $id[0]->collateral_id]);
         $request->request->add(['merk' => $merk_id]);
         $request->request->add(['type' => $type_id]);
-        $request->request->add(['user_approval' => auth()->user()->id]);
-        Loan::create($request->all());
+        $request->request->add(['user_approval' => auth()->user()->id]);*/
+
+        $loan->merk = $request->input('merk');
+        $loan->type = $request->input('type');
+        $loan->vehicle_color = $request->input('vehicle_color');
+        $loan->vehicle_cc = $request->input('vehicle_cc');
+        $loan->bpkb = $request->input('bpkb');
+        $loan->chassis_number = $request->input('chassis_number');
+        $loan->machine_number = $request->input('machine_number');
+        $loan->stnk_due_date = $request->input('stnk_due_date');
+        $loan->vehicle_date = $request->input('vehicle_date');
+        $loan->tenor = $request->input('tenor');
+        $loan->price_request = $request->input('price_request');
+        $loan->approval->add(['approval' => auth()->user()->id]);
+        $loan->user_approval = $request->input('user_approval');
+        $loan->customer_id = $request->input('customer_id');
+        $loan->branch_id = $request->input('branch_id');
+        $loan->save();
+        
         return redirect('/admin/loan')->with('Success', 'Loan Created Successfully');
     }
 
@@ -138,8 +162,10 @@ class LoanController extends Controller
     public function edit($id)
     {
         $merkall = Merk::pluck('name', 'id');
+        $branch_list = Branch::pluck('name', 'id');
+        $customer_list = Customer::pluck('name', 'id');
         $loan = Loan::find($id);
-        return view('admin.loan.edit', compact('loan', 'id', 'merkall'));
+        return view('admin.loan.edit', compact('loan', 'id', 'merkall', 'branch_list', 'customer_list'));
     }
 
     /**
@@ -186,8 +212,13 @@ class LoanController extends Controller
                 'price_request.numeric' => 'Harus diisi dengan angka tanpa simbol',
         ]);
         
-        $edit = Loan::find($id)->update($request->all());
-        return redirect()->back()->with('Success', 'Loan Updated Successfully');
+        $loan = Loan::find($id)->update($request->all());
+        if (!$loan) {
+            return redirect()->back()->withInput()->withErrors('cannot update Loan');
+        }else {
+            return redirect('/admin/loan')->with('Success', 'Loan Updated Successfully');
+        }
+
     }
 
     /**
@@ -203,16 +234,6 @@ class LoanController extends Controller
        }
         return redirect()->back()->with('Success', 'Loan deleted Successfully');
     }
-
-    /*public function export()
-    {
-        $loans = Loan::all();
-        Excel::create('loans', function($excel) use($loans) {
-            $excel->sheet('ExportFile', function($sheet) use($loans) {
-                $sheet->fromArray($loans);
-            });
-        })->export('xls');
-    }*/
 
     public function downloadExcel()
     {

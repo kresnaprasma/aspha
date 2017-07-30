@@ -13,17 +13,26 @@ class CreateMotorsTable extends Migration
     public function up()
     {
         Schema::create('motors', function (Blueprint $table) {
-            $table->increments('id');
+            $table->increments('id')->index();
+
+            $table->string('motor_no')->unique();
             $table->string('merk');
             $table->string('type');
             $table->string('post_name');
             $table->string('post_price');
             $table->string('fitur');
             $table->string('stnk_address');
-            $table->boolean('condition');
+            $table->enum('condition', ['SECOND', 'NEW']);
             $table->string('picture');
             $table->text('description');
-            $table->boolean('status');
+            $table->enum('status', ['READY', 'SOLD']);
+            $table->enum('cash_method', ['CASH', 'CREDIT']);
+
+            $table->integer('supplier_no')->nullable();
+            $table->foreign('supplier_no')->references('id')->on('supplier');
+
+            $table->integer('branch_id')->unsigned();
+            $table->foreign('branch_id')->references('id')->on('branches');         
             $table->timestamps();
         });
     }

@@ -2,49 +2,20 @@
 
 @section('content')
 
-	<script type="text/javascript" src="{{ asset('assets/js/dropzone.js') }}"></script>
 	<script src="http://demo.itsolutionstuff.com/plugin/jquery.js"></script>
 
 	<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/4.2.0/min/dropzone.min.js"></script>  <!-- js for the add files area /-->
 
-    
-	<div class="row">
-		<div class="col-md-12">
-			<div class="box box-primary">
-				<div class="box-header with-border">
-				   <h3 class="box-title">Cash Loan<small>» Request New Loan</small></h3>
-				   <div class="box-tools pull-right">
-				   		<a href="/admin/loan/">
-                            {{-- <i aria-hidden="true"></i>
-                            <b>Back</b> --}}
-                            <span class="glyphicon glyphicon-chevron-left"></span>
-                        </a>
-				      <button class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse"><i class="fa fa-minus"></i></button>
-				   </div>
-				</div>
-				<div class="box-body">
-					{!! Form::open(['route' => 'admin.loan.store']) !!}
-					<input type="hidden" name="_token" value={{ csrf_token() }}/>
-					{{-- @if(count($errors))
-			    		<div class="alert alert-danger">
-			    			<strong>Whoops!</strong> There were some problems with your input.
-			    			<br/>
-			    			<ul>
-			    				@foreach($errors->all() as $error)
-			    				<li>{{ $error }}</li>
-			    				@endforeach
-			    			</ul>
-			    		</div>
-			    	@endif --}}
+@section('content')
+	<section class="content">
+		{!! Form::model($loan = new \App\Loan, ['route' => 'admin.loan.store', 'class'=>'form-horizontal', 'id'=>'formCreateLoan']) !!}
+		@include('admin.loan._form',['edit'=>false])
+		{!! Form::close() !!}
+	</section>
+@stop
 
-						@include('admin.loan._form')
-						<div class="row">
-						</div>
-				</div>
-			</div>
-		</div>
-	</div>
+@section('scripts')
+	@include('admin.loan._js')
 
     	<script type="text/javascript" src="http://demo.itsolutionstuff.com/plugin/jquery.js"></script>
     	<script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/4.0.1/dropzone.js"></script>
@@ -73,7 +44,7 @@
 		    });
     	</script>
     	
-    	<script type="text/javascript">
+    	{{-- <script type="text/javascript">
 			var previewNode = document.querySelector("#template");
 			previewNode.id = "";
 			var previewTemplate = previewNode.parentNode.innerHTML;
@@ -162,65 +133,5 @@
     		}
     	}
     }
-    </script>
-
-   {{--  <script type="text/javascript">
-    	$.validator.setDefaults( {
-    		submitHandler: function () {
-    			alert("submitted!");
-    		}
-    	} );
-
-    	$(document).ready(function() {
-    		$("#signupForm").validate({
-    			rules: {
-    				merk: "required",
-    				type: "required",
-    				vehicle_color: "required",
-    				vehicle_cc: "required",
-    				vehicle_date: "required",
-    				bpkb: {
-    					required: true,
-    					minlength: 10,
-    					maxlength: 10
-    				},
-    				stnk_due_date: "required",
-    				tenor: "required",
-    				price_request: "required"
-
-    			},
-    			messages: {
-    				merk: "Harap masukkan merk motor anda",
-    				type: "Harap masukkan type motor anda",
-    				vehicle_color: "Harap masukkan warna motor anda",
-    				vehicle_cc: "Berapa CC motor anda?",
-    				vehicle_date: "Harap masukkan tanggal keluaran motor anda",
-    				bpkb: {
-    					required: "Harap masukkan nomor bpkb kendaraan anda",
-    					minlength: "Kurang memasukkan digit angka bpkb",
-    					maxlength: "Kelebihan digit angka bpkb",
-    				},
-    				stnk_due_date: "Masukkan tanggal berakhirnya pajak",
-    				tenor: "Masukkan tenor tempo pengembalian",
-    				price_request: "Masukkan banyaknya peminjaman yang anda inginkan"
-    			},
-    			errorElement: "em",
-    			errorPlacement: function(error, element) {
-    				error.addClass('help-block');
-
-    				if (element.prop("type") === "checkbox" ) {
-    					error.insertAfter(element.parent("label"));
-    				}else{
-    					error.insertAfter('element');
-    				}
-    			},
-    			highlight: function (element, errorClass, validClass) {
-    				$(element).parents(".col-sm-5").addClass('has-error').removeClass('has-success');
-    			},
-    			unhighlight: function (element, errorClass, validClass) {
-    				$(element).parents(".col-sm-5").addClass('has-success').removeClass('has-error');
-    			}
-    		});
-    	});
     </script> --}}
 @stop

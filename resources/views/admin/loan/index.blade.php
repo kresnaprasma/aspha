@@ -52,22 +52,18 @@
 					<table class="table table-bordered table-striped table-color" id="tableLoan">
 						<thead>
 							<th><input type="checkbox" id="check_all"></th>
-							{{-- <th>Id</th> --}}
-							{{-- <th>Collateral Id</th> --}}
-							{{-- <th>Merk</th> --}}
+							<th>Loan No.</th>
 							<th>Type</th>
 							<th>Warna Mesin</th>
-							<th>Kapasitas Mesin (CC)</th>
 							<th>No. BPKB</th>
-							<th>No. Rangka</th>
-							<th>No. Mesin</th>
 							<th>Tahun Pembuatan</th>
 							<th>Masa Berlaku STNK</th>
 							<th>Tenor</th>
 							<th>Permohonan Pinjaman</th>
+							<th>User Approval</th>
 							<th>Approval</th>
-							{{-- <th>Actions</th> --}}
-							{{-- <th>User Approval</th> --}}
+							<th>Customer</th>
+							<th>Branch</th>
 						</thead>
 						<tbody>
 							@foreach($loans as $l)
@@ -75,14 +71,7 @@
 									<td>
 										<input type="checkbox" id="idTableLoan" name="id[]" class="checkin" value="{{ $l->id }}">
 									</td>
-									{{-- <td>
-										{{ $l->collateral_id }}
-										<input type="hidden" id="collateralTableLoan" name="collateral_id[]" value="{{ $l->collateral_id }}">
-									</td> --}}
-									{{-- <td>
-										{{ $l->merk }}
-										<input type="hidden" id="merkTableLoan" name="merk[]" value="{{ $l->merk }}">
-									</td> --}}
+									<td>{{ $l->loan_no }}</td>
 									<td>
 										{{ $l->type }}
 										<input type="hidden" id="typeTableLoan" name="type[]" value="{{ $l->type }}">
@@ -92,20 +81,8 @@
 										<input type="hidden" id="colorTableLoan" name="vehicle_color[]" value="{{ $l->vehicle_color }}">
 									</td>
 									<td>
-										{{ $l->vehicle_cc }}
-										<input type="hidden" id="ccTableLoan" name="vehicle_cc[]" value="{{ $l->vehicle_cc }}">
-									</td>
-									<td>
 										{{ $l->bpkb }}
 										<input type="hidden" id="bpkbTableLoan" name="bpkb[]" value="{{ $l->bpkb }}">
-									</td>
-									<td>
-										{{ $l->chassis_number }}
-										<input type="hidden" id="chassisTableLoan" name="chassis_number[]" value="{{ $l->chassis_number }}">
-									</td>
-									<td>
-										{{ $l->machine_number }}
-										<input type="hidden" id="machineTableLoan" name="machine_number[]" value="{{ $l->machine_number }}">
 									</td>
 									<td>
 										{{ $l->vehicle_date }}
@@ -123,19 +100,21 @@
 										<p>Rp {{ number_format($l->price_request) }}</p>
 										<input type="hidden" id="requestTableLoan" name="price_request[]" value="{{ $l->price_request }}">
 									</td>
+									<td>{{ $l->user_approval }}</td>
 									<td>
 										{{ $l->approval }}
 										<input type="hidden" id="approvalTableLoan" name="approval[]" value="{{ $l->approval }}">
 									</td>
-									{{-- @if(count($l->users) > 0) --}}
-										{{-- {{ $l->user_approval }} --}}
-										{{-- <input type="hidden" id="userapprovalTableLoan" name="user_approval[] value="{{ $l->user_approval }}"> --}}
-									{{-- @endif --}}
-									{{-- </td> --}}
-									{{-- <td>
-										<a href="{{ action('Admin\LoanController@edit', $l['id']) }}" class="btn btn-warning">
-										Edit
-									</td> --}}
+									<td>
+										@if($l->customer()->count() > 0)
+											{{ $l->customer->name }}
+										@endif
+									</td>
+									<td>
+										@if ($s->branch()->count() > 0)
+											{{ $s->branch->name }}
+										@endif
+									</td>
 								</tr>
 							@endforeach
 						</tbody>
