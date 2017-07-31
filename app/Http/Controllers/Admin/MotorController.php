@@ -2,11 +2,16 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Illuminate\Http\Request;
 use App\Motor;
 use App\Merk;
 use App\Type;
+use App\Supplier;
+use App\Branch;
+
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
+use Ramsey\Uuid\Uuid;
 
 use Excel;
 
@@ -20,10 +25,7 @@ class MotorController extends Controller
     public function index()
     {
         $motors = Motor::all();
-        $merkall = Merk::pluck('name', 'id');
-        $merkedit = Merk::pluck('name', 'id');
-        $typeall = Type::pluck('name', 'id');
-        return view('admin.motor.index', compact('motors', 'merkall', 'merkedit', 'typeall'));
+        return view('admin.motor.index', compact('motors'));
     }
 
     /**
@@ -34,7 +36,9 @@ class MotorController extends Controller
     public function create()
     {
         $merkall = Merk::pluck('name', 'id');
-        return view('admin.motor.create', compact('merkall'));
+        $branch_list = Branch::pluck('name', 'id');
+        $supplier_list = Supplier::pluck('name', 'id');
+        return view('admin.motor.create', compact('merkall', 'branch_list', 'supplier_list'));
     }
 
     public function myformAjax($id)

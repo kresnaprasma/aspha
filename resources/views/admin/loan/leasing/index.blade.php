@@ -5,7 +5,7 @@
 		<div class="col-md-12">
 			<div class="box box-primary">
 				<div class="box-header with-border">
-				   <h3 class="box-title">Supplier</h3>
+				   <h3 class="box-title">Leasing</h3>
 				   <div class="box-tools pull-right">
 				      <button class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse"><i class="fa fa-minus"></i></button>
 				      <button class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove"><i class="fa fa-times"></i></button>
@@ -15,10 +15,10 @@
 				<div class="box-body">
 					<div class="col-md-12 box-body-header">
 					   <div class="col-md-8">
-					      <a href="{{ route('admin.master.supplier.create') }}" class="btn btn-default">
+					      <a href="{{ route('admin.loan.leasing.create') }}" class="btn btn-default">
 					      	<i class="fa fa-plus" aria-hidden="true"></i> New
 					      </a>
-					      <button type="button" class="btn btn-default" onclick="deleteSupplier()">
+					      <button type="button" class="btn btn-default" onclick="deleteLeasing()">
 					      <i class="fa fa-times" aria-hidden="true"></i> Delete
 					      </button>
 					   </div>
@@ -27,7 +27,7 @@
 				   		</div>
 					</div>
 
-					{!! Form::open(['route'=>'admin.master.supplier.delete', 'id'=>'formDeleteSupplier']) !!}
+					{!! Form::open(['route'=>'admin.loan.leasing.delete', 'id'=>'formDeleteLeasing']) !!}
 					<div>
 
 					    @if ($message = Session::get('success'))
@@ -36,34 +36,32 @@
 	        				</div>
     					@endif
 					
-					<table class="table table-bordered table-striped table-color" id="tableSupplier">
+					<table class="table table-bordered table-striped table-color" id="tableLeasing">
 						<thead>
 							<th><input type="checkbox" id="check_all"></th>
-							<th>Supplier No.</th>
+							<th>Leasing No.</th>
 							<th>Name</th>
 							<th>Email</th>
 							<th>Phone</th>
 							<th>Address</th>
 							<th>PIC Name</th>
-							<th>PIC Phone</th>
 							<th>Branch</th>
 						</thead>
 						<tbody>
-							@foreach($supplier as $s)
+							@foreach($leasing as $leas)
 								<tr>
 									<td>
-										<input type="checkbox" id="idTableSupplier" name="id[]" class="checkin" value="{{ $s->id }}">
+										<input type="checkbox" id="idTableLeasing" name="id[]" class="checkin" value="{{ $leas->id }}">
 									</td>
-									<td><b>{{ $s->supplier_no }}</b></td>
-									<td>{{ $s->name }}</td>
-									<td>{{ $s->email }}</td>
-									<td>{{ $s->phone }}</td>
-									<td>{{ $s->address }}</td>
-									<td>{{ $s->pic_name }}</td>
-									<td>{{ $s->pic_phone }}</td>
+									<td><b>{{ $leas->leasing_no }}</b></td>
+									<td>{{ $leas->name }}</td>
+									<td>{{ $leas->email }}</td>
+									<td>{{ $leas->phone }}</td>
+									<td>{{ $leas->address }}</td>
+									<td>{{ $leas->pic_name }}</td>
 									<td>
-										@if ($s->branch()->count() > 0)
-											{{ $s->branch->name }}
+										@if ($leas->branch()->count() > 0)
+											{{ $leas->branch->name }}
 										@endif
 									</td>
 								</tr>
@@ -77,42 +75,46 @@
 		</div>
 	</div>
 
-	@include('admin.master.supplier._modal')
+	@include('admin.loan.leasing._modal')
 @stop
 
 @section('scripts')
 	<script type="text/javascript">
-		var tableSupplier = $('#tableSupplier').DataTable({
+		var tableLeasing = $('#tableLeasing').DataTable({
 			"sDom": 'rt',
       		"columnDefs": [{
         		"targets": [],
         		"orderable": false
       		}]
 		});
+
 		$("#searchDtbox").keyup(function() {
-      		tableSupplier.search($(this).val()).draw();
+      		tableLeasing.search($(this).val()).draw();
     	});
-    	$('#tableSupplier tbody').on('dblclick', 'tr', function () {
+
+    	$('#tableLeasing tbody').on('dblclick', 'tr', function () {
       		if ( $(this).hasClass('selected') ) {
         		$(this).removeClass('selected');
       		}
 	      	else {
-	        	tableSupplier.$('tr.selected').removeClass('selected');
+	        	tableLeasing.$('tr.selected').removeClass('selected');
 	        	$(this).addClass('selected');
-	        	var id = $(this).find('#idTableSupplier').val();
-	          	window.location.href = "/admin/master/supplier/"+id+"/edit";
+	        	var id = $(this).find('#idTableLeasing').val();
+	          	window.location.href = "/admin/loan/leasing/"+id+"/edit";
 	      	}
     	});
-    	function deleteSupplier() {
+
+    	function deleteLeasing() {
 			if ($('.checkin').is(':checked')) 
 			{
-				$('#deleteSupplierModal').modal("show");
+				$('#deleteLeasingModal').modal("show");
 			} else {
 				$('#deleteNoModal').modal("show");
 				}
 		}
-		function DeleteSupplier() {
-			$("#formDeleteSupplier").submit();
+
+		function DeleteLeasing() {
+			$("#formDeleteLeasing").submit();
 		}
 	</script>
 @stop

@@ -1,5 +1,15 @@
 <div class="row">
 	<div class="col-md-12 col-xs-12 col-sm-12 center-block">
+		<div class="form-group{{ $errors->has('branch_id') ? 'has-error' : ''}}">
+			{!! Form::label('branch_id', "Branch") !!}
+			{!! Form::select('branch_id', $branch_list, old('branch_id'), ['class'=>'form-control', 'id'=>'branch_id']) !!}
+			@if($errors->has('branch_id'))
+				<span class="help-block">
+					<strong>{{ $errors->first('branch_id') }}</strong>
+				</span>
+			@endif
+		</div>
+
 		<div class="form-group col-sm-6 {{ $errors->has('merk') ? 'has-error' : '' }}">
 			<input type="hidden" name="_token" value="{{ csrf_token() }}">
 				{!! Form::label('Merk', 'Merk :') !!}
@@ -72,6 +82,16 @@
 	    	</textarea>
 	    	<span class="text-danger">{{ $errors->first('description') }}</span>
 	    </div>
+
+	    <div class="form-group{{ $errors->has('supplier_no') ? 'has-error' : ''}}">
+			{!! Form::label('supplier_no', "Supplier") !!}
+			{!! Form::select('supplier_no', $supplier_list, old('supplier_no'), ['class'=>'form-control', 'id'=>'supplier_no']) !!}
+			@if($errors->has('supplier_no'))
+				<span class="help-block">
+					<strong>{{ $errors->first('supplier_no') }}</strong>
+				</span>
+			@endif
+		</div>
 		
 		<div class="form-group col-sm-8 col-xs-8 col-md-8">
 		{!! Form::submit('save' , ['class' =>'btn btn-primary']) !!}

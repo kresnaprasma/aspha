@@ -4,43 +4,19 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Motor extends Model
+class CustomerCollateral extends Model
 {
-    protected $fillable = [ 'motor_no', 'merk',	'type',
-    	'post_name', 'post_price','fitur', 'condition', 
-        'description', 'status', 'cash_method',
-        'supplier_no', 'branch_id'
-    ];
+    protected $fillable = ['customercollateral_no', 'stnk', 'bpkb', 'machine_number', 'chassis_number', 'vehicle_color', 'vehicle_cc', 'collateral_name', 'vehicle_date', 'stnk_due_date'];
 
-    public $incrementing =  false;
-
-    public function merks()
-    {
-        return $this->belongsTo("App\Merk", "merk", "id");
-    }
-
-    public function types()
-    {
-        return $this->belongsTo("App\Type", "type", "id");
-    }
-
-    public function supplier()
-    {
-        return $this->belongsTo('App\Supplier');    
-    }
-
-    public function branch()
-    {
-        return $this->belongsTo('App\Branch');
-    }
+    public $incrementing = false;
 
     public function scopeMaxno($query)
     {
         $year=substr(date('Y'), 2);
-        $queryMax =  $query->select(DB::raw('SUBSTRING(`supplier_no` ,8) AS kd_max'))
+        $queryMax =  $query->select(DB::raw('SUBSTRING(`customercollateral_no` ,8) AS kd_max'))
             ->where(DB::raw('MONTH(created_at)'), '=', date('m'))
             ->where(DB::raw('YEAR(created_at)'), '=', date('Y'))
-            ->orderBy('supplier_no', 'asc')
+            ->orderBy('customer_no', 'asc')
             ->get();
 
         $array1 = array();
@@ -62,7 +38,12 @@ class Motor extends Model
             $kd_fix = '0001';
         }
 
-        return 'MOT'.$year.date('m').$kd_fix;
+        return 'COL'.$year.date('m').$kd_fix;
+	}
 
+    public function uploadcustomer()
+    {
+       	return $this->hasMany('App\UploadCustomer');
     }
+    
 }

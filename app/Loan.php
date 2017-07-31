@@ -7,20 +7,12 @@ use Illuminate\Support\Facades\DB;
 
 class Loan extends Model
 {
-    protected $fillable = ['collateral_id',
-            'merk',
-            'type',
-    		'vehicle_color', 
-    		'vehicle_cc',
-            'bpkb',
-            'chassis_number',
-            'machine_number', 
-    		'stnk_due_date', 
-    		'vehicle_date', 
-    		'tenor', 
-    		'price_request', 
-    		'approval', 
-    		'user_approval',
+    protected $fillable = [
+            'merk', 'type', 'vehicle_color', 
+    		'vehicle_cc', 'bpkb', 'chassis_number',
+            'machine_number', 'stnk_due_date', 
+    		'vehicle_date', 'tenor', 'price_request', 
+    		'approval', 'user_approval',
         ];
 
     public $incrementing = false;

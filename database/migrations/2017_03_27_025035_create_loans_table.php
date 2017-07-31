@@ -21,19 +21,20 @@ class CreateLoansTable extends Migration
             $table->string('vehicle_color');
             $table->string('vehicle_cc');
             $table->string('bpkb');
+            $table->string('stnk');
             $table->string('chassis_number');
             $table->string('machine_number');
             $table->date('stnk_due_date');
             $table->date('vehicle_date');
             $table->string('tenor');
             $table->double('price_request');
-            $table->enum('user_approval', ['YES', 'NO']);
+            $table->enum('approvement', ['YES', 'NO']);
             
-            $table->integer('approval')->unsigned();
-            $table->foreign('approval')->references('id')->on('users');
+            $table->integer('approval_user')->unsigned();
+            $table->foreign('approval_user')->references('id')->on('users');
 
-            $table->integer('customer_id')->unsigned();
-            $table->foreign('customer_id')->references('id')->on('customers');
+            $table->string('customer_no')->nullable();
+            $table->foreign('customer_no')->references('customer_no')->on('customers');
 
             $table->integer('branch_id')->unsigned();
             $table->foreign('branch_id')->references('id')->on('branches');   

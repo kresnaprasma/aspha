@@ -52,11 +52,11 @@ Route::group([
 
 
 
-	Route::resource('/loan', 'Admin\LoanController', ['as'=>'admin']);
+/*	Route::resource('/loan', 'Admin\LoanController', ['as'=>'admin']);
 	Route::post('/loan/delete', ['as'=>'admin.loan.delete', 'uses'=>'Admin\LoanController@delete']);	
 	Route::get('/loan/ajax/{id}', ['as'=>'myForm.ajax', 'uses'=>'Admin\LoanController@myformAjax']);
 	Route::get('/loan/edit/ajax/{id}', ['as' => 'myForm.loan', 'uses' => 'Admin\LoanController@myformEdit']);
-	Route::get('loan/downloadExcel/xls', 'Admin\LoanController@downloadExcel');
+	Route::get('loan/downloadExcel/xls', 'Admin\LoanController@downloadExcel');*/
 
 
 
@@ -93,6 +93,10 @@ Route::group([
 
 	Route::post('master/permission/delete',['as'=>'admin.master.permission.delete','uses'=>'Admin\PermissionController@delete']);
 	Route::resource('master/permission', 'Admin\PermissionController',['as'=>'admin.master']);
+
+
+	Route::post('loan/leasing/delete',['as'=>'admin.loan.leasing.delete','uses'=>'Admin\LeasingController@delete']);
+	Route::resource('loan/leasing', 'Admin\LeasingController',['as'=>'admin.loan']);
 
 
 	Route::resource('/upload', 'UploadController');
