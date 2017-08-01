@@ -52,8 +52,9 @@
                 <a href="#"><span>Loan</span> <i class="fa fa-angle-left pull-right"></i></a>
                 <ul class="treeview-menu">
                     <li><a href="{{ route('admin.loan.leasing.index') }}">Leasing</a></li>
-                    <li><a href="{{ url('/admin/loan') }}">Data Peminjaman</a></li>
-                    <li><a href="{{ url('/admin/upload') }}">Upload Berkas</a></li>
+                    <li><a href="{{ route('admin.loan.custcoll.index') }}">Cust. Collateral</a></li>
+                    <li><a href="{{ route('admin.loan.cash.index') }}">Dana Tunai</a></li>
+                    {{-- <li><a href="{{ route('admin.loan.custupload.index') }}">Upload Customer</a></li> --}}
                 </ul>
             </li>
             <li class="treeview">

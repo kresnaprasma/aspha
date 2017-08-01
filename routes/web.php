@@ -99,6 +99,14 @@ Route::group([
 	Route::resource('loan/leasing', 'Admin\LeasingController',['as'=>'admin.loan']);
 
 
+	Route::post('loan/custcoll/delete',['as'=>'admin.loan.custcoll.delete','uses'=>'Admin\CustomerCollateralController@delete']);
+	Route::resource('loan/custcoll', 'Admin\CustomerCollateralController',['as'=>'admin.loan']);
+
+
+	Route::post('loan/cash/delete',['as'=>'admin.loan.cash.delete', 'uses'=>'Admin\CashController@delete']);
+	Route::resource('loan/cash', 'Admin\CashController',['as'=>'admin.loan']);
+
+
 	Route::resource('/upload', 'UploadController');
 	Route::get('/upload/', 'UploadController@index');
 	Route::get('/upload/get/{filename}', ['as' => 'getupload', 'uses'=>'UploadController@get']);

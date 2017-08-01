@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Leasing;
-use App\Branch;
+use App\CustomerCollateral;
+
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Ramsey\Uuid\Uuid;
 
-class LeasingController extends Controller
+
+class CustomerCollateralController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,9 +19,9 @@ class LeasingController extends Controller
      */
     public function index()
     {
-        $leasing = Leasing::all();
+        $custcoll = CustomerCollateral::all();
 
-        return view('admin.loan.leasing.index', compact('leasing'));
+        return view('admin.loan.custcoll.index', compact('custcoll'));
     }
 
     /**
@@ -30,8 +31,7 @@ class LeasingController extends Controller
      */
     public function create()
     {
-        $branch_list = Branch::pluck('name', 'id');
-        return view('admin.loan.leasing.create', compact('branch_list'));
+        return view('admin.loan.custcoll.create');
     }
 
     /**
@@ -43,10 +43,10 @@ class LeasingController extends Controller
     public function store(Request $request)
     {
         $validator = validator::make($request->all(), [
-            'name' => 'required',
-            'address' => 'required',
-            'email' => 'required|string|unique:leasings',
-            'phone' => 'required',
+            'stnk' => 'required|',
+            'bpkb' => 'required|',
+            'machine_number' => 'required|numeric',
+            'chassis_number' => 'required|numeric',
         ]);
 
         if ($validator->fails()) {
@@ -55,24 +55,25 @@ class LeasingController extends Controller
             return redirect()->back()->withInput()->withErrors($validator);
         }
 
-        $leasing = new Leasing();
-        $leasing->id = Uuid::uuid4()->getHex();
-        $leasing->leasing_no = Leasing::Maxno();
-        $leasing->name = $request->input('name');
-        $leasing->address = $request->input('address');
-        $leasing->email = $request->input('email');
-        $leasing->npwp = $request->input('npwp');
-        $leasing->pic_name = $request->input('pic_name');
-        $leasing->phone = $request->input('phone');
-        $leasing->branch_id = $request->input('branch_id');
-        $leasing->save();
+        $custcoll = new CustomerCollateral();
+        $custcoll->id = Uuid::uuid4()->getHex();
+        $custcoll->customercollateral_no = CustomerCollateral::Maxno();
+        $custcoll->stnk = $request->input('stnk');
+        $custcoll->bpkb = $request->input('bpkb');
+        $custcoll->machine_number = $request->input('machine_number');
+        $custcoll->chassis_number = $request->input('chassis_number');
+        $custcoll->vehicle_color = $request->input('vehicle_color');
+        $custcoll->vehicle_cc = $request->input('vehicle_cc');
+        $custcoll->collateral_name = $request->input('collateral_name');
+        $custcoll->vehicle_date = $request->input('vehicle_date');
+        $custcoll->stnk_due_date = $request->input('stnk_due_date');
+        $custcoll->save();
 
-        if (!$leasing) {
-            return redirect()->back()->withInput()->withErrors('cannot create Leasing');
+        if (!$custcoll) {
+            return redirect()->back()->withInput()->withErrors('cannot create Cust. Collateral');
         }else{
-            return redirect('/admin/loan/leasing')->with('success', 'Successfully create Leasing');
+            return redirect('/admin/loan/custcoll')->with('success', 'Successfully create Cust. Collateral');
         }
-        
     }
 
     /**
@@ -94,11 +95,9 @@ class LeasingController extends Controller
      */
     public function edit($id)
     {
-        $leasing = Leasing::find($id);
+        $custcoll = CustomerCollateral::find($id);
 
-        $branch_list = Branch::pluck('name', 'id');
-
-        return view('admin.loan.leasing.edit', compact('leasing', 'branch_list'));
+        return view('admin.loan.custcoll.edit', compact('custcoll'));
     }
 
     /**
@@ -111,8 +110,10 @@ class LeasingController extends Controller
     public function update(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
-            'name' => 'required',
-            'address' => 'required',
+            'stnk' => 'required',
+            'bpkb' => 'required',
+            'machine_number' => 'required',
+            'chassis_number' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -121,14 +122,14 @@ class LeasingController extends Controller
             return redirect()->back()->withInput()->withErrors($validator);
         }
 
-        $leasing = Leasing::find($id);
-        $leasing->update($request->all());
+        $custcoll = CustomerCollateral::find($id);
+        $custcoll->update($request->all());
 
-        if (!$leasing) {
+        if (!$custcoll) {
             return redirect()->back()->withInput()->withErrors('
-                Cant update leasing' );
+                Cant update Customer Collateral' );
         }else{
-            return redirect('/admin/loan/leasing')->with('success', 'Successfully update leasing');
+            return redirect('/admin/loan/custcoll')->with('success', 'Successfully update Customer Collateral');
         }
     }
 
@@ -156,14 +157,14 @@ class LeasingController extends Controller
         }
 
         foreach ($request->input('id') as $key => $value) {
-            $leasing = Leasing::find($value);
-            $leasing->delete();
+            $custcoll = CustomerCollateral::find($value);
+            $custcoll->delete();
         }
 
-        if (!$leasing) {
-            return redirect()->back()->withInput()->withErrors('cannot delete leasing');
+        if (!$custcoll) {
+            return redirect()->back()->withInput()->withErrors('cannot delete Customer Collateral');
         }else{
-            return redirect()->back()->with('success', 'Successfully delete leasing');
+            return redirect()->back()->with('success', 'Successfully delete Customer Collateral');
         }
     }
 }

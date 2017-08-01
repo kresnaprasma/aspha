@@ -2,14 +2,17 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Cash;
 use App\Leasing;
 use App\Branch;
+use App\Customer;
+
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Ramsey\Uuid\Uuid;
 
-class LeasingController extends Controller
+class CashController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,9 +21,9 @@ class LeasingController extends Controller
      */
     public function index()
     {
-        $leasing = Leasing::all();
+        $cash = Cash::all();
 
-        return view('admin.loan.leasing.index', compact('leasing'));
+        return view('admin.loan.cash.index', compact('cash'));
     }
 
     /**
@@ -30,8 +33,11 @@ class LeasingController extends Controller
      */
     public function create()
     {
+        $leasing_list = Leasing::pluck('name', 'id');
         $branch_list = Branch::pluck('name', 'id');
-        return view('admin.loan.leasing.create', compact('branch_list'));
+        $customer_list = Customer::pluck('name', 'id');
+
+        return view('admin.loan.cash.create', compact('leasing_list', 'branch_list', 'customer_list'));
     }
 
     /**
@@ -43,10 +49,8 @@ class LeasingController extends Controller
     public function store(Request $request)
     {
         $validator = validator::make($request->all(), [
-            'name' => 'required',
-            'address' => 'required',
-            'email' => 'required|string|unique:leasings',
-            'phone' => 'required',
+            'credit_ceiling_request' => 'required',
+            'tenor_request' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -55,24 +59,21 @@ class LeasingController extends Controller
             return redirect()->back()->withInput()->withErrors($validator);
         }
 
-        $leasing = new Leasing();
-        $leasing->id = Uuid::uuid4()->getHex();
-        $leasing->leasing_no = Leasing::Maxno();
-        $leasing->name = $request->input('name');
-        $leasing->address = $request->input('address');
-        $leasing->email = $request->input('email');
-        $leasing->npwp = $request->input('npwp');
-        $leasing->pic_name = $request->input('pic_name');
-        $leasing->phone = $request->input('phone');
-        $leasing->branch_id = $request->input('branch_id');
-        $leasing->save();
+        $cash = new Cash();
+        $cash->id = Uuid::uuid4()->getHex();
+        $cash->cash_no = Cash::Maxno();
+        $cash->credit_ceiling_request = $request->input('credit_ceiling_request');
+        $cash->tenor_request = $request->input('tenor_request');
+        $cash->customer_no = $request->input('customer_no');
+        $cash->leasing_no = $request->input('leasing_no');
+        $cash->branch_id = $request->input('branch_id');
+        $cash->save();
 
-        if (!$leasing) {
-            return redirect()->back()->withInput()->withErrors('cannot create Leasing');
+        if (!$cash) {
+            return redirect()->back()->withInput()->withErrors('cannot create Dana Tunai');
         }else{
-            return redirect('/admin/loan/leasing')->with('success', 'Successfully create Leasing');
+            return redirect('/admin/loan/cash')->with('success', 'Successfully create Dana Tunai');
         }
-        
     }
 
     /**
@@ -94,11 +95,13 @@ class LeasingController extends Controller
      */
     public function edit($id)
     {
-        $leasing = Leasing::find($id);
+        $cash = Cash::find($id); 
 
+        $leasing_list = Leasing::pluck('name', 'id');
         $branch_list = Branch::pluck('name', 'id');
+        $customer_list = Branch::pluck('name', 'id');
 
-        return view('admin.loan.leasing.edit', compact('leasing', 'branch_list'));
+        return view('admin.loan.cash.edit', compact('cash', 'leasing_list', 'branch_list', 'customer_list'));
     }
 
     /**
@@ -110,9 +113,9 @@ class LeasingController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $validator = Validator::make($request->all(), [
-            'name' => 'required',
-            'address' => 'required',
+        $validator = validator::make($request->all(), [
+            'credit_ceiling_request' => 'required',
+            'tenor_request' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -121,14 +124,14 @@ class LeasingController extends Controller
             return redirect()->back()->withInput()->withErrors($validator);
         }
 
-        $leasing = Leasing::find($id);
-        $leasing->update($request->all());
+        $cash = Cash::find($id);
+        $cash->update($request->all());
 
-        if (!$leasing) {
+        if (!$cash) {
             return redirect()->back()->withInput()->withErrors('
-                Cant update leasing' );
+                Cant update cash' );
         }else{
-            return redirect('/admin/loan/leasing')->with('success', 'Successfully update leasing');
+            return redirect('/admin/loan/cash')->with('success', 'Successfully update cash');
         }
     }
 
@@ -156,14 +159,14 @@ class LeasingController extends Controller
         }
 
         foreach ($request->input('id') as $key => $value) {
-            $leasing = Leasing::find($value);
-            $leasing->delete();
+            $cash = Cash::find($value);
+            $cash->delete();
         }
 
-        if (!$leasing) {
-            return redirect()->back()->withInput()->withErrors('cannot delete leasing');
+        if (!$cash) {
+            return redirect()->back()->withInput()->withErrors('cannot delete cash');
         }else{
-            return redirect()->back()->with('success', 'Successfully delete leasing');
+            return redirect()->back()->with('success', 'Successfully delete cash');
         }
     }
 }

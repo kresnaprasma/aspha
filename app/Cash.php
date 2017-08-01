@@ -5,19 +5,19 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
-class CustomerCollateral extends Model
+class Cash extends Model
 {
-    protected $fillable = ['customercollateral_no', 'stnk', 'bpkb', 'machine_number', 'chassis_number', 'vehicle_color', 'vehicle_cc', 'collateral_name', 'vehicle_date', 'stnk_due_date'];
+    protected $fillable = ['cash_no', 'credit_ceiling_request', 'tenor_request', 'customer_no', 'leasing_no', 'branch_id'];
 
     public $incrementing = false;
 
     public function scopeMaxno($query)
     {
         $year=substr(date('Y'), 2);
-        $queryMax =  $query->select(DB::raw('SUBSTRING(`customercollateral_no` ,8) AS kd_max'))
+        $queryMax =  $query->select(DB::raw('SUBSTRING(`cash_no` ,8) AS kd_max'))
             ->where(DB::raw('MONTH(created_at)'), '=', date('m'))
             ->where(DB::raw('YEAR(created_at)'), '=', date('Y'))
-            ->orderBy('customercollateral_no', 'asc')
+            ->orderBy('cash_no', 'asc')
             ->get();
 
         $array1 = array();
@@ -39,12 +39,8 @@ class CustomerCollateral extends Model
             $kd_fix = '0001';
         }
 
-        return 'COL'.$year.date('m').$kd_fix;
+        return 'DTN'.$year.date('m').$kd_fix;
 	}
 
-    public function uploadcustomer()
-    {
-       	return $this->hasMany('App\UploadCustomer');
-    }
-    
+
 }
