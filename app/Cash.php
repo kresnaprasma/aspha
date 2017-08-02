@@ -42,5 +42,18 @@ class Cash extends Model
         return 'DTN'.$year.date('m').$kd_fix;
 	}
 
+    public function leasing()
+    {
+        return $this->hasMany('App\Leasing');
+    }
 
+    public function branch()
+    {
+        return $this->belongsTo('App\Branch');
+    }
+
+    public function customer()
+    {
+        return $this->hasMany('App\Customer');
+    }
 }

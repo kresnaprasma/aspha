@@ -33,9 +33,9 @@ class CashController extends Controller
      */
     public function create()
     {
-        $leasing_list = Leasing::pluck('name', 'id');
+        $leasing_list = Leasing::pluck('name', 'leasing_no');
         $branch_list = Branch::pluck('name', 'id');
-        $customer_list = Customer::pluck('name', 'id');
+        $customer_list = Customer::pluck('name', 'customer_no');
 
         return view('admin.loan.cash.create', compact('leasing_list', 'branch_list', 'customer_list'));
     }
@@ -97,9 +97,9 @@ class CashController extends Controller
     {
         $cash = Cash::find($id); 
 
-        $leasing_list = Leasing::pluck('name', 'id');
+        $leasing_list = Leasing::pluck('name', 'leasing_no');
         $branch_list = Branch::pluck('name', 'id');
-        $customer_list = Branch::pluck('name', 'id');
+        $customer_list = Customer::pluck('name', 'customer_no');
 
         return view('admin.loan.cash.edit', compact('cash', 'leasing_list', 'branch_list', 'customer_list'));
     }

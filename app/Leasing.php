@@ -46,4 +46,9 @@ class Leasing extends Model
     {
         return $this->belongsTo('App\Branch');
     }
+
+    public function cash()
+    {
+        return $this->belongsTo('App\Cash');
+    }
 }

@@ -16,6 +16,11 @@ class Customer extends Model
         return $this->belongsTo('App\Branch');
     }
 
+    public function cash()
+    {
+        return $this->belongsTo('App\Cash');
+    }
+
     public function scopeMaxno($query)
     {
         $year=substr(date('Y'), 2);

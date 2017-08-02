@@ -11,6 +11,6 @@ class UploadCustomer extends Model
 
     public function customercollateral()
     {
-    	return $this->('App\CustomerCollateral');
+		return $this->belongsTo('App\CustomerCollateral');
     }
 }

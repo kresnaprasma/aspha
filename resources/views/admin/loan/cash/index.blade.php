@@ -57,7 +57,11 @@
 									<td>{{ $ca->tenor_request }}</td>
 									<td>{{ $ca->customer_no }}</td>
 									<td>{{ $ca->leasing_no }}</td>
-									<td>{{ $ca->branch_id }}</td>
+									<td>
+										@if ($ca->branch()->count() > 0)
+											{{ $ca->branch->name }}
+										@endif
+									</td>
 								</tr>
 							@endforeach
 						</tbody>

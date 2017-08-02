@@ -16,7 +16,7 @@
                         <button class="btn btn-box-tool" data-widget="collapse" data-toogle="tooltip" title="Collapse"><i class="fa fa-minus"></i></button>
                     </div>
                 </div>
-                {!! Form::model($cash, ['route'=>['admin.loan.cash.edit',$cash->id],'id'=>'formCash','method'=>'PATCH']) !!}
+                {!! Form::model($cash, ['route'=>['admin.loan.cash.update',$cash->id],'id'=>'formCash','method'=>'PATCH']) !!}
                 <div class="box-body">
                     <form role="form">
                         @include('admin.loan.cash._form',['edit'=>true])
