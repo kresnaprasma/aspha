@@ -23,11 +23,10 @@
                     </form>
               <!-- /.box-body -->
 
-                <div class="box-footer">
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                </div>
+                    <div class="box-footer">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
                 {!! Form::close() !!}
-            </form>
     			</div>
     		</div>
     	</div>

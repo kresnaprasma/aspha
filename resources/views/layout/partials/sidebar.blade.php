@@ -36,13 +36,13 @@
             <li class="treeview">
                 <a href="#"><span>Master Data</span> <i class="fa fa-angle-left pull-right"></i></a>
                 <ul class="treeview-menu">
-                    <li><a href="{{ url('/admin/merk') }}">Merk</a></li>
-                    <li><a href="{{ url('/admin/type') }}">Type</a></li>
-                    <li><a href="{{ url('/admin/vehiclecollateral') }}">Vehicle Collateral</a></li>
+                    <li><a href="{{ route('admin.merk.index') }}">Merk</a></li>
+                    <li><a href="{{ route('admin.type.index') }}">Type</a></li>
+                    <li><a href="{{ route('admin.vehiclecollateral.index') }}">Vehicle Collateral</a></li>
                     <li><a href="{{ route('admin.master.bank.index') }}">Bank</a></li>
-                    <li><a href="{{ route('admin.master.branch.index') }}">Branch</a></li
-                    >
+                    <li><a href="{{ route('admin.master.branch.index') }}">Branch</a></li>
                     <li><a href="{{ route('admin.master.supplier.index') }}">Supplier</a></li>
+                    <li><a href="{{ route('admin.loan.leasing.index') }}">Leasing</a></li>
                     <li><a href="{{ route('admin.master.user.index') }}">User</a></li>
                     <li><a href="{{ route('admin.master.role.index') }}">Role</a></li>
                     <li><a href="{{ route('admin.master.permission.index') }}">Permission</a></li>
@@ -51,10 +51,10 @@
             <li class="treeview">
                 <a href="#"><span>Loan</span> <i class="fa fa-angle-left pull-right"></i></a>
                 <ul class="treeview-menu">
-                    <li><a href="{{ route('admin.loan.leasing.index') }}">Leasing</a></li>
+                    <li><a href="{{ url('/admin/loan/create') }}"><span>Loan</span></a></li>
                     <li><a href="{{ route('admin.loan.custcoll.index') }}">Cust. Collateral</a></li>
                     <li><a href="{{ route('admin.loan.cash.index') }}">Dana Tunai</a></li>
-                    {{-- <li><a href="{{ route('admin.loan.custupload.index') }}">Upload Customer</a></li> --}}
+                    <li><a href="{{ route('admin.loan.customerupload.index') }}">Upload Customer</a></li>
                 </ul>
             </li>
             <li class="treeview">

@@ -55,9 +55,9 @@
          </div>
 
          <div class="form-group{{ $errors->has('branch_id') ? ' has-error' : '' }}">
-            {!! Form::label('branch_id', "Branch", ['class'=>'col-md-4 control-label']) !!}
+               {!! Form::label('branch_id', "Branch", ['class'=>'col-md-4 control-label']) !!}
             <div class="col-md-8">
-               {!! Form::select('branch_id', $branch_list, old('branch_id'), ['class'=>'form-control','id'=>'branch_id']) !!}
+               {!! Form::select('branch_id',$branch_list, old('branch_id'), ['class'=>'form-control','id'=>'branch_id']) !!}
                @if ($errors->has('branch_id'))
                   <span class="help-block">
                      <strong>{{ $errors->first('branch_id') }}</strong>

@@ -25,12 +25,12 @@ Route::group([
 	'prefix' => 'admin',
 	'middleware' => 'auth',
 ], function(){
-	Route::resource('/merk', 'Admin\MerkController');
+	Route::resource('/merk', 'Admin\MerkController', ['as'=>'admin']);
 	Route::post('/merk/store', ['as'=>'admin.merk.store', 'uses'=>'Admin\MerkController@store']);
 	Route::post('/merk/delete', ['as'=>'admin.merk.delete', 'uses'=>'Admin\MerkController@delete']);
 
 
-	Route::resource('/type', 'Admin\TypeController');
+	Route::resource('/type', 'Admin\TypeController', ['as'=>'admin']);
 	Route::post('/type/store', ['as'=>'admin.type.store', 'uses'=>'Admin\TypeController@store']);
 	Route::post('/type/delete', ['as'=>'admin.type.delete', 'uses'=>'Admin\TypeController@delete']);
 
@@ -51,7 +51,7 @@ Route::group([
 	Route::get('vehiclecollateral/downloadExcel/xls', 'Admin\VehicleCollateralController@downloadExcel');
 
 
-
+	Route::get('loan/create', ['as'=>'admin.loan.create','uses'=>'Admin\LoanController@create']);
 /*	Route::resource('/loan', 'Admin\LoanController', ['as'=>'admin']);
 	Route::post('/loan/delete', ['as'=>'admin.loan.delete', 'uses'=>'Admin\LoanController@delete']);	
 	Route::get('/loan/ajax/{id}', ['as'=>'myForm.ajax', 'uses'=>'Admin\LoanController@myformAjax']);
@@ -107,10 +107,12 @@ Route::group([
 	Route::resource('loan/cash', 'Admin\CashController',['as'=>'admin.loan']);
 
 
-	Route::resource('/upload', 'UploadController');
+	Route::resource('/loan/customerupload', 'Admin\CustomerUploadController', ['as'=>'admin.loan']);
+
+/*	Route::resource('/upload', 'UploadController');
 	Route::get('/upload/', 'UploadController@index');
 	Route::get('/upload/get/{filename}', ['as' => 'getupload', 'uses'=>'UploadController@get']);
 	Route::post('/upload/add', ['as'=>'addupload', 'uses' => 'UploadController@add']);
-	Route::delete('/upload/{id}', 'UploadController@destroy');
+	Route::delete('/upload/{id}', 'UploadController@destroy');*/
 
 });
