@@ -28,7 +28,7 @@ class CustomerUploadController extends Controller
      */
     public function create()
     {
-        //
+        return view( 'admin.loan.image.create' );
     }
 
     /**
@@ -39,7 +39,46 @@ class CustomerUploadController extends Controller
      */
     public function store(Storage $storage, Request $request)
     {
-        //
+        if ( $request->isXmlHttpRequest() )
+        {
+            $image = $request->file( 'image' );
+            $timestamp = $this->getFormattedTimestamp();
+            $savedImageName = $this->getSavedImageName( $timestamp, $image );
+
+            $imageUploaded = $this->uploadImage( $image, $savedImageName, $storage );
+
+            /*$entry = new Fileentry();
+            $entry->mime = $file->getClientMimeType();
+            $entry->original_filename = $file->getClientOriginalName();
+            $entry->filename = $file->getFilename().'.'.$extension;
+            $entry->user_id = auth()->user()->id;
+            $entry->save();*/
+
+            if ( $imageUploaded )
+            {
+                $data = [
+                    'original_path' => asset( '/images/' . $savedImageName )
+                ];
+                return json_encode( $data, JSON_UNESCAPED_SLASHES );
+            }
+            return "uploading failed";
+        }
+    }
+
+    public function uploadImage($image, $imageFullName, $storage)
+    {
+        $filesystem = new Filesystem;
+        return $storage->disk( 'image' )->put( $imageFullName, $filesystem->get( $image ) );
+    }
+
+    public function getFormattedTimestamp()
+    {
+        return str_replace( [' ', ':'], '-', Carbon::now()->toDateTimeString() );
+    }
+
+    protected function getSavedImageName($timestamp, $image)
+    {
+        return $timestamp . '-' . $image->getClientOriginalName();
     }
 
     /**
@@ -84,6 +123,10 @@ class CustomerUploadController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $entries = Fileentry::find($id);
+        Storage::disk('local')->delete($entries->filename);
+        $entries->delete();
+        Session::flash('message', 'Succesfully deleted!');
+        return redirect('/admin/fileentry'); 
     }
 }

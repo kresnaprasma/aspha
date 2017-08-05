@@ -107,12 +107,16 @@ Route::group([
 	Route::resource('loan/cash', 'Admin\CashController',['as'=>'admin.loan']);
 
 
+	Route::post('loan/history/delete', ['as'=>'admin.loan.history.delete', 'uses'=>'Admin\HistoryController@delete']);
+	Route::resource('loan/history', 'Admin\HistoryController', ['as'=>'admin.history']);
+
+
 	Route::resource('/loan/customerupload', 'Admin\CustomerUploadController', ['as'=>'admin.loan']);
 
-/*	Route::resource('/upload', 'UploadController');
-	Route::get('/upload/', 'UploadController@index');
-	Route::get('/upload/get/{filename}', ['as' => 'getupload', 'uses'=>'UploadController@get']);
-	Route::post('/upload/add', ['as'=>'addupload', 'uses' => 'UploadController@add']);
-	Route::delete('/upload/{id}', 'UploadController@destroy');*/
 
+	/*Route::get('/upload', ['as' => 'image.create', 'uses' => 'ImageController@create']);
+	Route::post('/upload', ['as' => 'image.store' , 'uses' => 'ImageController@store']);*/
+
+	Route::get('/upload', ['as' => 'image.create', 'uses' => 'Admin\CustomerUploadController@create']);
+	Route::post('/upload', ['as' => 'image.store' , 'uses' => 'Admin\CustomerUploadController@store']);
 });
