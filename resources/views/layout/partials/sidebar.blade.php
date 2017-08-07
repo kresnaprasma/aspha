@@ -54,7 +54,10 @@
                     <li><a href="{{ url('/admin/loan/create') }}"><span>Loan</span></a></li>
                     <li><a href="{{ route('admin.loan.custcoll.index') }}">Cust. Collateral</a></li>
                     <li><a href="{{ route('admin.loan.cash.index') }}">Dana Tunai</a></li>
+                    <li><a href="{{ route('admin.loan.cashfix.index') }}">DaTun Fix</a></li>
+                    <li><a href="{{ route('admin.loan.history.index') }}">Datun History</a></li>
                     <li><a href="{{ route('admin.loan.customerupload.index') }}">Upload Customer</a></li>
+
                 </ul>
             </li>
             <li class="treeview">

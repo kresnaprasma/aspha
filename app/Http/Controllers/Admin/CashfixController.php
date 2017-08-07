@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Customer;
+use App\Cashfix;
 use App\Cash;
-use App\History;
+use App\Leasing;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Ramsey\Uuid\Uuid;
 
-class HistoryController extends Controller
+class CashfixController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -20,8 +20,9 @@ class HistoryController extends Controller
      */
     public function index()
     {
-        $history = History::all();
-        return view('admin.loan.history.index', compact('history'));
+        $cashfix = Cashfix::all();
+
+        return view('admin.loan.cashfix.index', compact('cashfix'));
     }
 
     /**
@@ -31,9 +32,10 @@ class HistoryController extends Controller
      */
     public function create()
     {
-        $customer_list = Customer::pluck('name', 'customer_no');
+        $leasing_list = Leasing::pluck('name', 'leasing_no');
         $cash_list = Cash::pluck('cash_no', 'id');
-        return view('admin.loan.history.create', compact('customer_list', 'cash_list'));
+
+        return view('admin.loan.cashfix.create', compact('leasing_list', 'cash_list'));
     }
 
     /**
@@ -45,7 +47,8 @@ class HistoryController extends Controller
     public function store(Request $request)
     {
         $validator = validator::make($request->all(), [
-            'note' => 'required',
+            'tenor_approve' => 'required',
+            'payment' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -54,18 +57,19 @@ class HistoryController extends Controller
             return redirect()->back()->withInput()->withErrors($validator);
         }
 
-        $history = new History();
-        $history->id = Uuid::uuid4()->getHex();
-        $history->history_no = History::Maxno();
-        $history->note = $request->input('note');
-        $history->customer_no = $request->input('customer_no');
-        $history->cash_no = $request->input('cash_no');
-        $history->save();
+        $cashfix = new Cashfix();
+        $cashfix->id = Uuid::uuid4()->getHex();
+        $cashfix->cashfix_no = Cashfix::Maxno();
+        $cashfix->tenor_approve = $request->input('tenor_approve');
+        $cashfix->payment = $request->input('payment');
+        $cashfix->approve_date = $request->input('approve_date');
+        $cashfix->leasing_no = $request->input('leasing_no');
+        $cashfix->cash_no = $request->input('cash_no');
 
-        if (!$history) {
-            return redirect()->back()->withInput()->withErrors('cannot create history');
+        if (!$cashfix) {
+            return redirect()->back()->withInput()->withErrors('cannot create Dana Tunai');
         }else{
-            return redirect('/admin/loan/history')->with('success', 'Successfully create History');
+            return redirect('/admin/loan/cashfix')->with('success', 'Successfully create Dana Tunai');
         }
     }
 
@@ -88,11 +92,12 @@ class HistoryController extends Controller
      */
     public function edit($id)
     {
-        $history = History::find($id);
-        $customer_list = Customer::pluck('name', 'customer_no');
-        $cash_list = Cash::pluck('cash_no', 'id');
+        $cashfix = Cashfix::find($id);
 
-        return view('admin.loan.history.edit', compact('history', 'customer_list', 'cash_list'));
+        $leasing_list = Leasing::pluck('name', 'leasing_no');
+        $cash_list = Cash::fix('cash_no', 'id');
+
+        return view('admin.loan.cashfix.create', compact('cashfix','leasing_list', 'cash_list'));
     }
 
     /**
@@ -104,8 +109,9 @@ class HistoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $validator = validator::make($request->all(), [
-            'note' => 'required'
+         $validator = validator::make($request->all(), [
+            'tenor_approve' => 'required',
+            'payment' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -114,13 +120,14 @@ class HistoryController extends Controller
             return redirect()->back()->withInput()->withErrors($validator);
         }
 
-        $history = History::find($id);
-        $history->update($request->all());
+        $cashfix = Cashfix::find($id);
+        $cashfix->update($request->all());
 
-        if (!$history) {
-            return redirect()->back()->withInput()->withErrors('Cant update History');
+        if (!$cash) {
+            return redirect()->back()->withInput()->withErrors('
+                Cant update cashfix' );
         }else{
-            return redirect('admin/loan/history')->with('Success', 'Successfully update History');
+            return redirect('/admin/loan/cashfix')->with('success', 'Successfully update cashfix');
         }
     }
 
@@ -135,7 +142,6 @@ class HistoryController extends Controller
         //
     }
 
-
     public function delete(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -149,14 +155,14 @@ class HistoryController extends Controller
         }
 
         foreach ($request->input('id') as $key => $value) {
-            $history = History::find($value);
-            $history->delete();
+            $cashfix = Cashfix::find($value);
+            $cashfix->delete();
         }
 
-        if (!$history) {
-            return redirect()->back()->withInput()->withErrors('cannot delete history');
+        if (!$cash) {
+            return redirect()->back()->withInput()->withErrors('cannot delete cash');
         }else{
-            return redirect()->back()->with('success', 'Successfully delete history');
+            return redirect()->back()->with('success', 'Successfully delete cash');
         }
     }
 }

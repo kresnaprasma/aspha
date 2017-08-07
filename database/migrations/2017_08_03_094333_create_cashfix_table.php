@@ -14,7 +14,8 @@ class CreateCashfixTable extends Migration
     public function up()
     {
         Schema::create('cashfixes', function (Blueprint $table) {
-            $table->increments('id');
+            $table->string('id');
+            $table->string('cashfix_no');
             $table->string('tenor_approve');
             $table->string('payment');
             $table->date('approve_date');

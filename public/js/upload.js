@@ -2,7 +2,7 @@
     Dropzone.options.bookImage = {
         paramName           :       "image", // The name that will be used to transfer the file
         maxFilesize         :       2, // MB
-        dictDefaultMessage  :       "Drop File here or Click to upload Image",
+        dictDefaultMessage  :       "<center> Drop File here or Click to upload Image </center>",
         thumbnailWidth      :       "150",
         thumbnailHeight     :       "150",
         accept              :       function(file, done) { done() },

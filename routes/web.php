@@ -107,8 +107,12 @@ Route::group([
 	Route::resource('loan/cash', 'Admin\CashController',['as'=>'admin.loan']);
 
 
+	Route::post('loan/cashfix/delete',['as'=>'admin.loan.cashfix.delete', 'uses'=>'Admin\CashfixController@delete']);
+	Route::resource('loan/cashfix', 'Admin\CashfixController',['as'=>'admin.loan']);
+
+
 	Route::post('loan/history/delete', ['as'=>'admin.loan.history.delete', 'uses'=>'Admin\HistoryController@delete']);
-	Route::resource('loan/history', 'Admin\HistoryController', ['as'=>'admin.history']);
+	Route::resource('loan/history', 'Admin\HistoryController', ['as'=>'admin.loan']);
 
 
 	Route::resource('/loan/customerupload', 'Admin\CustomerUploadController', ['as'=>'admin.loan']);

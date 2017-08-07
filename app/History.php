@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class History extends Model
 {
@@ -13,10 +14,10 @@ class History extends Model
     public function scopeMaxno($query)
     {
     	$year=substr(date('Y'), 2);
-        $queryMax =  $query->select(DB::raw('SUBSTRING(`leasing_no` ,8) AS kd_max'))
+        $queryMax =  $query->select(DB::raw('SUBSTRING(`history_no` ,8) AS kd_max'))
             ->where(DB::raw('MONTH(created_at)'), '=', date('m'))
             ->where(DB::raw('YEAR(created_at)'), '=', date('Y'))
-            ->orderBy('leasing_no', 'asc')
+            ->orderBy('history_no', 'asc')
             ->get();
 
         $array1 = array();

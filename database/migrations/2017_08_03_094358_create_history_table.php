@@ -14,7 +14,8 @@ class CreateHistoryTable extends Migration
     public function up()
     {
         Schema::create('histories', function (Blueprint $table) {
-            $table->increments('id');            
+            $table->string('id');
+            $table->string('history_no');            
             $table->string('note');
 
             $table->string('customer_no');

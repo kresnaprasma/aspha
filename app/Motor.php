@@ -37,10 +37,10 @@ class Motor extends Model
     public function scopeMaxno($query)
     {
         $year=substr(date('Y'), 2);
-        $queryMax =  $query->select(DB::raw('SUBSTRING(`supplier_no` ,8) AS kd_max'))
+        $queryMax =  $query->select(DB::raw('SUBSTRING(`motor_no` ,8) AS kd_max'))
             ->where(DB::raw('MONTH(created_at)'), '=', date('m'))
             ->where(DB::raw('YEAR(created_at)'), '=', date('Y'))
-            ->orderBy('supplier_no', 'asc')
+            ->orderBy('motor_no', 'asc')
             ->get();
 
         $array1 = array();

@@ -13,7 +13,7 @@ class CreateUploadCustomersTable extends Migration
      */
     public function up()
     {
-        Schema::create('upload_customer', function (Blueprint $table) {
+        Schema::create('upload_customers', function (Blueprint $table) {
             $table->increments('id');
             $table->string('filename');
             $table->string('mime');
