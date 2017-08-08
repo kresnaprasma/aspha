@@ -19,8 +19,6 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-
-
 Route::group([
 	'prefix' => 'admin',
 	'middleware' => 'auth',
@@ -52,11 +50,6 @@ Route::group([
 
 
 	Route::get('loan/create', ['as'=>'admin.loan.create','uses'=>'Admin\LoanController@create']);
-/*	Route::resource('/loan', 'Admin\LoanController', ['as'=>'admin']);
-	Route::post('/loan/delete', ['as'=>'admin.loan.delete', 'uses'=>'Admin\LoanController@delete']);	
-	Route::get('/loan/ajax/{id}', ['as'=>'myForm.ajax', 'uses'=>'Admin\LoanController@myformAjax']);
-	Route::get('/loan/edit/ajax/{id}', ['as' => 'myForm.loan', 'uses' => 'Admin\LoanController@myformEdit']);
-	Route::get('loan/downloadExcel/xls', 'Admin\LoanController@downloadExcel');*/
 
 
 
@@ -117,9 +110,6 @@ Route::group([
 
 	Route::resource('/loan/customerupload', 'Admin\CustomerUploadController', ['as'=>'admin.loan']);
 
-
-	/*Route::get('/upload', ['as' => 'image.create', 'uses' => 'ImageController@create']);
-	Route::post('/upload', ['as' => 'image.store' , 'uses' => 'ImageController@store']);*/
 
 	Route::get('/upload', ['as' => 'image.create', 'uses' => 'Admin\CustomerUploadController@create']);
 	Route::post('/upload', ['as' => 'image.store' , 'uses' => 'Admin\CustomerUploadController@store']);

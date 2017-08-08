@@ -25,6 +25,9 @@ class CreateCustomerCollateralsTable extends Migration
             $table->string('collateral_name')->nullable();
             $table->date('vehicle_date')->nullable();
             $table->date('stnk_due_date')->nullable();
+
+            $table->string('customer_no');
+            $table->foreign('customer_no')->references('customer_no')->on('customers');
             $table->timestamps();
         });
     }

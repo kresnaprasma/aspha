@@ -44,7 +44,8 @@
 							<th>Tenor Request</th>
 							<th>Customer No.</th>
 							<th>Leasing No.</th>
-							<th>Branch Id</th>
+							<th>Branch</th>
+							<th>User</th>
 						</thead>
 						<tbody>
 							@foreach($cash as $ca)
@@ -60,6 +61,11 @@
 									<td>
 										@if ($ca->branch()->count() > 0)
 											{{ $ca->branch->name }}
+										@endif
+									</td>
+									<td>
+										@if($ca->user()->count() > 0)
+											{{ $ca->user->name }}
 										@endif
 									</td>
 								</tr>

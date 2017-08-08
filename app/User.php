@@ -27,9 +27,9 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    public function fileentry()
+    public function cash()
     {
-      return $this->hasMany('App\Fileentry');
+      return $this->hasMany('App\Cash');
     }
 
     public function loan()

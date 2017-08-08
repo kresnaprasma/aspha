@@ -67,6 +67,7 @@ class CashController extends Controller
         $cash->customer_no = $request->input('customer_no');
         $cash->leasing_no = $request->input('leasing_no');
         $cash->branch_id = $request->input('branch_id');
+        $cash->user_id = auth()->user()->id;
         $cash->save();
 
         if (!$cash) {

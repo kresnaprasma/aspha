@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\DB;
 
 class Cash extends Model
 {
-    protected $fillable = ['cash_no', 'credit_ceiling_request', 'tenor_request', 'customer_no', 'leasing_no', 'branch_id'];
+    protected $fillable = ['cash_no', 'credit_ceiling_request', 'tenor_request', 'customer_no', 'leasing_no', 'branch_id', 'user_id'];
 
     public $incrementing = false;
 
@@ -55,5 +55,10 @@ class Cash extends Model
     public function customer()
     {
         return $this->hasMany('App\Customer');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo('App\User');
     }
 }

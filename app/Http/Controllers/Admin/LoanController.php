@@ -100,6 +100,7 @@ class LoanController extends Controller
         $cash->branch_id = $request->input('branch_id');
         $cash->save();
 
+
         if (!$custcoll || !$cash) {
             return redirect()->back()->withInput()->withErrors('Cannot Create Loan');
         }else{
@@ -138,7 +139,44 @@ class LoanController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validator = validator::make($request->all(), [
+            'stnk' => 'required',
+            'bpkb' => 'required',
+            'machine_number' => 'required|numeric',
+            'chassis_number' => 'required|numeric',
+            'credit_ceiling_request' => 'required',
+            'tenor_request' => 'required',
+            'tenor_approve' => 'required',
+            'payment' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            $messages = $validator->messages();
+
+            return redirect()->back()->withInput()->withErrors($validator);
+        }
+
+        $custcoll = CustomerCollateral::find($id);
+        $cash = Cash::find($id);
+        $cashfix = new Cashfix();
+        $cashfix->id = Uuid::uuid4()->getHex();
+        $cashfix->cashfix_no = Cashfix::Maxno();
+        $cashfix->tenor_approve = $request->input('tenor_approve');
+        $cashfix->payment = $request->input('payment');
+        $cashfix->approve_date = $request->input('approve_date');
+        $cashfix->leasing_no = $request->input('leasing_no');
+        $cashfix->cash_no = $request->input('cash_no');
+        $cashfix->save();
+
+        $custcoll->update($request->all());
+        $cash->update($request->all());
+
+        if (!$custcoll || !$cash || !$cashfix) {
+            return redirect()->back()->withInput()->withErrors('
+                Cant update Customer Collateral' );
+        }else{
+            return redirect('/admin/loan/')->with('success', 'Successfully update Customer Collateral');
+        }
     }
 
     /**

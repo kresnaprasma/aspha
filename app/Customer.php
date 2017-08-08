@@ -11,6 +11,11 @@ class Customer extends Model
 
     public $incrementing = false;
     
+    public function customer_collateral()
+    {
+        return $this->hasMany('App\CustomerColalteral');
+    }
+
     public function branch()
     {
         return $this->belongsTo('App\Branch');
