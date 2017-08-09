@@ -24,7 +24,7 @@ class CreateCashfixTable extends Migration
             $table->foreign('leasing_no')->references('leasing_no')->on('leasings');
 
             $table->string('cash_no');
-            $table->foreign('cash_no')->references('cash_no')->on('cashes');
+            $table->foreign('cash_no')->references('cash_no')->on('cashloans');
             $table->timestamps();
         });
     }

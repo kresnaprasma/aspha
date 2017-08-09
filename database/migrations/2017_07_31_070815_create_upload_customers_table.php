@@ -20,7 +20,7 @@ class CreateUploadCustomersTable extends Migration
             $table->string('original_filename');
 
             $table->string('customercollateral_no');
-            $table->foreign('customercollateral_no')->references('customercollateral_no')->on('customer_collaterals');
+            $table->foreign('customercollateral_no')->references('customercollateral_no')->on('customercollaterals');
             $table->timestamps();
         });
     }

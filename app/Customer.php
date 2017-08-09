@@ -23,7 +23,7 @@ class Customer extends Model
 
     public function cash()
     {
-        return $this->belongsTo('App\Cash');
+        return $this->hasMany('App\Cash');
     }
 
     public function scopeMaxno($query)

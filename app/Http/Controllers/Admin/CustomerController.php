@@ -19,8 +19,10 @@ class CustomerController extends Controller
     public function index()
     {
         $customer = Customer::all();
+        $customer_list = Customer::pluck('name', 'id');
+        $branch_list = Branch::pluck('name', 'id');
 
-        return view('admin.customer.index', compact('customer'));
+        return view('admin.customer.index', compact('customer', 'branch_list', 'customer_list'));
     }
 
     /**

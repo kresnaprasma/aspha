@@ -4,8 +4,9 @@
 
     {{-- <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css"> --}}
     {{-- <link rel="stylesheet" type="text/css" href="{{ asset("/assets/dist/dropzone.css") }}"> --}}
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+    {{-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script> --}}
     <script type="text/javascript" src="{{ asset("/assets/dist/dropzone.js") }}"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
     {{-- <link rel="stylesheet" href="/styles/main.css"> --}}
 
 
@@ -82,6 +83,31 @@
 
                 <div class="box box-primary">
                     <div class="box-header with-border">
+                        <h3 class="box-title">Customer - <b>{{ App\Customer::Maxno() }}</b></h3>
+                        <div class="box-tools pull-right">
+                            <button class="btn btn-box-tool" data-widget="collapse" data-toogle="tooltip" title="Collapse"><i class="fa fa-minus"></i></button>
+                        </div>
+                        <div class="box-body">
+                            <button type="button" class="btn btn-default" onclick="AddCustomer()">
+                                <i class="fa fa-plus" aria-hidden="true"></i> Create Customer
+                            </button>
+
+                            <select class="js-example-basic-example form-control" id="js-example-basic-example">
+                                <option value=""></option>
+                                @foreach($customer_list as $key => $value)
+                                    <option value="{{ $key }}">{{ $value }}</option>
+                                @endforeach
+                            </select>
+
+                        {!! Form::model($customer = new \App\Customer, ['route'=>'admin.customer.store', 'id'=>'formCustomer']) !!}
+                            <form role="form">
+                                @include('admin.customer._form',['edit'=>false])
+                            </form>
+                        </div>
+                    </div>
+
+                <div class="box box-primary">
+                    <div class="box-header with-border">
                         <h3 class="box-title">Customer Collateral - <b>{{ App\CustomerCollateral::Maxno() }}</b></h3>
                         <div class="box-tools pull-right">
                             <button class="btn btn-box-tool" data-widget="collapse" data-toogle="tooltip" title="Collapse"><i class="fa fa-minus"></i></button>
@@ -95,25 +121,6 @@
                   <!-- /.box-body -->
                     </div>
 
-                <div class="box box-primary">
-                    <div class="box-header with-border">
-                        <h3 class="box-title">Attach</h3>
-                        <div class="box-tools pull-right">
-                            <button class="btn btn-box-tool" data-widget="collapse" data-toogle="tooltip" title="Collapse"><i class="fa fa-minus"></i></button>
-                        </div>
-                        <div class="box-body">
-                            {!! Form::open([ 'route' => [ 'image.store' ], 'files' => true, 'enctype' => 'multipart/form-data', 'class' => 'dropzone', 'id' => 'book-image' ]) !!}
-                            <div>
-                                <h4><center>Upload Image</center></h4>
-                            </div>
-                            {!! Form::close() !!}
-                            {{-- <form role="form">
-                                @include('admin.loan.customerupload._form')
-                            </form> --}}
-                        </div>
-                    </div>
-
-
                     <div class="box-footer">
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </div>
@@ -125,10 +132,19 @@
         </div>
     </div>
 
+    @include('admin.loan._modal')
 @stop
 
 @section('scripts')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
 
-    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
-    <script src="/js/upload.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $("#js-example-basic-single").select2({
+                tags: 'true',
+                placeholder: 'Search Customer',
+                allowClear: true
+            });
+        });
+    </script>
 @stop

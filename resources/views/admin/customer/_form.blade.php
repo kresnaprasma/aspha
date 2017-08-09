@@ -1,6 +1,10 @@
 <div class="box-body">
 	<div class="row">
 		<div class="col-md-6">
+
+			<div class="form-group{{ $errors->has('customer_no') ? 'has-error' : '' }}">
+				
+			</div>
 			<div class="form-group{{ $errors->has('branch_id') ? ' has-error' : '' }}">
                 {!! Form::label('branch_id', "Branch") !!}
 				{!! Form::select('branch_id', $branch_list, old('branch_id'), ['class'=>'form-control','id'=>'branch_id']) !!}
@@ -12,9 +16,9 @@
             </div>
 
 			<div class="checkbox">
-              <label>
-                {!! Form::checkbox('active',1) !!} <b>active</b>
-              </label>
+            	<label>
+            		{!! Form::checkbox('active',1) !!} <b>active</b>
+            	</label>
             </div>
 			<div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
                 {!! Form::label('name', "Name") !!}
@@ -89,6 +93,17 @@
 		</div>
 
 		<div class="col-md-6">
+
+			<div class="form-group{{ $errors->has('identity_number') ? ' has-error' : '' }}">
+                {!! Form::label('identity_number', "KTP") !!}
+				{!! Form::text('identity_number', old('identity_number'), ['class'=>'form-control','id'=>'identity_number']) !!}
+				@if ($errors->has('identity_number'))
+				  <span class="help-block">
+				      <strong>{{ $errors->first('identity_number') }}</strong>
+				  </span>
+				@endif
+            </div>
+			
 			<div class="form-group{{ $errors->has('gender') ? ' has-error' : '' }}">
                 {!! Form::label('gender', "Gender") !!}
 				{!! Form::select('gender', ['Male'=>'Male','Female'=>'Female'],old('gender'), ['class'=>'form-control','id'=>'gender']) !!}

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCustomerCollateralsTable extends Migration
+class CreateCustomercollateralsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateCustomerCollateralsTable extends Migration
      */
     public function up()
     {
-        Schema::create('customer_collaterals', function (Blueprint $table) {
+        Schema::create('customercollaterals', function (Blueprint $table) {
             $table->string('id')->index();
             $table->string('customercollateral_no')->unique();
             $table->string('stnk')->unique();
@@ -39,6 +39,6 @@ class CreateCustomerCollateralsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('customer_collaterals');
+        Schema::dropIfExists('customercollaterals');
     }
 }

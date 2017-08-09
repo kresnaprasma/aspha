@@ -54,7 +54,7 @@ class Cash extends Model
 
     public function customer()
     {
-        return $this->hasMany('App\Customer');
+        return $this->belongsTo('App\Customer');
     }
 
     public function user()

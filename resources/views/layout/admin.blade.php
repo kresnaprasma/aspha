@@ -23,6 +23,8 @@
     <link href="{{ asset("/assets/selectize/css/selectize.bootstrap3.css")}}" rel="stylesheet">
 
     <link href="{{ asset("/assets/adminlte/dist/css/skins/skin-blue.min.css")}}" rel="stylesheet" type="text/css" />
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
     
     @yield('styles')
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->

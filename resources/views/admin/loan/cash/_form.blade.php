@@ -24,7 +24,7 @@
             </div>
          </div>
          
-         <div class="form-group{{ $errors->has('customer_no') ? ' has-error' : '' }}">
+         {{-- <div class="form-group{{ $errors->has('customer_no') ? ' has-error' : '' }}">
             {!! Form::label('customer_no', "Customer Name", ['class'=>'col-md-4 control-label']) !!}
             <div class="col-md-8">
                {!! Form::select('customer_no', $customer_list, old('customer_no'), ['class'=>'form-control','id'=>'customer_no']) !!}
@@ -34,7 +34,7 @@
                   </span>
                @endif
             </div>
-         </div>
+         </div> --}}
 
       </div>
 

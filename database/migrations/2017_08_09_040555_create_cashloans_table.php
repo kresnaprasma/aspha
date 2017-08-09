@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCashTable extends Migration
+class CreateCashloansTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateCashTable extends Migration
      */
     public function up()
     {
-        Schema::create('cashes', function (Blueprint $table) {
+        Schema::create('cashloans', function (Blueprint $table) {
             $table->string('id')->index();
             $table->string('cash_no')->unique();
             $table->string('credit_ceiling_request')->nullable();
@@ -41,6 +41,6 @@ class CreateCashTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('cashes');
+        Schema::dropIfExists('cashloans');
     }
 }
