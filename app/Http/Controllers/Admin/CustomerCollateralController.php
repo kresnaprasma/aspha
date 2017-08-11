@@ -34,6 +34,7 @@ class CustomerCollateralController extends Controller
         return view('admin.loan.custcoll.create');
     }
 
+
     /**
      * Store a newly created resource in storage.
      *

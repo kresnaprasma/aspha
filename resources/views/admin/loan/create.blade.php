@@ -91,7 +91,7 @@
                             <button type="button" class="btn btn-default" onclick="AddCustomer()">
                                 <i class="fa fa-plus" aria-hidden="true"></i> Create Customer
                             </button>
-
+                            
                             <select class="js-example-basic-example form-control" id="js-example-basic-example">
                                 <option value=""></option>
                                 @foreach($customer_list as $key => $value)

@@ -1,7 +1,7 @@
 @extends('layout.admin')
 
-
 @section('content')
+
 
 	<div class="row">
 		<div class="col-md-12">
@@ -23,11 +23,12 @@
 					    	<button type="button" class="btn btn-default" onclick="deleteCustomer()">
 					    		<i class="fa fa-times" aria-hidden="true"></i> Delete
 					    	</button>
+
 					   	</div>
 					   	<div class="col-md-4">
 					    	<input type="text" id="searchDtbox" class="form-control" placeholder="Search">
 				   		</div>
-				   		
+
 					</div>
 
 					{!! Form::open(['route'=>'admin.customer.delete', 'id'=>'formDeleteCustomer']) !!}
@@ -84,6 +85,29 @@
 @stop
 
 @section('scripts')
+
+	<script type="text/javascript">
+		$('#customerName').select2({
+        placeholder: 'Select customer',
+        ajax: {
+          url: '/select2-autocomplete',
+          dataType: 'json',
+          delay: 250,
+          processResults: function (data) {
+            return {
+              results:  $.map(data, function (customer) {
+                    return {
+                        text: customer.name,
+                        id: customer.id
+                    }
+                })
+            };
+          },
+          cache: true
+        }
+      });
+	</script>
+
 	<script type="text/javascript">
 		var tableCustomer = $('#tableCustomer').DataTable({
 			"sDom": 'rt',
@@ -127,4 +151,6 @@
 			$("#formDeleteCustomer").submit();
 		}
 	</script>
+
+	
 @stop

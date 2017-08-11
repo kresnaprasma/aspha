@@ -52,6 +52,10 @@ Route::group([
 	Route::get('loan/create', ['as'=>'admin.loan.create','uses'=>'Admin\LoanController@create']);
 
 
+	Route::post('customer/delete', ['as'=>'admin.customer.delete','uses'=>'Admin\CustomerController@delete']);
+	Route::resource('customer', 'Admin\CustomerController',['as'=>'admin']);
+	Route::get('select2-autocomplete', 'Admin\CustomerController@dataAjax', ['as'=>'admin']);
+	
 
 	Route::resource('motor', 'Admin\MotorController', ['as' => 'admin']);
 	Route::post('/motor/delete', ['as'=>'admin.motor.delete', 'uses'=>'Admin\MotorController@delete']);
@@ -70,10 +74,6 @@ Route::group([
 
 	Route::post('master/supplier/delete',['as'=>'admin.master.supplier.delete','uses'=>'Admin\SupplierController@delete']);
 	Route::resource('master/supplier','Admin\SupplierController',['as'=>'admin.master']);
-
-
-	Route::post('customer/delete', ['as'=>'admin.customer.delete','uses'=>'Admin\CustomerController@delete']);
-	Route::resource('customer', 'Admin\CustomerController',['as'=>'admin']);
 
 
 	Route::post('master/user/delete',['as'=>'admin.master.user.delete','uses'=>'Admin\UserController@delete']);
