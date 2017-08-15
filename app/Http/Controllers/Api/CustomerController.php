@@ -39,7 +39,34 @@ class CustomerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+            'address' =>'required',
+            'birth_date' => 'required',
+            'identity_number' => 'required',
+            'phone' => 'required',
+            'gender' => 'required'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(
+                [
+                    'status' => '404',
+                    'message' => $validator->errors(),
+                    'data' => []
+                ], 404
+            );
+        }
+
+        $customer = Customer::create($request->all());
+
+        if (!$customer) {
+            return response()->json([
+                'status' => '200',
+                'message' => 'Customer created Successfully',
+                'data' => [$this->transform($customer)]
+            ], 200);
+        }
     }
 
     /**
@@ -112,18 +139,26 @@ class CustomerController extends Controller
     private function transform($customers){
         return [
             'customer_id' => $customer['id'];
-            'customer_ktp_number' => $customer['ktp_number'];
-            'customer_familycard_number' => $customer['familycard_number'];
-            'customer_fullname' => $customer['fullname'];
-            'customer_address' => $customer ['address'];
-            'customer_post_code' => $customer['post_code'];
-            'customer_birth_date' => $customer['birth_date'];
-            'customer_job' => $customer['job'];
-            'customer_company_address' => $customer['company_address'];
-            'customer_handphone' => $customer['handphone'];
-            'customer_salary' => $customer['salary'];
-            'customer_email' => $customer['email'];
-            'customer_password' => $customer['password'];
+            'customer_no' => $customer['customer_no'];
+            'customer_name' => $customer['name'];
+            'customer_address' => $customer['address'];
+            'customer_email' => $customer ['email'];
+            'customer_phone' => $customer['phone'];
+            'customer_active' => $customer['active'];
+            'customer_branch_id' => $customer['branch_id'];
+            'customer_birthdate' => $customer['birthdate'];
+            'customer_birthplace' => $customer['birthplace'];
+            'customer_identity_number' => $customer['identity_number'];
+            'customer_gender' => $customer['gender'];
+            'customer_rt' => $customer['rt'];
+            'customer_rw' => $customer['rw'];
+            'customer_postal_code' => $customer['postal_code'];
+            'customer_kelurahan' => $customer['kelurahan'];
+            'customer_kecamatan' => $customer['kecamatan'];
+            'customer_kabupaten' => $customer['kabupaten'];
+            'customer_city' => $customer['city'];
+            'customer_province' => $customer['province'];
+            'customer_kk_number' => $customer['kk_number'];
         ];
     }
 }

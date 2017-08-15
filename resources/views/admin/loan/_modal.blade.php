@@ -44,8 +44,8 @@
 		            	{!! Form::label('birthplace', "Birthplace") !!}
 						{!! Form::text('birthplace', old('birthplace'), ['class'=>'form-control','id'=>'birthplace']) !!}
 		            </div>
-		            <div class="form-group">
-		            	{!! Form::label('identity_number', "KTP") !!}
+					<div class="form-group">
+						{!! Form::label('identity_number', "KTP") !!}
 						{!! Form::text('identity_number', old('identity_number'), ['class'=>'form-control','id'=>'identity_number']) !!}
 		            </div>
 				</div>
@@ -94,7 +94,7 @@
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-				<button type="submit" class="btn btn-danger"><i class="fa fa-times-circle"></i> Yes
+				<button type="submit" class="btn btn-success"><i class="fa fa-plus-circle"></i> Yes
 			</div>
 		</div>
 	</div>	

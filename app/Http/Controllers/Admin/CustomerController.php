@@ -65,6 +65,7 @@ class CustomerController extends Controller
             'name'=>'required',
             'email'=>'required|string|unique:suppliers',
             'address'=>'required',
+            'identity_number' => 'required',
         ]);
 
         if ($validator->fails()) {

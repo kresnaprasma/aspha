@@ -29,7 +29,7 @@ class LoginController extends Controller
      * @var string
      */
     protected $redirectAfterLogout = '/login';
-    protected $redirectTo = '/admin/loan';
+    protected $redirectTo = '/admin/loan/create';
     
     /**
      * Create a new controller instance.

@@ -40,19 +40,6 @@ class LoanController extends Controller
         return view('admin.loan.create', compact('customer_list', 'branch_list', 'leasing_list'));
     }
 
-    /*public function myformAjax($id)
-    {
-        $typeall = Type::where("merk_id", $id)
-                ->pluck("name", "name");
-        return json_encode($typeall);
-    }
-
-    public function myformEdit($id)
-    {
-        $typeedit = Type::where("merk_id", $id)
-                ->pluck("name", "name");
-        return json_encode($typeedit);
-    }*/
     /**
      * Store a newly created resource in storage.
      *
@@ -76,6 +63,42 @@ class LoanController extends Controller
             return redirect()->back()->withInput()->withErrors($validator);
         }
 
+        $cash = new Cash();
+        $cash->id = Uuid::uuid4()->getHex();
+        $cash->cash_no = Cash::Maxno();
+        $cash->credit_ceiling_request = $request->input('credit_ceiling_request');
+        $cash->tenor_request = $request->input('tenor_request');
+        $cash->customer_no = $request->input('customer_no');
+        $cash->leasing_no = $request->input('leasing_no');
+        $cash->branch_id = $request->input('branch_id');
+        $cash->save();
+
+
+        $customer = new Customer();
+        $customer->id = Uuid::uuid4()->getHex();
+        $customer->customer_no = Customer::Maxno();
+        $customer->name = $request->input('name');
+        $customer->address = $request->input('address');
+        $customer->birthdate = $request->input('birthdate');
+        $customer->birthplace = $request->input('birthplace');
+        $customer->identity_number = $request->input('identity_number');
+        $customer->phone = $request->input('phone');
+
+        $customer->email = $request->input('email');
+        $customer->rt = $request->input('rt');
+        $customer->rw = $request->input('rw');
+        $customer->postalcode = $request->input('postalcode');
+        $customer->kelurahan = $request->input('kelurahan');
+        $customer->kecamatan = $request->input('kecamatan');
+        $customer->kabupaten = $request->input('kabupaten');
+        $customer->city = $request->input('city');
+        $customer->province = $request->input('province');
+        $customer->kk_number = $request->input('kk_number');
+        $customer->branch_id = $request->input('branch_id');
+        $customer->save();
+        $cash->save();
+
+
         $custcoll = New CustomerCollateral();
         $custcoll->id = Uuid::uuid4()->getHex();
         $custcoll->customercollateral_no = CustomerCollateral::Maxno();
@@ -90,18 +113,8 @@ class LoanController extends Controller
         $custcoll->stnk_due_date = $request->input('stnk_due_date');
         $custcoll->save();
 
-        $cash = new Cash();
-        $cash->id = Uuid::uuid4()->getHex();
-        $cash->cash_no = Cash::Maxno();
-        $cash->credit_ceiling_request = $request->input('credit_ceiling_request');
-        $cash->tenor_request = $request->input('tenor_request');
-        $cash->customer_no = $request->input('customer_no');
-        $cash->leasing_no = $request->input('leasing_no');
-        $cash->branch_id = $request->input('branch_id');
-        $cash->save();
 
-
-        if (!$custcoll || !$cash) {
+        if (!$custcoll || !$cash || $customer) {
             return redirect()->back()->withInput()->withErrors('Cannot Create Loan');
         }else{
             return redirect('admin/loan/')->with('success', 'Successfully create Loan');
@@ -171,7 +184,7 @@ class LoanController extends Controller
         $custcoll->update($request->all());
         $cash->update($request->all());
 
-        if (!$custcoll || !$cash || !$cashfix) {
+        if (!$custcoll || !$cash || !$customer || !$cashfix) {
             return redirect()->back()->withInput()->withErrors('
                 Cant update Customer Collateral' );
         }else{

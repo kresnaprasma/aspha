@@ -16,7 +16,7 @@
     					<button class="btn btn-box-tool" data-widget="collapse" data-toogle="tooltip" title="Collapse"><i class="fa fa-minus"></i></button>
     				</div>
     			</div>
-                {!! Form::model($custcoll = new \App\CustomerCollateral, ['route'=>'admin.loan.custcoll.store','id'=>'formCreateCustColl']) !!}
+                {!! Form::model($custcoll = new \App\CustomerCollateral, ['route'=>'admin.loan.custcoll.store','id'=>'formCreateCustColl', 'class' => 'form-horizontal']) !!}
     			<div class="box-body">
                     <form role="form">
                         @include('admin.loan.custcoll._form',['edit'=>false])
