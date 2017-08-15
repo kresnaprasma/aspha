@@ -87,24 +87,92 @@
                         <div class="box-tools pull-right">
                             <button class="btn btn-box-tool" data-widget="collapse" data-toogle="tooltip" title="Collapse"><i class="fa fa-minus"></i></button>
                         </div>
-                        <div class="box-body">
-                            <button type="button" class="btn btn-default" onclick="AddCustomer()">
-                                <i class="fa fa-plus" aria-hidden="true"></i> Create Customer
-                            </button>
-                            
-                            <select class="js-example-basic-example form-control" id="js-example-basic-example">
-                                <option value=""></option>
-                                @foreach($customer_list as $key => $value)
-                                    <option value="{{ $key }}">{{ $value }}</option>
-                                @endforeach
-                            </select>
 
                         {!! Form::model($customer = new \App\Customer, ['route'=>'admin.customer.store', 'id'=>'formCustomer']) !!}
-                            <form role="form">
+                            {{-- <form role="form">
                                 @include('admin.customer._form',['edit'=>false])
-                            </form>
-                        </div>
-                    </div>
+                            </form> --}}
+                            <div class="box-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <select class="js-example-basic-example form-control" id="js-example-basic-example" style="width: 270px;" onchange="getdata(this.value)">
+                                            <option value=""></option>
+                                            @foreach($customer_list as $key => $value)
+                                                <option value="{{ $key }}">{{ $value }}</option>
+                                            @endforeach
+                                        </select>
+
+                                        <button type="button" class="btn btn-default" onclick="AddCustomer()">
+                                            <i class="fa fa-plus" aria-hidden="true"></i> Create Customer
+                                        </button>
+
+                                        <div class="form-group{{ $errors->has('customer_no') ? 'has-error' : '' }}">
+                                            
+                                        </div>
+
+                                        <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
+                                            {!! Form::label('name', "Name") !!}
+                                            {!! Form::text('name', old('name'), ['class'=>'form-control','id'=>'name','autofocus']) !!}
+                                            @if ($errors->has('name'))
+                                              <span class="help-block">
+                                                  <strong>{{ $errors->first('name') }}</strong>
+                                              </span>
+                                            @endif
+                                        </div>
+
+                                        <div class="form-group{{ $errors->has('address') ? ' has-error' : '' }}">
+                                            {!! Form::label('address', "Address") !!}
+                                            {!! Form::textarea('address', old('address'), ['class'=>'form-control','id'=>'address']) !!}
+                                            @if ($errors->has('address'))
+                                              <span class="help-block">
+                                                  <strong>{{ $errors->first('address') }}</strong>
+                                              </span>
+                                            @endif
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="form-group{{ $errors->has('birthdate') ? ' has-error' : '' }}">
+                                            {!! Form::label('birthdate', "Birthdate") !!}
+                                            {!! Form::date('birthdate', old('birthdate'), ['class'=>'form-control','id'=>'birthdate']) !!}
+                                            @if ($errors->has('birthdate'))
+                                              <span class="help-block">
+                                                  <strong>{{ $errors->first('birthdate') }}</strong>
+                                              </span>
+                                            @endif
+                                        </div>
+
+                                        <div class="form-group{{ $errors->has('identity_number') ? ' has-error' : '' }}">
+                                            {!! Form::label('identity_number', "KTP") !!}
+                                            {!! Form::text('identity_number', old('identity_number'), ['class'=>'form-control','id'=>'identity_number']) !!}
+                                            @if ($errors->has('identity_number'))
+                                              <span class="help-block">
+                                                  <strong>{{ $errors->first('identity_number') }}</strong>
+                                              </span>
+                                            @endif
+                                        </div>
+
+                                        <div class="form-group{{ $errors->has('gender') ? ' has-error' : '' }}">
+                                            {!! Form::label('gender', "Gender") !!}
+                                            {!! Form::select('gender', ['Male'=>'Male','Female'=>'Female'],old('gender'), ['class'=>'form-control','id'=>'gender']) !!}
+                                            @if ($errors->has('gender'))
+                                              <span class="help-block">
+                                                  <strong>{{ $errors->first('gender') }}</strong>
+                                              </span>
+                                            @endif
+                                        </div>
+
+                                        <div class="form-group{{ $errors->has('phone') ? ' has-error' : '' }}">
+                                            {!! Form::label('phone', "Phone") !!}
+                                            {!! Form::text('phone', old('phone'), ['class'=>'form-control','id'=>'phone']) !!}
+                                            @if ($errors->has('phone'))
+                                              <span class="help-block">
+                                                  <strong>{{ $errors->first('phone') }}</strong>
+                                              </span>
+                                            @endif
+                                        </div>
+                                    </div>
+                                </div>
 
                 <div class="box box-primary">
                     <div class="box-header with-border">
@@ -140,11 +208,38 @@
 
     <script type="text/javascript">
         $(document).ready(function() {
-            $("#js-example-basic-single").select2({
+            $("#js-example-basic-example").select2({
                 tags: 'true',
                 placeholder: 'Search Customer',
                 allowClear: true
             });
         });
+
+        function getdata(e){
+            $.get('/admin/customer/' + e,
+                function(data){
+                    alert(data);
+            });
+            alert(e);
+        }
+
+        $("#customer_list").change(function() {
+            var customer_list = $(this).val();
+            getCustomerList(customer_list);
+        });
+
+        function getCustomerList(customer_list) {
+            $.ajax({
+                url: '/api/customer'+ customer_list,
+                type: 'GET',
+                success: function (response) {
+                    
+                },
+                error: function(response){
+                    alert(response);
+                }
+            })     
+        }
+
     </script>
 @stop

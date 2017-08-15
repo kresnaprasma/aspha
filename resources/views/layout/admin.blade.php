@@ -5,9 +5,10 @@
 	<title>{{ $page_title or "Aspha Dashboard" }}</title>
 	<meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
 
-	<!-- our style bro -->
-	<link rel="stylesheet" type="text/css" href="{{ asset("/assets/css/style.css") }}">
-	<!-- Ionicons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
+    <!-- our style bro -->
+    <link rel="stylesheet" type="text/css" href="{{ asset("/assets/css/style.css") }}">
+    <!-- Ionicons -->
     <link href="http://code.ionicframework.com/ionicons/2.0.0/css/ionicons.min.css" rel="stylesheet" type="text/css" />
     <!-- Theme style -->
     <link href="{{ asset("/assets/adminlte/dist/css/AdminLTE.min.css")}}" rel="stylesheet" type="text/css" />
@@ -24,7 +25,6 @@
 
     <link href="{{ asset("/assets/adminlte/dist/css/skins/skin-blue.min.css")}}" rel="stylesheet" type="text/css" />
 
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
 
 
     
