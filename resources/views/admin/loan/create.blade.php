@@ -23,7 +23,7 @@
 
                 <div class="box box-primary"> <!-- Second box -->
                     <div class="box-header with-border">
-                        <h3 class="box-title">Customer - <b>{{ App\Customer::Maxno() }}</b></h3>
+                        <h3 class="box-title">Customer</h3>
                         <div class="box-tools pull-right">
                             <button class="btn btn-box-tool" data-widget="collapse" data-toogle="tooltip" title="Collapse"><i class="fa fa-minus"></i></button>
                         </div>
@@ -42,31 +42,29 @@
                             <button type="button" class="btn btn-default" onclick="AddCustomer()">
                                 <i class="fa fa-plus" aria-hidden="true"></i> Create Customer
                             </button>
+
+                            <div class="form-group{{ $errors->has('customer_no') ? ' has-error' : '' }}">
+                                {!! Form::label('customer_no', 'Customer No. :') !!}
+                                {!! Form::text('customer_no', old('customer_no'), ['class' => 'form-control', 'id' => 'customernoLoan', 'autofocus', 'readonly' => 'true']) !!}
+                                @if ($errors->has('customer_no'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('customer_no') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
                                 
                             <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
                                 {!! Form::label('name', "Name") !!}
-                                {!! Form::text('name', old('name'), ['class'=>'form-control','id'=>'nameLoan','autofocus']) !!}
+                                {!! Form::text('name', old('name'), ['class'=>'form-control','id'=>'nameLoan','autofocus', 'readonly' => 'true']) !!}
                                 @if ($errors->has('name'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('name') }}</strong>
                                     </span>
                                 @endif
                             </div>
-                            <div class="form-group{{ $errors->has('address') ? ' has-error' : '' }}">
-                                {!! Form::label('address', "Address") !!}
-                                {!! Form::textarea('address', old('address'), ['class'=>'form-control','id'=>'addressLoan']) !!}
-                                @if ($errors->has('address'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('address') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="col-md-6">
                             <div class="form-group{{ $errors->has('birthdate') ? ' has-error' : '' }}">
                                 {!! Form::label('birthdate', "Birthdate") !!}
-                                {!! Form::date('birthdate', old('birthdate'), ['class'=>'form-control','id'=>'birthdateLoan']) !!}
+                                {!! Form::date('birthdate', old('birthdate'), ['class'=>'form-control','id'=>'birthdateLoan', 'readonly' => 'true']) !!}
                                 @if ($errors->has('birthdate'))
                                    <span class="help-block">
                                         <strong>{{ $errors->first('birthdate') }}</strong>
@@ -75,28 +73,31 @@
                             </div>
                             <div class="form-group{{ $errors->has('identity_number') ? ' has-error' : '' }}">
                                 {!! Form::label('identity_number', "KTP") !!}
-                                {!! Form::text('identity_number', old('identity_number'), ['class'=>'form-control','id'=>'identity_numberLoan']) !!}
+                                {!! Form::text('identity_number', old('identity_number'), ['class'=>'form-control','id'=>'identity_numberLoan', 'readonly' => 'true']) !!}
                                 @if ($errors->has('identity_number'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('identity_number') }}</strong>
                                     </span>
                                 @endif
                             </div>
-                            <div class="form-group{{ $errors->has('gender') ? ' has-error' : '' }}">
-                                {!! Form::label('gender', "Gender") !!}
-                                {!! Form::select('gender', ['Male'=>'Male','Female'=>'Female'],old('gender'), ['class'=>'form-control','id'=>'genderLoan']) !!}
-                                @if ($errors->has('gender'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('gender') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
+                        </div>
+
+                        <div class="col-md-6">
                             <div class="form-group{{ $errors->has('phone') ? ' has-error' : '' }}">
                                 {!! Form::label('phone', "Phone") !!}
-                                {!! Form::text('phone', old('phone'), ['class'=>'form-control','id'=>'phoneLoan']) !!}
+                                {!! Form::text('phone', old('phone'), ['class'=>'form-control','id'=>'phoneLoan', 'readonly' => 'true']) !!}
                                 @if ($errors->has('phone'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('phone') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                            <div class="form-group{{ $errors->has('address') ? ' has-error' : '' }}">
+                                {!! Form::label('address', "Address") !!}
+                                {!! Form::textarea('address', old('address'), ['class'=>'form-control','id'=>'addressLoan', 'readonly' => 'true']) !!}
+                                @if ($errors->has('address'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('address') }}</strong>
                                     </span>
                                 @endif
                             </div>
@@ -143,13 +144,13 @@
             });
         });
 
-        function getdata(e){
+        /*function getdata(e){
             $.get('/admin/customer/' + e,
                 function(data){
                     alert(data);
             });
             alert(e);
-        }
+        }*/
 
         $("#customer_list").change(function() {
             var customer_list = $(this).val();
@@ -162,14 +163,14 @@
 
         function getCustomerList(customer_list, name, address, birthdate, identity_number, gender, phone) {
             $.ajax({
-                url: '/api/customer/'+ customer_list,
+                url: 'http://localhost:8000/api/v1/customer/'+ customer_list,
                 type: 'GET',
                 success: function (response) {
+                    $('#customernoLoan').val(customer_no);
                     $('#nameLoan').val(name);
                     $('#addressLoan').val(address);
                     $('#birthdateLoan').val(birthdate);
                     $('#identity_numberLoan').val(identity_number);
-                    $('#genderLoan').val(gender);
                     $('#phoneLoan').val(phone);
                 },
                 error: function(response){

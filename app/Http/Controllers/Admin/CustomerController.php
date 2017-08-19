@@ -37,21 +37,6 @@ class CustomerController extends Controller
         return view('admin.customer.create', compact('branch_list'));
     }
 
-    public function dataAjax(Request $request)
-    {
-        $data = [];
-
-        if($request->has('c')){
-            $search = $request->c;
-            $data = DB::table('customers')
-                        ->select('id', 'name')
-                        ->where('name', 'LIKE', '%search%')
-                        ->get();
-        }
-
-        return response()->json($data);
-    }
-
     /**
      * Store a newly created resource in storage.
      *

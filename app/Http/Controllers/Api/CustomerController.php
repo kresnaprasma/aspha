@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Customer;
 
 class CustomerController extends Controller
 {
@@ -37,6 +38,27 @@ class CustomerController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+    /*public function add(Request $request)
+    {
+        if (request()->ajax()) {
+            $customer = Customer::find($customer_id);
+            $validator = Validator::make($request->all(), [
+                'name' => 'required',
+                'address' =>'required',
+                'birth_date' => 'required',
+                'identity_number' => 'required',
+                'phone' => 'required',
+                'gender' => 'required'
+            ]);
+        }
+    }*/
+
+    public function search($id)
+    {
+        $customer = Customer::find($id)->get();
+        return response()->json($customer);
+    }
+
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -62,6 +84,12 @@ class CustomerController extends Controller
 
         if (!$customer) {
             return response()->json([
+                'status'=>'404',
+                'message'=>'cannot save this data',
+                'data'=> []
+            ], 404);
+        }else{
+            return response()->json([
                 'status' => '200',
                 'message' => 'Customer created Successfully',
                 'data' => [$this->transform($customer)]
@@ -79,7 +107,7 @@ class CustomerController extends Controller
     {
         $customer = Customer::find($id);
 
-        if (!$loan) {
+        if (!$customer) {
             return response()->json([
                 'error'=>[
                     'message' => 'Customer does not exist'
@@ -88,7 +116,7 @@ class CustomerController extends Controller
         }
 
         return response()->json([
-            'data'=>$this->transformCollection($customer)
+            'data'=>$this->transform($customer)
         ], 200);
     }
 
@@ -132,33 +160,33 @@ class CustomerController extends Controller
             'data'=>$this->transform($customer)]);
     }
 
-    private function transformCollection($customers){
+    public function transformCollection($customers){
         return array_map([$this, 'transform'], $customers->toArray());
     }
 
-    private function transform($customers){
+    public function transform($customer){
         return [
-            'customer_id' => $customer['id'];
-            'customer_no' => $customer['customer_no'];
-            'customer_name' => $customer['name'];
-            'customer_address' => $customer['address'];
-            'customer_email' => $customer ['email'];
-            'customer_phone' => $customer['phone'];
-            'customer_active' => $customer['active'];
-            'customer_branch_id' => $customer['branch_id'];
-            'customer_birthdate' => $customer['birthdate'];
-            'customer_birthplace' => $customer['birthplace'];
-            'customer_identity_number' => $customer['identity_number'];
-            'customer_gender' => $customer['gender'];
-            'customer_rt' => $customer['rt'];
-            'customer_rw' => $customer['rw'];
-            'customer_postal_code' => $customer['postal_code'];
-            'customer_kelurahan' => $customer['kelurahan'];
-            'customer_kecamatan' => $customer['kecamatan'];
-            'customer_kabupaten' => $customer['kabupaten'];
-            'customer_city' => $customer['city'];
-            'customer_province' => $customer['province'];
-            'customer_kk_number' => $customer['kk_number'];
+            'customer_id' => $customer['id'],
+            'customer_no' => $customer['customer_no'],
+            'customer_name' => $customer['name'],
+            'customer_address' => $customer['address'],
+            'customer_email' => $customer ['email'],
+            'customer_phone' => $customer['phone'],
+            'customer_active' => $customer['active'],
+            'customer_branch_id' => $customer['branch_id'],
+            'customer_birthdate' => $customer['birthdate'],
+            'customer_birthplace' => $customer['birthplace'],
+            'customer_identity_number' => $customer['identity_number'],
+            'customer_gender' => $customer['gender'],
+            'customer_rt' => $customer['rt'],
+            'customer_rw' => $customer['rw'],
+            'customer_postalcode' => $customer['postalcode'],
+            'customer_kelurahan' => $customer['kelurahan'],
+            'customer_kecamatan' => $customer['kecamatan'],
+            'customer_kabupaten' => $customer['kabupaten'],
+            'customer_city' => $customer['city'],
+            'customer_province' => $customer['province'],
+            'customer_kk_number' => $customer['kk_number']
         ];
     }
 }
