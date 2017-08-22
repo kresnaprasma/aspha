@@ -14,7 +14,7 @@
                 {!! Form::model($history = new \App\History, ['route'=>'admin.loan.history.update','id'=>'formHistory', 'class'=>'form-horizontal']) !!}
                 <div class="box-body">
                     <form role="form">
-                        @include('admin.loan.history._form',['edit'=>false])
+                        @include('admin.loan.history._form',['edit'=>true])
                     </form>
               <!-- /.box-body -->
 

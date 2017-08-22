@@ -99,37 +99,12 @@
 @stop
 
 @section('scripts')
-  {{-- <script type="text/javascript">
-  $(document).ready(function() {
-        $('select[id="merk_id"]').on('change', function() {
-            var merkID = $(this).val();
-            if(merkID) {
-                $.ajax({
-                    url: '/admin/vehiclecollateral/type/'+merkID,
-                    type: "GET",
-                    dataType: "json",
-                    success:function(data) {
-                        
-                        $('select[id="type_id"]').empty();
-                        $.each(data, function(key, value) {
-                            $('select[id="type_id"]').append('<option value="'+ key +'">'+ value +'</option>');
-            });
-          }
-        });
-      }else{
-        $('select[id="type_id"]').empty();
-      }
-    });
-    });
-  </script> --}}
 
   <script type="text/javascript">
     var tableCollateral = $('#tableCollateral').DataTable({
-      "sDom": 'rt',
-      "columnDefs": [{
-        "targets": [],
-        "orderable": false
-      }]
+      "dom": "rtip",
+          "pageLength": 10,
+          "retrieve": true,
     });
 
     $("#searchDtbox").keyup(function(){

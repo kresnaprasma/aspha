@@ -31,7 +31,8 @@ class CustomerCollateralController extends Controller
      */
     public function create()
     {
-        return view('admin.loan.custcoll.create');
+        $customercollateral_id = CustomerCollateral::Maxno();
+        return view('admin.loan.custcoll.create', compact('customercollateral_id'));
     }
 
 

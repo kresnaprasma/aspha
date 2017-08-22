@@ -35,9 +35,11 @@ class LoanController extends Controller
     public function create()
     {
         $branch_list = Branch::pluck('name', 'id');
+        $customer_id = Customer::Maxno();
+        $customercollateral_id = CustomerCollateral::Maxno();
         $customer_list = Customer::pluck('name', 'customer_no');
         $leasing_list = Leasing::pluck('name', 'leasing_no');
-        return view('admin.loan.create', compact('customer_list', 'branch_list', 'leasing_list'));
+        return view('admin.loan.create', compact('customer_list', 'branch_list', 'leasing_list', 'customer_id', 'customercollateral_id'));
     }
 
     /**
@@ -96,7 +98,6 @@ class LoanController extends Controller
         $customer->kk_number = $request->input('kk_number');
         $customer->branch_id = $request->input('branch_id');
         $customer->save();
-        $cash->save();
 
 
         $custcoll = New CustomerCollateral();
@@ -130,7 +131,7 @@ class LoanController extends Controller
      */
     public function show($id)
     {
-        //
+        return view('admin/loan/edit');
     }
     /**
      * Show the form for editing the specified resource.

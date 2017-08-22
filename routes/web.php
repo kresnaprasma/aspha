@@ -50,6 +50,7 @@ Route::group([
 
 
 	Route::get('loan/create', ['as'=>'admin.loan.create','uses'=>'Admin\LoanController@create']);
+	Route::get('loan/edit', ['as'=>'admin.loan.edit', 'uses'=>'Admin\LoanController@edit']);
 
 
 	Route::post('customer/delete', ['as'=>'admin.customer.delete','uses'=>'Admin\CustomerController@delete']);

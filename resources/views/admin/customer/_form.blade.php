@@ -15,6 +15,16 @@
 				@endif
             </div>
 
+            <div class="form-group{{ $errors->has('customer_no' ? ' has-error' : '') }}">
+				{!! Form::label('customer_no', 'Customer No:') !!}
+				{!! Form::text('customer_no', null, ['class'=>'form-control', 'readonly'=>'true', 'placeholder' => empty($customer_id) ? 'default value' : $customer_id, 'required' ]) !!}
+				@if ($errors->has('customer_no'))
+					<span class="help-block">
+						<strong>{{ $errors->first('customer_no') }}</strong>
+					</span>
+				@endif
+			</div>
+
 			<div class="checkbox">
             	<label>
             		{!! Form::checkbox('active',1) !!} <b>active</b>
@@ -76,16 +86,6 @@
 				@if ($errors->has('birthplace'))
 				  <span class="help-block">
 				      <strong>{{ $errors->first('birthplace') }}</strong>
-				  </span>
-				@endif
-            </div>
-
-            <div class="form-group{{ $errors->has('identity_number') ? ' has-error' : '' }}">
-                {!! Form::label('identity_number', "KTP") !!}
-				{!! Form::text('identity_number', old('identity_number'), ['class'=>'form-control','id'=>'identity_number']) !!}
-				@if ($errors->has('identity_number'))
-				  <span class="help-block">
-				      <strong>{{ $errors->first('identity_number') }}</strong>
 				  </span>
 				@endif
             </div>

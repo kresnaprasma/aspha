@@ -17,7 +17,21 @@
                         {!! Form::model($cash = new \App\Cash, ['route'=>'admin.loan.cash.store','id'=>'formCash', 'class'=>'form-horizontal']) !!}
                     <div class="box-body">
                         <form role="form">
-                            @include('admin.loan.cash._form',['edit'=>false])
+                            @include('admin.loan.cash._form',['edit'=>true])
+                        </form>
+                    </div>
+
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Cashfix - <b>{{ App\Cashfix::Maxno() }}</b></h3>
+                        <div class="box-tools pull-right">
+                            <button class="btn btn-box-tool" data-widget="collapse" data-toogle="tooltip" title="Collapse"><i class="fa fa-minus"></i></button>
+                        </div>
+                    </div>
+                        {!! Form::model($cashfix = new \App\Cashfix, ['route'=>'admin.loan.cashfix.store','id'=>'formCash', 'class'=>'form-horizontal']) !!}
+                    <div class="box-body">
+                        <form role="form">
+                            @include('admin.loan.cashfix._form',['edit'=>true])
                         </form>
                     </div>
 
@@ -32,17 +46,6 @@
                     </div>                        
                     <div class="box-body">
                         <div class="col-md-6">
-                            <div class="form-group">
-                                <select class="customer_select2 form-control" id="customer_list" style="width: 150px;" onchange="getCustomerList(this.value)">
-                                    <option value=""></option>
-                                    @foreach($customer_list as $key => $value)
-                                        <option value="{{ $key }}">{{ $value }}</option>
-                                    @endforeach
-                                </select>
-                                <button type="button" class="btn btn-default" onclick="AddCustomer()">
-                                    <i class="fa fa-plus" aria-hidden="true"></i>
-                                </button>
-                            </div>
                             <div class="form-group{{ $errors->has('customer_no') ? ' has-error' : '' }}">
                                 {!! Form::label('customer_no', 'Customer No. :') !!}
                                 {!! Form::text('customer_no', old('customer_no'), ['class' => 'form-control', 'id' => 'customernoLoan', 'autofocus', 'readonly' => 'true']) !!}
@@ -62,6 +65,7 @@
                                     </span>
                                 @endif
                             </div>
+
                             <div class="form-group{{ $errors->has('identity_number') ? ' has-error' : '' }}">
                                 {!! Form::label('identity_number', "KTP") !!}
                                 {!! Form::text('identity_number', old('identity_number'), ['class'=>'form-control','id'=>'identity_numberLoan', 'readonly' => 'true']) !!}
@@ -105,7 +109,7 @@
                     {!! Form::model($custcoll = new \App\CustomerCollateral, ['route'=>'admin.loan.custcoll.store','id'=>'formCreateCustColl', 'class' => 'form-horizontal']) !!}
                     <div class="box-body">
                         <form role="form">
-                            @include('admin.loan.custcoll._form',['edit'=>false])
+                            @include('admin.loan.custcoll._form',['edit'=>true])
                         </form>
 
                         <div class="box-footer">
@@ -116,6 +120,7 @@
                 </div> <!-- Third box end -->
 
                 </div> <!-- Second box end -->
+                </div>
             </div> <!-- First box end-->
         </div> <!-- colspan -->
     </div> <!-- row -->
@@ -128,70 +133,39 @@
 
     <script type="text/javascript">
         $(document).ready(function() {
-            $(".customer_select2").select2({
+            $(".customer-select2").select2({
                 tags: 'true',
                 placeholder: 'Search CRM',
                 allowClear: true
             });
         });
 
-        function getCustomerList(customer_list) {
+        $("#customer_list").change(function() {
+            var customer_list = $(this).val(customer_no);
+            getCustomerList(customer_list);
+        });
+
+        function AddCustomer() {
+            $('#createCustomerModal').modal('show');
+        }
+
+        function getCustomerList(customer_list, customer_no, name, address, birthdate, identity_number, gender, phone) {
             $.ajax({
                 url: 'http://localhost:8000/api/v1/customer/'+ customer_list,
                 type: 'GET',
-                dataType: 'json',
                 success: function (response) {
-                    console.log(response.data.customer_no, 
-                        response.data.customer_name, 
-                        response.data.customer_identity_number, 
-                        response.data.customer_phone, 
-                        response.data.customer_address);
-                    $('#customernoLoan').val(response.data.customer_no);
-                    $('#nameLoan').val(response.data.customer_name);
-                    $('#identity_numberLoan').val(response.data.customer_identity_number);
-                    $('#phoneLoan').val(response.data.customer_phone);
-                    $('#addressLoan').val(response.data.customer_address);
+                    $('').val();
+                    $('#customernoLoan').val(customer_no);
+                    $('#nameLoan').val(name);
+                    $('#addressLoan').val(address);
+                    $('#identity_numberLoan').val(identity_number);
+                    $('#phoneLoan').val(phone);
                 },
                 error: function(response){
                     alert(response);
                 }
             })     
         }
-
-        function AddCustomer() {
-            $('#createCustomerModal').modal('show');
-        }
-
-        $('#addcustomerloan').click(function() {
-            $.ajax({
-                type: 'post',
-                url: 'http://localhost:8000/api/v1/customer',
-                dataType: 'json',
-                data: {
-                    '_token': $('input[name=_token]').val(),
-                    'name': $('input[name=name]').val(),
-                    'customer_no': $('input[name=customer_no]').val(),
-                    'identity_number': $('input[name=identity_number]').val(),
-                    'phone': $('input[name=phone]').val(),
-                    'address': $('input[name=address]').val()
-                },
-                success: function (response){
-                    console.log(response.data.customer_no, 
-                        response.data.customer_name, 
-                        response.data.customer_identity_number, 
-                        response.data.customer_phone, 
-                        response.data.customer_address);
-                    $('#customernoLoan').val(response.data.customer_no);
-                    $('#nameLoan').val(response.data.customer_name);
-                    $('#identity_numberLoan').val(response.data.customer_identity_number);
-                    $('#phoneLoan').val(response.data.customer_phone);
-                    $('#addressLoan').val(response.data.customer_address);
-                },
-                error: function(response){
-                    alert(response);
-                }
-            })
-        })
 
     </script>
 @stop

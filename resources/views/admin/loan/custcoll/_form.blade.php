@@ -1,5 +1,18 @@
 <div class="row">
       <div class="col-md-6">
+         
+         <div class="form-group{{ $errors->has('customercollateral_no') ? ' has-error' : '' }}">
+            {!! Form::label('customercollateral_no', "customercollateral_no", ['class'=>'col-md-4 control-label']) !!}
+            <div class="col-md-8">
+               {!! Form::text('customercollateral_no', null, ['class'=>'form-control', 'readonly'=>'true', 'placeholder' => empty($customercollateral_id) ? 'default value' : $customercollateral_id, 'required' ]) !!}
+               @if ($errors->has('customercollateral_no'))
+               <span class="help-block">
+               <strong>{{ $errors->first('customercollateral_no') }}</strong>
+               </span>
+               @endif
+            </div>
+         </div>
+
          <div class="form-group{{ $errors->has('stnk') ? ' has-error' : '' }}">
             {!! Form::label('stnk', "stnk", ['class'=>'col-md-4 control-label']) !!}
             <div class="col-md-8">
@@ -48,6 +61,10 @@
             </div>
          </div>
          
+      </div>
+      
+      <!-- /.col -->
+      <div class="col-md-6">
          <div class="form-group{{ $errors->has('vehicle_color') ? ' has-error' : '' }}">
             {!! Form::label('vehicle_color', "Vehicle Color", ['class'=>'col-md-4 control-label']) !!}
             <div class="col-md-8">
@@ -59,10 +76,6 @@
                @endif
             </div>
          </div>
-      </div>
-      
-      <!-- /.col -->
-      <div class="col-md-6">
          <div class="form-group{{ $errors->has('vehicle_cc') ? ' has-error' : '' }}">
             {!! Form::label('vehicle_cc', "Vehicle CC", ['class'=>'col-md-4 control-label']) !!}
             <div class="col-md-8">

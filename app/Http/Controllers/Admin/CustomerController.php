@@ -33,8 +33,8 @@ class CustomerController extends Controller
     public function create()
     {
         $branch_list = Branch::pluck('name', 'id');
-
-        return view('admin.customer.create', compact('branch_list'));
+        $customer_id = Customer::Maxno();
+        return view('admin.customer.create', compact('branch_list', 'customer_id'));
     }
 
     /**
@@ -51,6 +51,7 @@ class CustomerController extends Controller
             'email'=>'required|string|unique:suppliers',
             'address'=>'required',
             'identity_number' => 'required',
+            'phone' => 'required'
         ]);
 
         if ($validator->fails()) {
@@ -86,7 +87,7 @@ class CustomerController extends Controller
         if (!$customer) {
             return redirect()->back()->withInput()->withError('cannot create customer');
         }else{
-            return redirect('/admin/customer')->with('success', 'Successfully create customer');
+            return redirect('/admin/loan/create')->with('success', 'Successfully create customer');
         }
     }
 

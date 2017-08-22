@@ -15,6 +15,11 @@
 						{!! Form::label('branch_id', "Branch") !!}
 						{!! Form::select('branch_id', $branch_list, old('branch_id'), ['class'=>'form-control','id'=>'branch_id']) !!}
 					</div>
+					<div class="form-group">
+						{!! Form::label('customer_no', 'Customer No:') !!}
+						{!! Form::text('customer_no', null, ['class'=>'form-control', 'readonly'=>'true', 'placeholder' => empty($customer_id) ? 'default value' : $customer_id, 'required' ]) !!}
+						{{-- {{ Form::text('customer_no', old('customer_no'), ['class'=>'form-control', 'id'=>'customer_no', 'readonly'=>'true']) }} --}}
+					</div>
 					<div class="checkbox">
 		            	<label>
 		            		{!! Form::checkbox('active',1) !!} <b>active</b>
@@ -44,8 +49,8 @@
 		            	{!! Form::label('birthplace', "Birthplace") !!}
 						{!! Form::text('birthplace', old('birthplace'), ['class'=>'form-control','id'=>'birthplace']) !!}
 		            </div>
-					<div class="form-group">
-						{!! Form::label('identity_number', "KTP") !!}
+		            <div class="form-group">
+		            	{!! Form::label('identity_number', "KTP") !!}
 						{!! Form::text('identity_number', old('identity_number'), ['class'=>'form-control','id'=>'identity_number']) !!}
 		            </div>
 				</div>
@@ -94,32 +99,10 @@
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-				<button type="submit" class="btn btn-success"><i class="fa fa-plus-circle"></i> Yes
+				<button type="submit" class="btn btn-success" id="addcustomerloan">
+					<i class="fa fa-plus-circle"></i> Yes 
+				</button>
 			</div>
 		</div>
 	</div>	
-</div>
-
-{{-- Delete Modal --}}
-<div class="modal fade" id="deleteCustomerModal" tabindex="-1" role="dialog" aira-labelledby="Delete Customer">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismis="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-				<h4 class="modal-title" id="CreateCustomer">Please Confirm</h4>
-			</div>
-			<div class="modal-body">
-				<p class="modal-body">
-					<i class="fa fa-question-circle fa-lg"></i>
-					Are you sure you want to delete this Customer?
-				</p>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-				<button type="submit" class="btn btn-danger" onclick=DeleteCustomer()><i class="fa fa-times-circle"></i> Yes
-			</div>
-		</div>
-	</div>
 </div>

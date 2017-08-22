@@ -88,11 +88,9 @@
 @section('scripts')
 	<script type="text/javascript">
 		var tableType = $('#tableType').DataTable({
-      "sDom": 'rt',
-      "columnDefs": [{
-        "targets": [],
-        "orderable": false
-      }]
+      "dom": "rtip",
+          "pageLength": 10,
+          "retrieve": true,
     });
 
     $("#searchDtbox").keyup(function() {

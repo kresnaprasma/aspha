@@ -87,28 +87,6 @@
 @section('scripts')
 
 	<script type="text/javascript">
-		$('#customerName').select2({
-        placeholder: 'Select customer',
-        ajax: {
-          url: '/select2-autocomplete',
-          dataType: 'json',
-          delay: 250,
-          processResults: function (data) {
-            return {
-              results:  $.map(data, function (customer) {
-                    return {
-                        text: customer.name,
-                        id: customer.id
-                    }
-                })
-            };
-          },
-          cache: true
-        }
-      });
-	</script>
-
-	<script type="text/javascript">
 		var tableCustomer = $('#tableCustomer').DataTable({
 			"sDom": 'rt',
       		"columnDefs": [{

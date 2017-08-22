@@ -22,8 +22,7 @@ Route::group([
 	'middleware' => 'auth',*/
 ], function(){ 
 
-	Route::resource('customer', 'Api\CustomerController');
-	Route::get('customer/get/{id}', 'Api\CustomerController@search');
+	Route::resource('customer', 'Api\CustomerController', ['as'=>'api.customer']);
 
 	Route::resource('merk', 'Api\MerkController');
 });

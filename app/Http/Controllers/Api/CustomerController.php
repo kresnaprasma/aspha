@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
 use App\Customer;
+use App\Branch;
 
 class CustomerController extends Controller
 {
@@ -38,36 +40,14 @@ class CustomerController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    /*public function add(Request $request)
-    {
-        if (request()->ajax()) {
-            $customer = Customer::find($customer_id);
-            $validator = Validator::make($request->all(), [
-                'name' => 'required',
-                'address' =>'required',
-                'birth_date' => 'required',
-                'identity_number' => 'required',
-                'phone' => 'required',
-                'gender' => 'required'
-            ]);
-        }
-    }*/
-
-    public function search($id)
-    {
-        $customer = Customer::find($id)->get();
-        return response()->json($customer);
-    }
 
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required',
             'address' =>'required',
-            'birth_date' => 'required',
             'identity_number' => 'required',
             'phone' => 'required',
-            'gender' => 'required'
         ]);
 
         if ($validator->fails()) {
@@ -80,7 +60,30 @@ class CustomerController extends Controller
             );
         }
 
-        $customer = Customer::create($request->all());
+        /*$customer = Customer::create($request->all());*/
+        $customer = new Customer();
+        $customer->id = Uuid::uuid4()->getHex();
+        $customer->customer_no = Customer::Maxno();
+        $customer->name = $request->input('name');
+        $customer->address = $request->input('address');
+        $customer->email = $request->input('email');
+        $customer->phone = $request->input('phone');
+        $customer->active = $request->input('active');
+        $customer->birthdate = $request->input('birthdate');
+        $customer->birthplace = $request->input('birthplace');
+        $customer->identity_number = $request->input('identity_number');
+        $customer->gender = $request->input('gender');
+        $customer->rt = $request->input('rt');
+        $customer->rw = $request->input('rw');
+        $customer->postalcode = $request->input('postalcode');
+        $customer->kelurahan = $request->input('kelurahan');
+        $customer->kecamatan = $request->input('kecamatan');
+        $customer->kabupaten = $request->input('kabupaten');
+        $customer->city = $request->input('city');
+        $customer->province = $request->input('province');
+        $customer->kk_number = $request->input('kk_number');
+        $customer->branch_id = $request->input('branch_id');
+        $customer->save();
 
         if (!$customer) {
             return response()->json([
@@ -105,7 +108,7 @@ class CustomerController extends Controller
      */
     public function show($id)
     {
-        $customer = Customer::find($id);
+        $customer = Customer::where('customer_no', $id)->first();
 
         if (!$customer) {
             return response()->json([

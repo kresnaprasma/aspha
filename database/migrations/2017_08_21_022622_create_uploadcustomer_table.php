@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateUploadCustomersTable extends Migration
+class CreateUploadcustomerTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateUploadCustomersTable extends Migration
      */
     public function up()
     {
-        Schema::create('upload_customers', function (Blueprint $table) {
+        Schema::table('uploadcustomers', function (Blueprint $table) {
             $table->increments('id');
             $table->string('filename');
             $table->string('mime');
@@ -32,6 +32,6 @@ class CreateUploadCustomersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('upload_customers');
+        Schema::dropIfExists('uploadcustomers');
     }
 }
