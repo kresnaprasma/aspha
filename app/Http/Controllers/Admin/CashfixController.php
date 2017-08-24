@@ -33,7 +33,7 @@ class CashfixController extends Controller
     public function create()
     {
         $leasing_list = Leasing::pluck('name', 'leasing_no');
-        $cash_list = Cash::pluck('cash_no', 'id');
+        $cash_list = Cash::pluck('cash_no', 'cash_no');
 
         return view('admin.loan.cashfix.create', compact('leasing_list', 'cash_list'));
     }
@@ -65,11 +65,12 @@ class CashfixController extends Controller
         $cashfix->approve_date = $request->input('approve_date');
         $cashfix->leasing_no = $request->input('leasing_no');
         $cashfix->cash_no = $request->input('cash_no');
+        $cashfix->save();
 
         if (!$cashfix) {
             return redirect()->back()->withInput()->withErrors('cannot create Dana Tunai');
         }else{
-            return redirect('/admin/loan/cashfix')->with('success', 'Successfully create Dana Tunai');
+            return redirect('/admin/cashfix')->with('success', 'Successfully create Dana Tunai');
         }
     }
 
@@ -95,7 +96,7 @@ class CashfixController extends Controller
         $cashfix = Cashfix::find($id);
 
         $leasing_list = Leasing::pluck('name', 'leasing_no');
-        $cash_list = Cash::fix('cash_no', 'id');
+        $cash_list = Cash::pluck('cash_no', 'id');
 
         return view('admin.loan.cashfix.create', compact('cashfix','leasing_list', 'cash_list'));
     }
@@ -159,8 +160,8 @@ class CashfixController extends Controller
             $cashfix->delete();
         }
 
-        if (!$cash) {
-            return redirect()->back()->withInput()->withErrors('cannot delete cash');
+        if (!$cashfix) {
+            return redirect()->back()->withInput()->withErrors('cannot delete cashfix');
         }else{
             return redirect()->back()->with('success', 'Successfully delete cash');
         }

@@ -52,11 +52,20 @@ class Cash extends Model
         return $this->belongsTo('App\Branch');
     }
 
-    public function customer()
+    public function cashfix()
     {
-        return $this->belongsTo('App\Customer');
+        return $this->hasOne('App\Cashfix');
     }
 
+    public function customer()
+    {
+        return $this->belongsTo('App\Customer','customer_no','customer_no');
+    }
+
+    public function customerCollateral()
+    {
+        return $this->belongsTo('App\CustomerCollateral', 'customer_no','customer_no');
+    }
     public function user()
     {
         return $this->belongsTo('App\User');

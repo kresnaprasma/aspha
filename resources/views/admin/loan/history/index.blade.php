@@ -15,7 +15,7 @@
 				<div class="box-body">
 					<div class="col-md-12 box-body-header">
 					   <div class="col-md-8">
-					      <a href="{{ route('admin.loan.history.create') }}" class="btn btn-default">
+					      <a href="{{ route('admin.history.create') }}" class="btn btn-default">
 					      	<i class="fa fa-plus" aria-hidden="true"></i> New
 					      </a>
 					      <button type="button" class="btn btn-default" onclick="deleteHistory()">
@@ -27,7 +27,7 @@
 				   		</div>
 					</div>
 
-					{!! Form::open(['route'=>'admin.loan.history.delete', 'id'=>'formDeleteHistory']) !!}
+					{!! Form::open(['route'=>'admin.history.delete', 'id'=>'formDeleteHistory']) !!}
 					<div>
 
 					    @if ($message = Session::get('success'))
@@ -90,7 +90,7 @@
 	        	tableHistory.$('tr.selected').removeClass('selected');
 	        	$(this).addClass('selected');
 	        	var id = $(this).find('#idTableHistory').val();
-	          	window.location.href = "/admin/loan/history/"+id+"/edit";
+	          	window.location.href = "/admin/history/"+id+"/edit";
 	      	}
     	});
 

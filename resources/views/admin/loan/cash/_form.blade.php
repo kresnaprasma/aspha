@@ -24,17 +24,17 @@
             </div>
          </div>
          
-         {{-- <div class="form-group{{ $errors->has('customer_no') ? ' has-error' : '' }}">
-            {!! Form::label('customer_no', "Customer Name", ['class'=>'col-md-4 control-label']) !!}
+         <div class="form-group{{ $errors->has('customer_no') ? ' has-error' : '' }}">
+            {!! Form::label('customer_no', "Customer No", ['class'=>'col-md-4 control-label']) !!}
             <div class="col-md-8">
-               {!! Form::select('customer_no', $customer_list, old('customer_no'), ['class'=>'form-control','id'=>'customer_no']) !!}
+            {!! Form::text('customer_no', old('customer_no'), ['class' => 'form-control', 'id' => 'customernoCash', 'readonly' => 'true']) !!}
                @if ($errors->has('customer_no'))
                   <span class="help-block">
                      <strong>{{ $errors->first('customer_no') }}</strong>
                   </span>
                @endif
             </div>
-         </div> --}}
+         </div>
 
       </div>
 
@@ -45,7 +45,7 @@
          <div class="form-group{{ $errors->has('leasing_no') ? ' has-error' : '' }}">
             {!! Form::label('leasing_no', "Leasing", ['class'=>'col-md-4 control-label']) !!}
             <div class="col-md-8">
-               {!! Form::select('leasing_no', $leasing_list, old('leasing_no'), ['class'=>'form-control','required','id'=>'leasing_no']) !!}
+               {!! Form::select('leasing_no', $leasing_list, old('leasing_no'), ['class'=>'form-control','required']) !!}
                @if ($errors->has('leasing_no'))
                   <span class="help-block">
                      <strong>{{ $errors->first('leasing_no') }}</strong>
@@ -57,7 +57,7 @@
          <div class="form-group{{ $errors->has('branch_id') ? ' has-error' : '' }}">
                {!! Form::label('branch_id', "Branch", ['class'=>'col-md-4 control-label']) !!}
             <div class="col-md-8">
-               {!! Form::select('branch_id',$branch_list, old('branch_id'), ['class'=>'form-control','id'=>'branch_id']) !!}
+               {!! Form::select('branch_id', $branch_list, old('branch_id'), ['class'=>'form-control','id'=>'branchidCash']) !!}
                @if ($errors->has('branch_id'))
                   <span class="help-block">
                      <strong>{{ $errors->first('branch_id') }}</strong>

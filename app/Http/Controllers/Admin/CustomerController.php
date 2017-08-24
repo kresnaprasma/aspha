@@ -55,7 +55,7 @@ class CustomerController extends Controller
         ]);
 
         if ($validator->fails()) {
-            $messages = $validator->messages(); 
+            $messages = $validator->messages();
             
             return redirect()->back()->withInput()->withErrors($validator);
         }
@@ -87,7 +87,7 @@ class CustomerController extends Controller
         if (!$customer) {
             return redirect()->back()->withInput()->withError('cannot create customer');
         }else{
-            return redirect('/admin/loan/create')->with('success', 'Successfully create customer');
+            return redirect(/*'/admin/loan/create'*/)->back()->with('success', 'Successfully create customer');
         }
     }
 

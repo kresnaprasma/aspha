@@ -11,7 +11,7 @@
                         <button class="btn btn-box-tool" data-widget="collapse" data-toogle="tooltip" title="Collapse"><i class="fa fa-minus"></i></button>
                     </div>
                 </div>
-                {!! Form::model($cashfix = new \App\Cashfix, ['route'=>'admin.loan.cashfix.store','id'=>'formCashfix', 'class'=> 'form-horizontal']) !!}
+                {!! Form::model($cashfix = new \App\Cashfix, ['route'=>'admin.cashfix.store','id'=>'formCashfix', 'class'=> 'form-horizontal']) !!}
                 <div class="box-body">
                     <form role="form">
                         @include('admin.loan.cashfix._form',['edit'=>false])

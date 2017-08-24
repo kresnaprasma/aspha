@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
+use Ramsey\Uuid\Uuid;
 use App\Customer;
 use App\Branch;
 
@@ -61,31 +62,31 @@ class CustomerController extends Controller
         }
 
         /*$customer = Customer::create($request->all());*/
-        $customer = new Customer();
-        $customer->id = Uuid::uuid4()->getHex();
-        $customer->customer_no = Customer::Maxno();
-        $customer->name = $request->input('name');
-        $customer->address = $request->input('address');
-        $customer->email = $request->input('email');
-        $customer->phone = $request->input('phone');
-        $customer->active = $request->input('active');
-        $customer->birthdate = $request->input('birthdate');
-        $customer->birthplace = $request->input('birthplace');
-        $customer->identity_number = $request->input('identity_number');
-        $customer->gender = $request->input('gender');
-        $customer->rt = $request->input('rt');
-        $customer->rw = $request->input('rw');
-        $customer->postalcode = $request->input('postalcode');
-        $customer->kelurahan = $request->input('kelurahan');
-        $customer->kecamatan = $request->input('kecamatan');
-        $customer->kabupaten = $request->input('kabupaten');
-        $customer->city = $request->input('city');
-        $customer->province = $request->input('province');
-        $customer->kk_number = $request->input('kk_number');
-        $customer->branch_id = $request->input('branch_id');
-        $customer->save();
+        $c = new Customer();
+        $c->id = Uuid::uuid4()->getHex();
+        $c->customer_no = Customer::Maxno();
+        $c->name = $request->input('name');
+        $c->address = $request->input('address');
+        $c->email = $request->input('email');
+        $c->phone = $request->input('phone');
+        $c->active = $request->input('active');
+        $c->branch_id = $request->input('branch_id');
+        $c->birthdate = $request->input('birthdate');
+        $c->birthplace = $request->input('birthplace');
+        $c->identity_number = $request->input('identity_number');
+        $c->gender = $request->input('gender');
+        $c->rt = $request->input('rt');
+        $c->rw = $request->input('rw');
+        $c->postalcode = $request->input('postalcode');
+        $c->kelurahan = $request->input('kelurahan');
+        $c->kecamatan = $request->input('kecamatan');
+        $c->kabupaten = $request->input('kabupaten');
+        $c->city = $request->input('city');
+        $c->province = $request->input('province');
+        $c->kk_number = $request->input('kk_number');
+        $c->save();
 
-        if (!$customer) {
+        if (!$c) {
             return response()->json([
                 'status'=>'404',
                 'message'=>'cannot save this data',
@@ -95,7 +96,7 @@ class CustomerController extends Controller
             return response()->json([
                 'status' => '200',
                 'message' => 'Customer created Successfully',
-                'data' => [$this->transform($customer)]
+                'data' => $this->transform($c)
             ], 200);
         }
     }

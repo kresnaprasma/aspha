@@ -39,6 +39,12 @@ class Cashfix extends Model
             $kd_fix = '0001';
         }
 
-        return 'DTNFIX'.$year.date('m').$kd_fix;
+        return 'FIX'.$year.date('m').$kd_fix;
 	}
+
+    public function cash()
+    {
+        return $this->belongsTo('App\Cash','cash_no','cash_no');
+    }
+
 }

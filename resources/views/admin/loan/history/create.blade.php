@@ -11,7 +11,7 @@
                         <button class="btn btn-box-tool" data-widget="collapse" data-toogle="tooltip" title="Collapse"><i class="fa fa-minus"></i></button>
                     </div>
                 </div>
-                {!! Form::model($history = new \App\History, ['route'=>'admin.loan.history.store','id'=>'formHistory', 'class'=>'form-horizontal']) !!}
+                {!! Form::model($history = new \App\History, ['route'=>'admin.history.store','id'=>'formHistory', 'class'=>'form-horizontal']) !!}
                 <div class="box-body">
                     <form role="form">
                         @include('admin.loan.history._form',['edit'=>false])

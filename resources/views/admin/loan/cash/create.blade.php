@@ -14,7 +14,7 @@
                 {!! Form::model($cash = new \App\Cash, ['route'=>'admin.loan.cash.store','id'=>'formCash']) !!}
                 <div class="box-body">
                     <form role="form">
-                        @include('admin.loan.cash._form',['edit'=>false])
+                        @include('admin.cash._form',['edit'=>false])
                     </form>
               <!-- /.box-body -->
 
@@ -26,5 +26,5 @@
             </div>
         </div>
     </div>
-
 @stop
+

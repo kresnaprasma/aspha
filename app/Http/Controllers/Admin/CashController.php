@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Cash;
+use App\Cashfix;
 use App\Leasing;
 use App\Branch;
 use App\Customer;
+use App\CustomerCollateral;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -22,8 +24,9 @@ class CashController extends Controller
     public function index()
     {
         $cash = Cash::all();
-
-        return view('admin.loan.cash.index', compact('cash'));
+        $customer_id = Customer::Maxno();
+        $branch_list = Branch::pluck('name', 'id');
+        return view('admin.cash.index', compact('cash', 'branch_list', 'customer_id'));
     }
 
     /**
@@ -36,8 +39,8 @@ class CashController extends Controller
         $leasing_list = Leasing::pluck('name', 'leasing_no');
         $branch_list = Branch::pluck('name', 'id');
         $customer_list = Customer::pluck('name', 'customer_no');
-
-        return view('admin.loan.cash.create', compact('leasing_list', 'branch_list', 'customer_list'));
+        $customer_id = Customer::Maxno();
+        return view('admin.cash.create', compact('leasing_list', 'branch_list', 'customer_list', 'customer_id'));
     }
 
     /**
@@ -51,6 +54,11 @@ class CashController extends Controller
         $validator = validator::make($request->all(), [
             'credit_ceiling_request' => 'required',
             'tenor_request' => 'required',
+            'stnk' => 'required',
+            'bpkb' => 'required',
+            'machine_number' => 'required',
+            'chassis_number' => 'required',
+
         ]);
 
         if ($validator->fails()) {
@@ -70,10 +78,36 @@ class CashController extends Controller
         $cash->user_id = auth()->user()->id;
         $cash->save();
 
+
+        $cc = new CustomerCollateral();
+        $cc->id = Uuid::uuid4()->getHex();
+        $cc->customercollateral_no = CustomerCollateral::Maxno();
+        $cc->stnk = $request->input('stnk');
+        $cc->bpkb = $request->input('bpkb');
+        $cc->machine_number = $request->input('machine_number');
+        $cc->chassis_number = $request->input('chassis_number');
+        $cc->vehicle_color = $request->input('vehicle_color');
+        $cc->vehicle_cc  = $request->input('vehicle_cc');
+        $cc->collateral_name = $request->input('collateral_name');
+        $cc->vehicle_date = $request->input('vehicle_date');
+        $cc->stnk_due_date = $request->input('stnk_due_date');
+        $cc->customer_no = $request->input('customer_no');
+        $cc->save();
+
+
+        $cf = new Cashfix();
+        $cf->id = Uuid::uuid4()->getHex();
+        $cf->cashfix_no = Cashfix::Maxno();
+        $cf->tenor_approve = $request->input('tenor_approve');
+        $cf->payment = $request->input('payment');
+        $cf->approve_date = $request->input('approve_date');
+        $cf->leasing_no = $request->input('leasing_no');
+        $cf->save();
+
         if (!$cash) {
             return redirect()->back()->withInput()->withErrors('cannot create Dana Tunai');
         }else{
-            return redirect('/admin/loan/cash')->with('success', 'Successfully create Dana Tunai');
+            return redirect('/admin/cash')->with('success', 'Successfully create Dana Tunai');
         }
     }
 
@@ -101,8 +135,9 @@ class CashController extends Controller
         $leasing_list = Leasing::pluck('name', 'leasing_no');
         $branch_list = Branch::pluck('name', 'id');
         $customer_list = Customer::pluck('name', 'customer_no');
+        $plafondfix_no = Cashfix::Maxno();
 
-        return view('admin.loan.cash.edit', compact('cash', 'leasing_list', 'branch_list', 'customer_list'));
+        return view('admin.cash.edit', compact('cash', 'leasing_list', 'branch_list', 'customer_list', 'plafondfix_no'));
     }
 
     /**
@@ -128,11 +163,15 @@ class CashController extends Controller
         $cash = Cash::find($id);
         $cash->update($request->all());
 
+        $col_id = $cash->CustomerCollateral->id;
+        $cc = CustomerCollateral::find($col_id);
+        $cc->update($request->all());
+
         if (!$cash) {
             return redirect()->back()->withInput()->withErrors('
                 Cant update cash' );
         }else{
-            return redirect('/admin/loan/cash')->with('success', 'Successfully update cash');
+            return redirect('/admin/cash')->with('success', 'Successfully update cash');
         }
     }
 

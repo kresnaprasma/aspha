@@ -5,7 +5,7 @@
 		<div class="col-md-12">
 			<div class="box box-primary">
 				<div class="box-header with-border">
-				   <h3 class="box-title">DaTun Fix Admin</h3>
+				   <h3 class="box-title">Dana Tunai</h3>
 				   <div class="box-tools pull-right">
 				      <button class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse"><i class="fa fa-minus"></i></button>
 				      <button class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove"><i class="fa fa-times"></i></button>
@@ -15,10 +15,10 @@
 				<div class="box-body">
 					<div class="col-md-12 box-body-header">
 					   <div class="col-md-8">
-					      <a href="{{ route('admin.cashfix.create') }}" class="btn btn-default">
+					      <a href="{{ route('admin.cash.create') }}" class="btn btn-default">
 					      	<i class="fa fa-plus" aria-hidden="true"></i> New
 					      </a>
-					      <button type="button" class="btn btn-default" onclick="deleteCashfix()">
+					      <button type="button" class="btn btn-default" onclick="deleteCash()">
 					      <i class="fa fa-times" aria-hidden="true"></i> Delete
 					      </button>
 					   </div>
@@ -27,7 +27,7 @@
 				   		</div>
 					</div>
 
-					{!! Form::open(['route'=>'admin.cashfix.delete', 'id'=>'formDeleteCashfix']) !!}
+					{!! Form::open(['route'=>'admin.cash.delete', 'id'=>'formDeleteCash']) !!}
 					<div>
 
 					    @if ($message = Session::get('success'))
@@ -36,28 +36,38 @@
 	        				</div>
     					@endif
 					
-					<table class="table table-bordered table-striped table-color" id="tableCashfix">
+					<table class="table table-bordered table-striped table-color" id="tableCash">
 						<thead>
 							<th><input type="checkbox" id="check_all"></th>
-							<th>Cashfix No.</th>
-							<th>Tenor Approve</th>
-							<th>Payment</th>
-							<th>Approve Date</th>
-							<th>Leasing No.</th>
 							<th>Cash No.</th>
+							<th>Plafon Credit</th>
+							<th>Tenor Request</th>
+							<th>Customer No.</th>
+							<th>Leasing No.</th>
+							<th>Branch</th>
+							<th>User</th>
 						</thead>
 						<tbody>
-							@foreach($cashfix as $cf)
+							@foreach($cash as $ca)
 								<tr>
 									<td>
-										<input type="checkbox" id="idTableCash" name="id[]" class="checkin" value="{{ $cf->id }}">
+										<input type="checkbox" id="idTableCash" name="id[]" class="checkin" value="{{ $ca->id }}">
 									</td>
-									<td><b>{{ $cf->cashfix_no }}</b></td>
-									<td>{{ $cf->tenor_approve }}</td>
-									<td>{{ $cf->payment }}</td>
-									<td>{{ $cf->approve_date }}</td>
-									<td>{{ $cf->leasing_no }}</td>
-									<td>{{ $cf->cash_no }}</td>
+									<td><b>{{ $ca->cash_no }}</b></td>
+									<td>{{ $ca->credit_ceiling_request }}</td>
+									<td>{{ $ca->tenor_request }}</td>
+									<td>{{ $ca->customer_no }}</td>
+									<td>{{ $ca->leasing_no }}</td>
+									<td>
+										@if ($ca->branch()->count() > 0)
+											{{ $ca->branch->name }}
+										@endif
+									</td>
+									<td>
+										@if($ca->user()->count() > 0)
+											{{ $ca->user->name }}
+										@endif
+									</td>
 								</tr>
 							@endforeach
 						</tbody>
@@ -69,12 +79,12 @@
 		</div>
 	</div>
 
-	@include('admin.loan.cashfix._modal')
+	@include('admin.cash._modal')
 @stop
 
 @section('scripts')
 	<script type="text/javascript">
-		var tableCashfix = $('#tableCashfix').DataTable({
+		var tableCash = $('#tableCash').DataTable({
 			"sDom": 'rt',
       		"columnDefs": [{
         		"targets": [],
@@ -83,32 +93,32 @@
 		});
 
 		$("#searchDtbox").keyup(function() {
-      		tableCashfix.search($(this).val()).draw();
+      		tableCash.search($(this).val()).draw();
     	});
 
-    	$('#tableCashfix tbody').on('dblclick', 'tr', function () {
+    	$('#tableCash tbody').on('dblclick', 'tr', function () {
       		if ( $(this).hasClass('selected') ) {
         		$(this).removeClass('selected');
       		}
 	      	else {
-	        	tableCashfix.$('tr.selected').removeClass('selected');
+	        	tableCash.$('tr.selected').removeClass('selected');
 	        	$(this).addClass('selected');
-	        	var id = $(this).find('#idTableCashfix').val();
-	          	window.location.href = "/admin/cashfix/"+id+"/edit";
+	        	var id = $(this).find('#idTableCash').val();
+	          	window.location.href = "/admin/cash/"+id+"/edit";
 	      	}
     	});
 
-    	function deleteCashfix() {
+    	function deleteCash() {
 			if ($('.checkin').is(':checked')) 
 			{
-				$('#deleteCashfixModal').modal("show");
+				$('#deleteCashModal').modal("show");
 			} else {
 				$('#deleteNoModal').modal("show");
 				}
 		}
 
-		function DeleteCashfix() {
-			$("#formDeleteCashfix").submit();
+		function DeleteCash() {
+			$("#formDeleteCash").submit();
 		}
 	</script>
 @stop

@@ -19,6 +19,7 @@ class CreateCashfixTable extends Migration
             $table->string('tenor_approve');
             $table->string('payment');
             $table->date('approve_date');
+            $table->string('plafond_approve');
 
             $table->string('leasing_no');
             $table->foreign('leasing_no')->references('leasing_no')->on('leasings');

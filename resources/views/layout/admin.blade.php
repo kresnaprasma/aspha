@@ -133,6 +133,7 @@
 <script src="{{ asset ("/assets/pickadate/picker.date.js")}}"></script>
 <script src="{{ asset ("/assets/pickadate/picker.time.js")}}"></script>
 <script src="{{ asset ("/assets/selectize/selectize.min.js")}}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
 
 <!-- AdminLTE App -->
 <script src="{{ asset ("/assets/adminlte/dist/js/app.min.js") }}" type="text/javascript"></script>

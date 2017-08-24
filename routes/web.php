@@ -49,10 +49,6 @@ Route::group([
 	Route::get('vehiclecollateral/downloadExcel/xls', 'Admin\VehicleCollateralController@downloadExcel');
 
 
-	Route::get('loan/create', ['as'=>'admin.loan.create','uses'=>'Admin\LoanController@create']);
-	Route::get('loan/edit', ['as'=>'admin.loan.edit', 'uses'=>'Admin\LoanController@edit']);
-
-
 	Route::post('customer/delete', ['as'=>'admin.customer.delete','uses'=>'Admin\CustomerController@delete']);
 	Route::resource('customer', 'Admin\CustomerController',['as'=>'admin']);
 	Route::get('select2-autocomplete', 'Admin\CustomerController@dataAjax', ['as'=>'admin']);
@@ -89,27 +85,31 @@ Route::group([
 	Route::resource('master/permission', 'Admin\PermissionController',['as'=>'admin.master']);
 
 
-	Route::post('loan/leasing/delete',['as'=>'admin.loan.leasing.delete','uses'=>'Admin\LeasingController@delete']);
-	Route::resource('loan/leasing', 'Admin\LeasingController',['as'=>'admin.loan']);
 
 
-	Route::post('loan/custcoll/delete',['as'=>'admin.loan.custcoll.delete','uses'=>'Admin\CustomerCollateralController@delete']);
-	Route::resource('loan/custcoll', 'Admin\CustomerCollateralController',['as'=>'admin.loan']);
 
 
-	Route::post('loan/cash/delete',['as'=>'admin.loan.cash.delete', 'uses'=>'Admin\CashController@delete']);
-	Route::resource('loan/cash', 'Admin\CashController',['as'=>'admin.loan']);
+
+	Route::post('/leasing/delete',['as'=>'admin.leasing.delete','uses'=>'Admin\LeasingController@delete']);
+	Route::resource('/leasing', 'Admin\LeasingController',['as'=>'admin']);
 
 
-	Route::post('loan/cashfix/delete',['as'=>'admin.loan.cashfix.delete', 'uses'=>'Admin\CashfixController@delete']);
-	Route::resource('loan/cashfix', 'Admin\CashfixController',['as'=>'admin.loan']);
+	Route::post('custcoll/delete',['as'=>'admin.custcoll.delete','uses'=>'Admin\CustomerCollateralController@delete']);
+	Route::resource('custcoll', 'Admin\CustomerCollateralController',['as'=>'admin']);
 
 
-	Route::post('loan/history/delete', ['as'=>'admin.loan.history.delete', 'uses'=>'Admin\HistoryController@delete']);
-	Route::resource('loan/history', 'Admin\HistoryController', ['as'=>'admin.loan']);
+	Route::post('cash/delete',['as'=>'admin.cash.delete', 'uses'=>'Admin\CashController@delete']);
+	Route::resource('cash', 'Admin\CashController',['as'=>'admin']);
+
+	Route::post('/cashfix/delete',['as'=>'admin.cashfix.delete', 'uses'=>'Admin\CashfixController@delete']);
+	Route::resource('/cashfix', 'Admin\CashfixController',['as'=>'admin']);
 
 
-	Route::resource('/loan/customerupload', 'Admin\CustomerUploadController', ['as'=>'admin.loan']);
+	Route::post('/history/delete', ['as'=>'admin.history.delete', 'uses'=>'Admin\HistoryController@delete']);
+	Route::resource('/history', 'Admin\HistoryController', ['as'=>'admin']);
+
+
+	Route::resource('/customerupload', 'Admin\CustomerUploadController', ['as'=>'admin']);
 
 
 	Route::get('/upload', ['as' => 'image.create', 'uses' => 'Admin\CustomerUploadController@create']);
