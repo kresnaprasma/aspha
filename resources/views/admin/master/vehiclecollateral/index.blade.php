@@ -15,7 +15,7 @@
         <div class="box-body">
           <div class="col-md-12 box-body-header">  
             <div class="col-md-8">
-              <a href="/admin/vehiclecollateral/create" type="button" class="btn btn-default">
+              <a href="/admin/master/vehiclecollateral/create" type="button" class="btn btn-default">
                 <i class="fa fa-plus" aria-hidden="true"></i> New
               </a>
               {{-- <button type="button" class="btn btn-default" onclick="AddCollateral()">
@@ -42,7 +42,7 @@
                 <input type="text" id="searchDtbox" class="form-control" placeholder="Search">
             </div>
 
-            {!! Form::open(['route'=>'admin.vehiclecollateral.delete', 'id'=>'formDeleteCollateral']) !!}
+            {!! Form::open(['route'=>'admin.master.vehiclecollateral.delete', 'id'=>'formDeleteCollateral']) !!}
 
           </div>
 
@@ -95,7 +95,7 @@
     </div>
   </div>
 
-  @include('admin.vehiclecollateral._modal')
+  @include('admin.master.vehiclecollateral._modal')
 @stop
 
 @section('scripts')
@@ -140,7 +140,7 @@
     }
 
     function EditCollateral(id, merks_id, types_id, vehicle_date, vehicle_price) {
-      $("#editCollateral").attr('action', '/admin/vehiclecollateral/' + id);
+      $("#editCollateral").attr('action', '/admin/master/vehiclecollateral/' + id);
       $('#idCollateral').val(id);
       $("#merkCollateral").val(merks_id);
       $("#typeCollateral").val(types_id);

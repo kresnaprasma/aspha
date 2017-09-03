@@ -51,4 +51,9 @@ class Leasing extends Model
     {
         return $this->belongsTo('App\Cash');
     }
+
+    public function cashfix()
+    {
+        return $this->hasMany('App\Cashfix', 'leasing_no');
+    }
 }

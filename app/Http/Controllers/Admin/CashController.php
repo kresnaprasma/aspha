@@ -7,8 +7,10 @@ use App\Cashfix;
 use App\Leasing;
 use App\Branch;
 use App\Customer;
+use App\CreditType;
 use App\CustomerCollateral;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
@@ -26,7 +28,8 @@ class CashController extends Controller
         $cash = Cash::all();
         $customer_id = Customer::Maxno();
         $branch_list = Branch::pluck('name', 'id');
-        return view('admin.cash.index', compact('cash', 'branch_list', 'customer_id'));
+        $credittype_list = CreditType::pluck('name', 'id');
+        return view('admin.cash.index', compact('cash', 'branch_list', 'customer_id', 'credittype_list'));
     }
 
     /**
@@ -39,8 +42,21 @@ class CashController extends Controller
         $leasing_list = Leasing::pluck('name', 'leasing_no');
         $branch_list = Branch::pluck('name', 'id');
         $customer_list = Customer::pluck('name', 'customer_no');
+        $credittype_list = CreditType::pluck('name', 'id');
         $customer_id = Customer::Maxno();
-        return view('admin.cash.create', compact('leasing_list', 'branch_list', 'customer_list', 'customer_id'));
+
+        $vehicle_colorlist = ['WHITE'=>'WHITE', 'SILVER'=>'SILVER', 'BLACK'=>'BLACK', 'GREY'=>'GREY', 
+            'RED'=>'RED', 'BLUE-NAVY'=>'BLUE-NAVY', 'BLUE'=>'BLUE', 
+            'ORANGE'=>'ORANGE', 'YELLOW'=>'YELLOW', 'CREAM'=>'CREAM', 
+            'GREEN'=>'GREEN', 'BROWN'=>'BROWN', 'MAGENTA'=>'MAGENTA', 
+            'PURPLE'=>'PURPLE', 'PINK'=>'PINK', 'SPECIAL EDITION'=>'SPECIAL EDITION'];
+        $vehicle_cclist = ['110'=>'110', '115'=>'115', 
+            '125'=>'125', '135'=>'135', '150'=>'150', 
+            '225'=>'225', '250'=>'250'];
+        $tenor_requestlist = ['3'=>'3 bulan', '4'=>'4 bulan', '5'=>'5 bulan', 
+            '6'=>'6 bulan', '12'=>'12 bulan', '18'=>'18 bulan', '24'=>'24 bulan', 
+            '30'=>'30 bulan', '36'=>'36 bulan'];
+        return view('admin.cash.create', compact('leasing_list', 'branch_list', 'customer_list', 'customer_id', 'vehicle_cclist', 'tenor_requestlist', 'vehicle_colorlist', 'credittype_list'));
     }
 
     /**
@@ -51,14 +67,15 @@ class CashController extends Controller
      */
     public function store(Request $request)
     {
+        /*return $request->all();*/
         $validator = validator::make($request->all(), [
             'credit_ceiling_request' => 'required',
             'tenor_request' => 'required',
+            'credit_type' => 'required',
             'stnk' => 'required',
             'bpkb' => 'required',
             'machine_number' => 'required',
-            'chassis_number' => 'required',
-
+            'chassis_number' => 'required'
         ]);
 
         if ($validator->fails()) {
@@ -75,7 +92,9 @@ class CashController extends Controller
         $cash->customer_no = $request->input('customer_no');
         $cash->leasing_no = $request->input('leasing_no');
         $cash->branch_id = $request->input('branch_id');
+        $cash->credit_type = $request->input('credit_type');
         $cash->user_id = auth()->user()->id;
+        $cash->approval = $request->input('approval');
         $cash->save();
 
 
@@ -94,20 +113,10 @@ class CashController extends Controller
         $cc->customer_no = $request->input('customer_no');
         $cc->save();
 
-
-        $cf = new Cashfix();
-        $cf->id = Uuid::uuid4()->getHex();
-        $cf->cashfix_no = Cashfix::Maxno();
-        $cf->tenor_approve = $request->input('tenor_approve');
-        $cf->payment = $request->input('payment');
-        $cf->approve_date = $request->input('approve_date');
-        $cf->leasing_no = $request->input('leasing_no');
-        $cf->save();
-
         if (!$cash) {
             return redirect()->back()->withInput()->withErrors('cannot create Dana Tunai');
         }else{
-            return redirect('/admin/cash')->with('success', 'Successfully create Dana Tunai');
+            return redirect('admin/cash/')->with('success', 'Successfully create Dana Tunai');
         }
     }
 
@@ -131,13 +140,24 @@ class CashController extends Controller
     public function edit($id)
     {
         $cash = Cash::find($id); 
-
         $leasing_list = Leasing::pluck('name', 'leasing_no');
         $branch_list = Branch::pluck('name', 'id');
+        $credittype_list = CreditType::pluck('name', 'id');
         $customer_list = Customer::pluck('name', 'customer_no');
-        $plafondfix_no = Cashfix::Maxno();
 
-        return view('admin.cash.edit', compact('cash', 'leasing_list', 'branch_list', 'customer_list', 'plafondfix_no'));
+        $vehicle_colorlist = ['WHITE'=>'WHITE', 'SILVER'=>'SILVER', 'BLACK'=>'BLACK', 'GREY'=>'GREY', 
+            'RED'=>'RED', 'BLUE-NAVY'=>'BLUE-NAVY', 'BLUE'=>'BLUE', 
+            'ORANGE'=>'ORANGE', 'YELLOW'=>'YELLOW', 'CREAM'=>'CREAM', 
+            'GREEN'=>'GREEN', 'BROWN'=>'BROWN', 'MAGENTA'=>'MAGENTA', 
+            'PURPLE'=>'PURPLE', 'PINK'=>'PINK', 'SPECIAL EDITION'=>'SPECIAL EDITION'];
+        $vehicle_cclist = ['110'=>'110', '115'=>'115', 
+            '125'=>'125', '135'=>'135', '150'=>'150', 
+            '225'=>'225', '250'=>'250'];
+        $tenor_requestlist = ['3'=>'3 bulan', '4'=>'4 bulan', '5'=>'5 bulan', 
+            '6'=>'6 bulan', '12'=>'12 bulan', '18'=>'18 bulan', '24'=>'24 bulan', 
+            '30'=>'30 bulan', '36'=>'36 bulan'];
+
+        return view('admin.cash.index', compact('cash', 'leasing_list', 'branch_list', 'customer_list', 'vehicle_cclist', 'vehicle_colorlist', 'vehicle_cclist','tenor_requestlist', 'credittype_list'));
     }
 
     /**
@@ -152,6 +172,11 @@ class CashController extends Controller
         $validator = validator::make($request->all(), [
             'credit_ceiling_request' => 'required',
             'tenor_request' => 'required',
+            'credit_type' => 'required',
+            'stnk' => 'required',
+            'bpkb' => 'required',
+            'machine_number' => 'required',
+            'chassis_number' => 'required'
         ]);
 
         if ($validator->fails()) {
@@ -168,8 +193,7 @@ class CashController extends Controller
         $cc->update($request->all());
 
         if (!$cash) {
-            return redirect()->back()->withInput()->withErrors('
-                Cant update cash' );
+            return redirect()->back()->withInput()->withErrors('Cant update cash');
         }else{
             return redirect('/admin/cash')->with('success', 'Successfully update cash');
         }

@@ -10,7 +10,7 @@
                 <img src="{{ asset("/assets/adminlte/dist/img/user2-160x160.jpg") }}" class="img-circle" alt="User Image" />
             </div>
             <div class="pull-left info">
-                <p> {{ Auth()->user()->name }} <span class="caret"></p>
+                {{-- <p> {{ Auth()->user()->name }} <span class="caret"></p> --}}
 
                 <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
             </div>
@@ -34,12 +34,13 @@
             <li class="treeview">
                 <a href="#"><span>Master Data</span> <i class="fa fa-angle-left pull-right"></i></a>
                 <ul class="treeview-menu">
-                    <li><a href="{{ route('admin.merk.index') }}">Merk</a></li>
-                    <li><a href="{{ route('admin.type.index') }}">Type</a></li>
-                    <li><a href="{{ route('admin.vehiclecollateral.index') }}">Vehicle Collateral</a></li>
+                    <li><a href="{{ route('admin.master.merk.index') }}">Merk</a></li>
+                    <li><a href="{{ route('admin.master.type.index') }}">Type</a></li>
+                    <li><a href="{{ route('admin.master.vehiclecollateral.index') }}">Vehicle Collateral</a></li>
                     <li><a href="{{ route('admin.master.bank.index') }}">Bank</a></li>
                     <li><a href="{{ route('admin.master.branch.index') }}">Branch</a></li>
                     <li><a href="{{ route('admin.master.supplier.index') }}">Supplier</a></li>
+                    <li><a href="{{ route('admin.master.credittype.index') }}">Credit Type</li>
                     <li><a href="{{ route('admin.leasing.index') }}">Leasing</a></li>
                     <li><a href="{{ route('admin.master.user.index') }}">User</a></li>
                     <li><a href="{{ route('admin.master.role.index') }}">Role</a></li>
@@ -47,10 +48,11 @@
                 </ul>
             </li>
             <li class="treeview">
-                <a href="#"><span>Loan</span> <i class="fa fa-angle-left pull-right"></i></a>
+                <a href="#"><span>Dana Tunai</span> <i class="fa fa-angle-left pull-right"></i></a>
                 <ul class="treeview-menu">
                     <li><a href="{{ route('admin.cash.index') }}">DaTun Request</a></li>
-                    {{-- <li><a href="{{ route('admin.approve.index') }}">Approve</a></li> --}}
+                    <li><a href="{{ route('admin.approve.index') }}">Inbox</a></li>
+                    <li><a href="{{ route('admin.approve.create') }}">Approve Fix</a></li>
                 </ul>
             </li>
             <li class="treeview">

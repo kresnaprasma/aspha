@@ -5,7 +5,7 @@
 		<div class="col-md-12">
 			<div class="box box-primary">
         <div class="box-header with-border">
-          <h3 class="box-title">Type</h3>
+          <h3 class="box-title">Merk</h3>
           <div class="box-tools pull-right">
             <button class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse"><i class="fa fa-minus"></i></button>
             {{-- <button class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove"><i class="fa fa-times"></i></button> --}}
@@ -13,12 +13,12 @@
         </div>
 
         <div class="box-body">
-          <div class="col-md-12 box-body-header">
+          <div class="col-md-12 box-body-header">  
             <div class="col-md-8">
-              <button type="button" class="btn btn-default" onclick="AddType()">
+              <button type="button" class="btn btn-default" onclick="AddMerk()">
                 <i class="fa fa-plus" aria-hidden="true"></i> New
               </button>
-              <button type="button" class="btn btn-default" onclick="deleteType()">
+              <button type="button" class="btn btn-default" onclick="deleteMerk()">
                 <i class="fa fa-times" aria-hidden="true"></i> Delete
               </button>
 
@@ -40,103 +40,89 @@
             </div>
           </div>
 
-          {!! Form::open(['route'=>'admin.type.delete', 'id'=>'formDeleteType']) !!}
-          <table class="table table-bordered table-striped table-color" id="tableType">
+          {!! Form::open(['route'=>'admin.master.merk.delete', 'id'=>'formDeleteMerk']) !!}
+          <table class="table table-bordered table-striped table-color" id="tableMerk">
             <thead>
               <th><input type="checkbox" id="check_all"/></th>
-              <th>Code Type</th>
-              <th>Name</th>
-              <th>Merk</th>                           
+              <th>Id</th>
+              <th>Name</th>                           
             </thead>
             <tbody>
-            @if(!empty($types) && $types->count())
-              @foreach ($types as $t)
+              @foreach ($merks as $m)
                	<tr>
                   <td>
-                  <input type="checkbox" id="codeTableType" name="id[]" class="checkin" value="{{ $t->id }}">
+                    <input type="checkbox" id="idTableMerk" name="id[]" class="checkin" value="{{ $m->id }}"/>
                   </td>
                		<td>
-                    {{ $t->id }}
+                    {{ $m->id }}
                   </td>
                		<td>
-                    {{ $t->name }}
-                    <input type="hidden" id="nameTableType" name="name[]" value="{{ $t->name }}">
+                    {{ $m->name }}
+                    <input type="hidden" id="nameTableMerk" name="name[]" value="{{ $m->name }}">
                   </td>
-                  <td>
-                    {{ $t->merk->name }}
-                    <input type="hidden" id="merkTableType" name="merk_id[]" value="{{ $t->merk_id }}"> 
-                  </td>                 
                	</tr>
               @endforeach
-            @else
-                <tr>
-                  <td colspan="20">There are no data.</td>
-                </tr>
-            @endif
             </tbody>
           </table>
-          {!! $types->render() !!}
           {!! Form::close() !!}
         </div><!-- /.box-body -->
       </div>
 		</div>
 	</div>
 
-  @include('admin.type._modal')
+  @include('admin.master.merk._modal')
 @stop
 
 @section('scripts')
 	<script type="text/javascript">
-		var tableType = $('#tableType').DataTable({
+		var tableMerk = $('#tableMerk').DataTable({
       "dom": "rtip",
           "pageLength": 10,
           "retrieve": true,
     });
 
     $("#searchDtbox").keyup(function() {
-      tableType.search($(this).val()).draw();
+      tableMerk.search($(this).val()).draw();
     });
-    $('#tableType tbody').on('dblclick', 'tr', function () {
+    $('#tableMerk tbody').on('dblclick', 'tr', function () {
       if ( $(this).hasClass('selected') ) {
         $(this).removeClass('selected');
       }
       else {
-        tableType.$('tr.selected').removeClass('selected');
+        tableMerk.$('tr.selected').removeClass('selected');
         $(this).addClass('selected');
 
-        var id = $(this).find('#codeTableType').val();
-        var name = $(this).find('#nameTableType').val();
-        var merk_id = $(this).find('#merkTableType').val(); 
+        var id = $(this).find('#idTableMerk').val();
+        var name = $(this).find('#nameTableMerk').val();
 
-        EditType(id, name, merk_id);
+        EditMerk(id, name);
       }
     });
 
-    function AddType() {
-      $('#createTypeModal').modal('show');
+    function AddMerk() {
+      $('#createMerkModal').modal('show');
     }
 
-    function EditType(id, name, merk_id) {
-      $("#editType").attr('action', '/admin/type/' + id);
-      $('#codeType').val(id);
-      $("#nameType").val(name);
-      $("#merkType").val(merk_id);
-      $("#editTypeModal").modal("show");
+    function EditMerk(id, name) {
+      $("#editMerk").attr('action', '/admin/master/merk/' + id);
+      $('#idMerk').val(id);
+      $("#nameMerk").val(name);
+      $("#editMerkModal").modal("show");
     }
 
-    function deleteType() {
+    function deleteMerk() {
       if ($('.checkin').is(':checked')) 
       {
-        $('#deleteTypeModal').modal("show");
+        $('#deleteMerkModal').modal("show");
       }
       else
       {
         $('#deleteNoModal').modal("show");
       }
     }
-    function DeleteType()
+    function DeleteMerk()
     {
-      $("#formDeleteType").submit();
+      $("#formDeleteMerk").submit();
     }
 
 	</script>

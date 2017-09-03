@@ -1,23 +1,7 @@
 <script type="text/javascript">
-
-    // Dropzone.autoDiscover = false;
-
-    // var myDropzone = new Dropzone('div#UploadCollateral', {
-    //     url: "http:localhost:8000/admin/cash/upload",
-    //     paramName: 'upload_collateral',
-    //     addRemoveLinks: true,
-    //     dictRemoveFile: 'Remove',
-    //     autoProcessQueue: false,
-    //     parallelUploads: 10,
-    //     maxFilesize: 8,
-    //     dictFileTooBig: 'Image is bigger than 8MB',
-    //     clickable: '.upload-collateral',
-
-    // })
-
     $(".customer_select2").select2({
         tags: 'true',
-        placeholder: 'Search Customer',
+        placeholder: 'Search CRM',
         allowClear: true
     });
 
@@ -69,7 +53,4 @@
             }
         })
     })
-
-
 </script>
-

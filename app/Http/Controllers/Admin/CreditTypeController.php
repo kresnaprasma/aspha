@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Merk;
+use App\CreditType;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class MerkController extends Controller
+class CreditTypeController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +15,8 @@ class MerkController extends Controller
      */
     public function index()
     {
-        $merks = Merk::all();
-        return view('admin.master.merk.index', compact('merks')); 
+        $credittypes = CreditType::all();
+        return view('admin.master.credittype.index', compact('credittypes'));
     }
 
     /**
@@ -26,7 +26,7 @@ class MerkController extends Controller
      */
     public function create()
     {
-        //
+         
     }
 
     /**
@@ -37,9 +37,9 @@ class MerkController extends Controller
      */
     public function store(Request $request)
     {
-        Merk::create($request->all());
+        CreditType::create($request->all());
 
-        return redirect()->back()->with('Success', 'Merk Created Successfully');
+        return redirect()->back()->with('Success', 'Credit Type Created Successfully');
     }
 
     /**
@@ -50,7 +50,7 @@ class MerkController extends Controller
      */
     public function show($id)
     {
-
+        //
     }
 
     /**
@@ -73,9 +73,9 @@ class MerkController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $edit = Merk::find($id)->update($request->all());
+        $edit = CreditType::find($id)->update($request->all());
 
-        return redirect()->back()->with('Success', 'Merk updated Successfully');
+        return redirect()->back()->with('Success', 'Credit Type updated Successfully');
     }
 
     /**
@@ -84,12 +84,17 @@ class MerkController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    public function destroy($id)
+    {
+        //
+    }
+
     public function delete(Request $request)
     {
         foreach ($request->input('id') as $value) {
-            Merk::find($value)->delete();
+            CreditType::find($value)->delete();
         }
 
-        return redirect()->back()->with('Success', "Merk deleted Successfully");
+        return redirect()->back()->with('Success', "Credit Type deleted Successfully");
     }
 }

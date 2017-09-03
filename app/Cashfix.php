@@ -47,4 +47,9 @@ class Cashfix extends Model
         return $this->belongsTo('App\Cash','cash_no','cash_no');
     }
 
+    public function leasing()
+    {
+        return $this->belongsTo('App\Leasing', 'leasing_no', 'leasing_no');
+    }
+
 }

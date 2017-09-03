@@ -28,7 +28,7 @@ class CustomerUploadController extends Controller
      */
     public function create()
     {
-        return view( 'admin.loan.image.create' );
+        return view( 'admin.loan.customerupload.create' );
     }
 
     /**

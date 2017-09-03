@@ -20,7 +20,7 @@ class TypeController extends Controller
         $types = Type::all();
         $types = Type::paginate(15);
         $merks = Merk::pluck('name', 'id');
-        return view('admin.type.index', compact('types', 'merks'));
+        return view('admin.master.type.index', compact('types', 'merks'));
     }
 
     /**

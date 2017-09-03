@@ -22,9 +22,8 @@ class LoanController extends Controller
      */
     public function index()
     {
-        $custcoll = CustomerCollateral::all();
-        $cash = Cash::all();
-        return view('admin.loan.index', compact('custcoll', 'cash'));
+        $approvalfix = Cashfix::where('approve', 1)->get();
+        return view('admin.approve.fix', compact('approvalfix'));
     }
 
     /**

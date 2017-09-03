@@ -15,7 +15,7 @@
 				<div class="box-body">
 					<div class="col-md-12 box-body-header">
 					   <div class="col-md-8">
-					      <a href="{{ route('admin.loan.custcoll.create') }}" class="btn btn-default">
+					      <a href="{{-- {{ route('admin.loan.custcoll.create') }} --}}" class="btn btn-default">
 					      	<i class="fa fa-plus" aria-hidden="true"></i> New
 					      </a>
 					      <button type="button" class="btn btn-default" onclick="deleteCustColl()">
@@ -27,7 +27,7 @@
 				   		</div>
 					</div>
 
-					{!! Form::open(['route'=>'admin.loan.custcoll.delete', 'id'=>'formDeleteCustColl']) !!}
+					{{-- {!! Form::open(['route'=>'admin.loan.custcoll.delete', 'id'=>'formDeleteCustColl']) !!} --}}
 					<div>
 
 					    @if ($message = Session::get('success'))

@@ -13,9 +13,9 @@
 				   </div>
 				</div>
 				<div class="box-body">
-					{!! Form::open(['route' => 'admin.vehiclecollateral.store']) !!}
+					{!! Form::open(['route' => 'admin.master.vehiclecollateral.store']) !!}
 					<input type="hidden" name="_token" value={{ csrf_token() }}/>
-					@include('admin.vehiclecollateral._form')
+					@include('admin.master.vehiclecollateral._form')
 				</div>
 			</div>
 		</div>
@@ -30,7 +30,7 @@
             var merkID = $(this).val();
             if(merkID) {
                 $.ajax({
-                    url: '/admin/vehiclecollateral/type/'+merkID,
+                    url: '/admin/master/vehiclecollateral/type/'+merkID,
                     type: "GET",
                     dataType: "json",
                     success:function(data) {

@@ -23,7 +23,7 @@ class VehicleCollateralController extends Controller
         $merkall = Merk::pluck("name", "id");
         $merkedit = Merk::pluck("name", "id");
         $typeall = Type::pluck('name', 'id');
-        return view('admin.vehiclecollateral.index', compact('VehicleCollaterals', 'merkall', 'merkedit', 'typeall'));
+        return view('admin.master.vehiclecollateral.index', compact('VehicleCollaterals', 'merkall', 'merkedit', 'typeall'));
     }
 
     /**
@@ -34,7 +34,7 @@ class VehicleCollateralController extends Controller
     public function create()
     {
         $merkall = Merk::pluck("name", "id");
-        return view('admin.vehiclecollateral.create', compact("merkall"));
+        return view('admin.master.vehiclecollateral.create', compact("merkall"));
     }
 
     public function myformAjax($id)
@@ -61,7 +61,7 @@ class VehicleCollateralController extends Controller
     public function store(Request $request)
     {
         VehicleCollateral::create($request->all());
-        return redirect('/admin/vehiclecollateral')->with('Success', 'Collateral Created Successfully');
+        return redirect('/admin/master/vehiclecollateral')->with('Success', 'Collateral Created Successfully');
     }
 
     /**
@@ -107,7 +107,7 @@ class VehicleCollateralController extends Controller
      */
     public function delete(Request $request)
     {
-        foreach ($request->input('id') as $value) {
+        foreach($request->input('id') as $value) {
             VehicleCollateral::find($value)->delete();
         }
 

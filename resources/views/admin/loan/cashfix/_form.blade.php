@@ -1,4 +1,4 @@
-<div class="row">
+{{-- <div class="row">
       <div class="col-md-6">
          <div class="form-group{{ $errors->has('tenor_approve') ? ' has-error' : '' }}">
             {!! Form::label('tenor_approve', "Tenor Approve", ['class'=>'col-md-4 control-label']) !!}
@@ -61,4 +61,4 @@
          </div>
       </div>
 
-   </div>
+   </div> --}}

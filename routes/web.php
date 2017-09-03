@@ -21,44 +21,32 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::group([
 	'prefix' => 'admin',
-	'middleware' => 'auth',
+	/*'middleware' => 'auth',*/
 ], function(){
-	Route::resource('/merk', 'Admin\MerkController', ['as'=>'admin']);
-	Route::post('/merk/store', ['as'=>'admin.merk.store', 'uses'=>'Admin\MerkController@store']);
-	Route::post('/merk/delete', ['as'=>'admin.merk.delete', 'uses'=>'Admin\MerkController@delete']);
+	Route::resource('master/merk', 'Admin\MerkController', ['as'=>'admin.master']);
+	Route::post('master/merk/store', ['as'=>'admin.master.merk.store', 'uses'=>'Admin\MerkController@store']);
+	Route::post('master/merk/delete', ['as'=>'admin.master.merk.delete', 'uses'=>'Admin\MerkController@delete']);
 
 
-	Route::resource('/type', 'Admin\TypeController', ['as'=>'admin']);
-	Route::post('/type/store', ['as'=>'admin.type.store', 'uses'=>'Admin\TypeController@store']);
-	Route::post('/type/delete', ['as'=>'admin.type.delete', 'uses'=>'Admin\TypeController@delete']);
+	Route::resource('master/type', 'Admin\TypeController', ['as'=>'admin.master']);
+	Route::post('/type/store', ['as'=>'admin.master.type.store', 'uses'=>'Admin\TypeController@store']);
+	Route::post('master/type/delete', ['as'=>'admin.master.type.delete', 'uses'=>'Admin\TypeController@delete']);
 
 
-	Route::resource('/vehiclecollateral', 'Admin\VehicleCollateralController', ['as'=>'admin']);
-	Route::post('/vehiclecollateral/delete', [
-		'as'=>'admin.vehiclecollateral.delete', 
+	Route::resource('master/vehiclecollateral', 'Admin\VehicleCollateralController', ['as'=>'admin.master']);
+	Route::post('master/vehiclecollateral/delete', [
+		'as'=>'admin.master.vehiclecollateral.delete', 
 		'uses'=>'Admin\VehicleCollateralController@delete'
 	]);
-	Route::get('/vehiclecollateral/type/{id}', [
+	Route::get('master/vehiclecollateral/type/{id}', [
 		'as'=>'myForm.type', 
 		'uses'=>'Admin\VehicleCollateralController@myformAjax'
 	]);
-	Route::get('/vehiclecollateral/type/edit/{id}', [
+	Route::get('master/vehiclecollateral/type/edit/{id}', [
 		'as'=>'myForm.ajax', 
 		'uses'=>'Admin\VehicleCollateralController@myformEdit'
 	]);
-	Route::get('vehiclecollateral/downloadExcel/xls', 'Admin\VehicleCollateralController@downloadExcel');
-
-
-	Route::post('customer/delete', ['as'=>'admin.customer.delete','uses'=>'Admin\CustomerController@delete']);
-	Route::resource('customer', 'Admin\CustomerController',['as'=>'admin']);
-	Route::get('select2-autocomplete', 'Admin\CustomerController@dataAjax', ['as'=>'admin']);
-	
-
-	Route::resource('motor', 'Admin\MotorController', ['as' => 'admin']);
-	Route::post('/motor/delete', ['as'=>'admin.motor.delete', 'uses'=>'Admin\MotorController@delete']);
-	Route::get('/motor/type/{id}', ['as'=>'myForm.type', 'uses'=>'Admin\MotorController@myformAjax']);
-	Route::get('/motor/type/edit/{id}', ['as'=>'myForm.ajax', 'uses'=>'Admin\MotorController@myformEdit']);
-	Route::get('motor/downloadExcel/xls', 'Admin\MotorController@downloadExcel');
+	Route::get('master/vehiclecollateral/downloadExcel/xls', 'Admin\VehicleCollateralController@downloadExcel');
 
 
 	Route::post('master/bank/delete', ['as'=>'admin.master.bank.delete','uses'=>'Admin\BankController@delete']);
@@ -84,10 +72,18 @@ Route::group([
 	Route::post('master/permission/delete',['as'=>'admin.master.permission.delete','uses'=>'Admin\PermissionController@delete']);
 	Route::resource('master/permission', 'Admin\PermissionController',['as'=>'admin.master']);
 
+	Route::post('master/credittype/delete', ['as'=>'admin.master.credittype.delete', 'uses'=>'Admin\CreditTypeController@delete']);
+	Route::resource('master/credittype', 'Admin\CreditTypeController', ['as'=>'admin.master']);
 
 
+	Route::post('cash/delete',['as'=>'admin.cash.delete', 'uses'=>'Admin\CashController@delete']);
+	Route::resource('cash', 'Admin\CashController',['as'=>'admin']);
 
 
+	Route::post('approve/delete', ['as'=>'admin.cashfix.delete', 'uses'=>'Admin\CashfixController@delete']);
+	Route::resource('approve', 'Admin\CashfixController', ['as'=>'admin']);/*
+	Route::get('approve/fix', ['as'=>'admin.approve.fix', 'uses'=>'Admin\CashfixController@cashapp']);*//*
+	Route::get('approve/fix/{id}', ['as'=>'admin.approve.show', 'uses'=>'Admin\CashfixController@show']);*/
 
 
 	Route::post('/leasing/delete',['as'=>'admin.leasing.delete','uses'=>'Admin\LeasingController@delete']);
@@ -98,11 +94,8 @@ Route::group([
 	Route::resource('custcoll', 'Admin\CustomerCollateralController',['as'=>'admin']);
 
 
-	Route::post('cash/delete',['as'=>'admin.cash.delete', 'uses'=>'Admin\CashController@delete']);
-	Route::resource('cash', 'Admin\CashController',['as'=>'admin']);
-
-	Route::post('/cashfix/delete',['as'=>'admin.cashfix.delete', 'uses'=>'Admin\CashfixController@delete']);
-	Route::resource('/cashfix', 'Admin\CashfixController',['as'=>'admin']);
+	/*Route::post('/cashfix/delete',['as'=>'admin.cashfix.delete', 'uses'=>'Admin\CashfixController@delete']);*/
+	/*Route::resource('/cashfix', 'Admin\CashfixController',['as'=>'admin']);*/
 
 
 	Route::post('/history/delete', ['as'=>'admin.history.delete', 'uses'=>'Admin\HistoryController@delete']);
@@ -112,6 +105,18 @@ Route::group([
 	Route::resource('/customerupload', 'Admin\CustomerUploadController', ['as'=>'admin']);
 
 
-	Route::get('/upload', ['as' => 'image.create', 'uses' => 'Admin\CustomerUploadController@create']);
-	Route::post('/upload', ['as' => 'image.store' , 'uses' => 'Admin\CustomerUploadController@store']);
+	Route::get('cash/upload', ['as' => 'admin.loan.customerupload.create', 'uses' => 'Admin\CustomerUploadController@create']);
+	Route::post('cash/upload', ['as' => 'admin.loan.customerupload.store' , 'uses' => 'Admin\CustomerUploadController@store']);
+
+
+	Route::post('customer/delete', ['as'=>'admin.customer.delete','uses'=>'Admin\CustomerController@delete']);
+	Route::resource('customer', 'Admin\CustomerController',['as'=>'admin']);
+	Route::get('select2-autocomplete', 'Admin\CustomerController@dataAjax', ['as'=>'admin']);
+	
+
+	Route::resource('motor', 'Admin\MotorController', ['as' => 'admin']);
+	Route::post('/motor/delete', ['as'=>'admin.motor.delete', 'uses'=>'Admin\MotorController@delete']);
+	Route::get('/motor/type/{id}', ['as'=>'myForm.type', 'uses'=>'Admin\MotorController@myformAjax']);
+	Route::get('/motor/type/edit/{id}', ['as'=>'myForm.ajax', 'uses'=>'Admin\MotorController@myformEdit']);
+	Route::get('motor/downloadExcel/xls', 'Admin\MotorController@downloadExcel');
 });

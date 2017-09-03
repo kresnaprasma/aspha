@@ -24,5 +24,16 @@ Route::group([
 
 	Route::resource('customer', 'Api\CustomerController', ['as'=>'api']);
 
-	Route::resource('merk', 'Api\MerkController');
+	Route::resource('merk', 'Api\MerkController', ['as'=>'api']);
+
+	Route::resource('upload', 'Api\ImageController', ['as'=>'api']);
+
+	Route::post('upload/post', 'Api\ImageController@postupload');
+
+	Route::get('example-2', ['as' => 'upload-2', 'uses' => 'Api\ImageController@getServerImagesPage']);
+	
+	Route::get('server-images', ['as' => 'server-images', 'uses' => 'Api\ImageController@getServerImages']);
+
+	// Route::get('files', 'ImageController@getUploadForm');
+	// Route::post('/files/image','ImageController@postUpload');
 });
