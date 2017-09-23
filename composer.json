@@ -15,6 +15,7 @@
         "maatwebsite/excel": "~2.1.0",
         "ramsey/uuid": "^3.6",
         "sofa/eloquence": "^5.4",
+        "tucker-eric/eloquentfilter": "^1.2",
         "tymon/jwt-auth": "^0.5.12"
     },
     "require-dev": {

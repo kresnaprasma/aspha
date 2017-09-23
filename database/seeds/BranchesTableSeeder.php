@@ -14,7 +14,14 @@ class BranchesTableSeeder extends Seeder
         $now = Carbon\Carbon::now();
 
         App\Branch::insert([
-        	//
+        	['name'=>'ASPHA KENDAL', 'email'=>'kendal@aspha.co.id'],
+            ['name'=>'ASPHA BATANG', 'email'=>'batang@aspha.co.id'],
+            ['name'=>'ASPHA PEMALANG', 'email'=>'pemalang@aspha.co.id']
+        ]);
+
+        App\CreditType::insert([
+            ['name'=>'bulanan'],
+            ['name'=>'musiman']
         ]);
     }
 }

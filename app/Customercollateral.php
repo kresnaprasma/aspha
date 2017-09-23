@@ -5,7 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
-class CustomerCollateral extends Model
+class Customercollateral extends Model
 {
     protected $fillable = ['customercollateral_no', 'stnk', 'bpkb', 'machine_number', 'chassis_number', 'vehicle_color', 'vehicle_cc', 'collateral_name', 'vehicle_date', 'stnk_due_date', 'customer_no'];
 

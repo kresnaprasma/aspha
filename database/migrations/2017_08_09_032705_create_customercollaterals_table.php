@@ -16,8 +16,8 @@ class CreateCustomercollateralsTable extends Migration
         Schema::create('customercollaterals', function (Blueprint $table) {
             $table->string('id')->index();
             $table->string('customercollateral_no')->unique();
-            $table->string('stnk')->unique();
-            $table->string('bpkb')->unique();
+            $table->string('stnk')->nullable();
+            $table->string('bpkb')->nullable();
             $table->string('machine_number')->unique();
             $table->string('chassis_number')->unique();
             $table->string('vehicle_color')->nullable();

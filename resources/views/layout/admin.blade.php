@@ -6,6 +6,7 @@
 	<meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/4.0.1/min/dropzone.min.css" rel="stylesheet">
     <!-- our style bro -->
     <link rel="stylesheet" type="text/css" href="{{ asset("/assets/css/style.css") }}">
     <!-- Ionicons -->

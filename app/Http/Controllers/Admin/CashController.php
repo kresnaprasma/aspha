@@ -157,7 +157,7 @@ class CashController extends Controller
             '6'=>'6 bulan', '12'=>'12 bulan', '18'=>'18 bulan', '24'=>'24 bulan', 
             '30'=>'30 bulan', '36'=>'36 bulan'];
 
-        return view('admin.cash.index', compact('cash', 'leasing_list', 'branch_list', 'customer_list', 'vehicle_cclist', 'vehicle_colorlist', 'vehicle_cclist','tenor_requestlist', 'credittype_list'));
+        return view('admin.cash.create', compact('cash', 'leasing_list', 'branch_list', 'customer_list', 'vehicle_cclist', 'vehicle_colorlist', 'vehicle_cclist','tenor_requestlist', 'credittype_list'));
     }
 
     /**

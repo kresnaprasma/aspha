@@ -41,7 +41,7 @@
                     <li><a href="{{ route('admin.master.branch.index') }}">Branch</a></li>
                     <li><a href="{{ route('admin.master.supplier.index') }}">Supplier</a></li>
                     <li><a href="{{ route('admin.master.credittype.index') }}">Credit Type</li>
-                    <li><a href="{{ route('admin.leasing.index') }}">Leasing</a></li>
+                    <li><a href="{{ route('admin.loan.leasing.index') }}">Leasing</a></li>
                     <li><a href="{{ route('admin.master.user.index') }}">User</a></li>
                     <li><a href="{{ route('admin.master.role.index') }}">Role</a></li>
                     <li><a href="{{ route('admin.master.permission.index') }}">Permission</a></li>

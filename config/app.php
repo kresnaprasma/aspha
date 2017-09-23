@@ -181,6 +181,7 @@ return [
         Elibyy\TCPDF\ServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
+        EloquentFilter\ServiceProvider::class,
     ],
 
     /*

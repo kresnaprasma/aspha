@@ -1,7 +1,9 @@
 {{-- Dana Tunai  --}}
 <div class="box box-primary">
     <div class="box-header with-border">
-        <h3 class="box-title">Cash - <b>{{ App\Cash::Maxno() }}</b></h3>
+        <h3 class="box-title">Cash - <b>{{ App\Cash::Maxno() }}</b>
+            {!! Form::hidden('cash_no', old('cash_no'), ['class'=>'form-control']) !!}
+        </h3>
         <div class="box-tools pull-right">
             <button class="btn btn-box-tool" data-widget="collapse" data-toogle="tooltip" title="Collapse"><i class="fa fa-minus"></i></button>
         </div>
@@ -152,7 +154,9 @@
 {{-- Collateral --}}
 <div class="box box-primary">
     <div class="box-header with-border">
-        <h3 class="box-title">Collateral</b></h3>
+        <h3 class="box-title">Collateral</b>
+             {!! Form::hidden('customercollateral_no', old('customercollateral_no'), ['class'=>'form-control']) !!}
+        </h3>
         <div class="box-tools pull-right">
             <button class="btn btn-box-tool" data-widget="collapse" data-toogle="tooltip" title="Collapse"><i class="fa fa-minus"></i></button>
         </div>
@@ -224,7 +228,7 @@
                     </div>
 
                     <div class="form-group{{ $errors->has('collateral_name') ? ' has-error' : '' }}">
-                        {!! Form::label('collateral_name', "Collateral Name") !!}
+                        {!! Form::label('collateral_name', "Product Name") !!}
                         {!! Form::text('collateral_name', $cash->customerCollateral->collateral_name, ['class'=>'form-control','id'=>'collateral_name']) !!}
                         @if ($errors->has('collateral_name'))
                         <span class="help-block">
@@ -358,24 +362,29 @@
 <div class="box box-primary">
     <div class="box-header with-border">
         <h3 class="box-title">Attachment</b></h3>
+        <input type="text" class="dial" value="0" data-width="48" data-height="48" data-fgColor="#0788a5" data-bgColor="#3e4043" style="display: none;" />
         <div class="box-tools pull-right">
             <button class="btn btn-box-tool" data-widget="collapse" data-toogle="tooltip" title="Collapse"><i class="fa fa-minus"></i></button>
         </div>
     </div>
     <div class="box-body">
-        <form id="customer-upload" class="dropzone needsclick dz-clickable" action="{{ url('image/upload') }}">
-            <div class="dz-message needsclick upload-collateral">
-                Drop files here or click to upload.
-            </div>
-        </form>
-        <div id="UploadCollateral">
-            
+        <button type="button" class="btn btn-default start upload-collateral dz-clickable">
+            <i class="fa fa-upload" aria-hidden="true"> Upload</i>
+        </button>
+        <div id="uploadcollateral">
+            <ul class="list-inline">
+            </ul>
         </div>
     </div>
     <div class="box-footer">
         <button type="submit" class="btn btn-primary">Save
-            {{-- {{ Form::hidden('approval', false) }} --}}
         </button>
     </div>
-    <!-- / .box-footer -->
 </div>
+
+{{-- <form id="uploadcollateralForm" class="dropzone needsclick dz-clickable" action="{{ url('api/v1/upload') }}">
+<div class="dz-message needsclick upload-collateral" id="uploadcollateral">
+{{ csrf_field() }}
+    Drop files here or click to upload.
+</div>
+</form> --}}

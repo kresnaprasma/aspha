@@ -4,12 +4,19 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
-use App\Loan;
+
+use App\Customer;
+use App\Leasing;
+use App\Cash;
+
+use Ramsey\Uuid\Uuid;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Validator;
 
-class LoanController extends Controller
+use Auth;
+
+class CashController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,10 +25,10 @@ class LoanController extends Controller
      */
     public function index()
     {
-        $loans = Loan::all();
+        $cashes = cash::all();
 
         return response()->json([
-            'data'=>$this->transformCollection($loans)
+            'data'=>$this->transformCollection($cashes)
         ], 200);
     }
 
@@ -51,9 +58,9 @@ class LoanController extends Controller
             );
         }
 
-        $loan = Loan::create($request->all());
+        $cash = cash::create($request->all());
 
-        if (!$loan) {
+        if (!$cash) {
             return response()->json([
                 'status'=> '404',
                 'message' => 'cannot save this data',
@@ -62,8 +69,8 @@ class LoanController extends Controller
         }else{
             return response()->json([
                 'status'=> '200',
-                'message' => 'Loan Created Succesfully',
-                'data' => [$this->transform($loan)]
+                'message' => 'cash Created Succesfully',
+                'data' => [$this->transform($cash)]
             ],200);
         }
     }
@@ -76,18 +83,18 @@ class LoanController extends Controller
      */
     public function show($id)
     {
-        $loan = Loan::find($id);
+        $cash = cash::find($id);
 
-        if (!$loan) {
+        if (!$cash) {
             return response()->json([
                 'error'=>[
-                    'message' => 'Loan does not exist'
+                    'message' => 'cash does not exist'
                 ]
             ], 404);
         }
 
         return response()->json([
-            'data'=>$this->transform($loan)
+            'data'=>$this->transform($cash)
         ], 200);
     }
 
@@ -111,10 +118,10 @@ class LoanController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $loan = Loan::find($id);
-        $loan->update($request->all());
+        $cash = cash::find($id);
+        $cash->update($request->all());
         return response()->json([
-            'data'=>$this->transform($loan)]);
+            'data'=>$this->transform($cash)]);
     }
 
     /**
@@ -125,31 +132,38 @@ class LoanController extends Controller
      */
     public function destroy($id)
     {
-        $loan = Loan::find($id);
-        $loan->delete();
-        return response()->json([
-            'data'=>$this->transform($loan)]);
+        $cash = cash::where('cash_no', $id)->first();
+        $cash->delete();
+        return $cash;
     }
 
-    private function transformCollection($loans){
-        return array_map([$this, 'transform'], $loans->toArray());
+    private function transformCollection($cashes){
+        return array_map([$this, 'transform'], $cashes->toArray());
     }
  
-    private function transform($loan){
+    private function transform($cash){
         return [
-            'loan_id' => $loan['id'],
-            'loan_collateral_id' => $loan['collateral_id'],
-            'loan_merk' => $loan['merk'],
-            'loan_type' => $loan['type'],
-            'loan_color' => $loan['vehicle_color'],
-            'loan_cc' => $loan['vehicle_cc'],
-            'loan_stnk' => $loan['stnk_due_date'],
-            'loan_date' => $loan['vehicle_date'],
-            'loan_bpkb' => $loan['bpkb'],
-            'loan_tenor' => $loan['tenor'],
-            'loan_price' => $loan['price_request'],
-            'loan_approval' => $loan['approvals'],
-            'loan_user' => $loan['user_approval']
+            'cash_id' => $cash['id'],
+            'cash_no' => $cash['cash_no'],
+            'cash_credit_ceiling_request' => $cash['credit_ceiling_request'],
+            'cash_tenor_request' => $cash['merk'],
+            'cash_customer_no' => $cash['type'],
+            'cash_leasing_no' => $cash['leaisng_no'],
+            'cash_branch_id' => $cash['branch_id'],
+            'cash_credit_type' => $cash['credit_type'],
+            'cash_user_id' => $cash['user_id'],
+            'cash_approval' => $cash['approval'],
         ];
+    }
+
+    public function getNo()
+    {
+        $cash = new Cash();
+        $cash->id = Uuid::uuid4()->getHex();
+        $cash->cash_no = Cash::Maxno();
+        $cash->user_id = Auth::guard('api')->user('id');
+        $cash->save();
+
+        return $cash;
     }
 }

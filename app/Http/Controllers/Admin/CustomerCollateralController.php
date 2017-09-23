@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\CustomerCollateral;
+use App\Customercollateral;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -19,7 +19,7 @@ class CustomerCollateralController extends Controller
      */
     public function index()
     {
-        $custcoll = CustomerCollateral::all();
+        $custcoll = Customercollateral::all();
 
         return view('admin.loan.custcoll.index', compact('custcoll'));
     }
@@ -31,7 +31,7 @@ class CustomerCollateralController extends Controller
      */
     public function create()
     {
-        $customercollateral_id = CustomerCollateral::Maxno();
+        $customercollateral_id = Customercollateral::Maxno();
         return view('admin.loan.custcoll.create', compact('customercollateral_id'));
     }
 
@@ -57,9 +57,9 @@ class CustomerCollateralController extends Controller
             return redirect()->back()->withInput()->withErrors($validator);
         }
 
-        $custcoll = new CustomerCollateral();
+        $custcoll = new Customercollateral();
         $custcoll->id = Uuid::uuid4()->getHex();
-        $custcoll->customercollateral_no = CustomerCollateral::Maxno();
+        $custcoll->customercollateral_no = Customercollateral::Maxno();
         $custcoll->stnk = $request->input('stnk');
         $custcoll->bpkb = $request->input('bpkb');
         $custcoll->machine_number = $request->input('machine_number');
@@ -97,7 +97,7 @@ class CustomerCollateralController extends Controller
      */
     public function edit($id)
     {
-        $custcoll = CustomerCollateral::find($id);
+        $custcoll = Customercollateral::find($id);
 
         return view('admin.loan.custcoll.edit', compact('custcoll'));
     }
@@ -124,7 +124,7 @@ class CustomerCollateralController extends Controller
             return redirect()->back()->withInput()->withErrors($validator);
         }
 
-        $custcoll = CustomerCollateral::find($id);
+        $custcoll = Customercollateral::find($id);
         $custcoll->update($request->all());
 
         if (!$custcoll) {
@@ -159,7 +159,7 @@ class CustomerCollateralController extends Controller
         }
 
         foreach ($request->input('id') as $key => $value) {
-            $custcoll = CustomerCollateral::find($value);
+            $custcoll = Customercollateral::find($value);
             $custcoll->delete();
         }
 

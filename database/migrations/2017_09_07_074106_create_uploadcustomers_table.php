@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateUploadcustomerTable extends Migration
+class CreateUploadcustomersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,14 @@ class CreateUploadcustomerTable extends Migration
      */
     public function up()
     {
-        Schema::table('uploadcustomers', function (Blueprint $table) {
+        Schema::create('uploadcustomers', function (Blueprint $table) {
             $table->increments('id');
             $table->string('filename');
             $table->string('mime');
             $table->string('original_filename');
-
+            $table->string('nameslug');
+            $table->string('slugwithoutExt');
+            
             $table->string('customercollateral_no');
             $table->foreign('customercollateral_no')->references('customercollateral_no')->on('customercollaterals');
             $table->timestamps();

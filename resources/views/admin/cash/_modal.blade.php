@@ -16,8 +16,8 @@
 						{!! Form::select('branch_id', $branch_list, old('branch_id'), ['class'=>'form-control','id'=>'branch_id']) !!}
 					</div>
 					<div class="form-group">
-						{!! Form::label('customer_no', 'Customer No:') !!}
-						{!! Form::text('customer_no', $customer_id, ['class'=>'form-control', 'readonly'=>'true']) !!}
+						{!! Form::label('customer_no_modal', 'Customer No:') !!}
+						{!! Form::text('customer_no_modal', $customer_id, ['class'=>'form-control', 'id'=>'customer_no_modal', 'readonly'=>'true']) !!}
 					</div>
 					<div class="checkbox">
 		            	<label>

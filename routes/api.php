@@ -22,18 +22,19 @@ Route::group([
 	'middleware' => 'auth',*/
 ], function(){ 
 
+	Route::get('customer/no', 'Api\CustomerController@getCustomerNo', ['as'=>'api']);
 	Route::resource('customer', 'Api\CustomerController', ['as'=>'api']);
 
 	Route::resource('merk', 'Api\MerkController', ['as'=>'api']);
 
-	Route::resource('upload', 'Api\ImageController', ['as'=>'api']);
+	Route::get('uploaddanatunai/get', 'Api\ImageController@get', ['as'=>'api.uploaddanatunai.get']);
+	Route::get('uploaddanatunai/getTmp', 'Api\ImageController@getFileTmp', ['as'=>'api.uploaddanatunai.getTmp']);
+	Route::resource('uploaddanatunai', 'Api\ImageController', ['as'=>'api']);
 
-	Route::post('upload/post', 'Api\ImageController@postupload');
+	Route::get('cash/no', 'Api\CashController@getNo', ['as'=>'api']);
+	Route::resource('cash', 'Api\CashController', ['as'=>'api']);
 
-	Route::get('example-2', ['as' => 'upload-2', 'uses' => 'Api\ImageController@getServerImagesPage']);
-	
-	Route::get('server-images', ['as' => 'server-images', 'uses' => 'Api\ImageController@getServerImages']);
+	Route::get('customercollateral/no', 'Api\CustomerCollateralController@getCollateralNo', ['as'=>'api']);
+	Route::resource('customercollateral', 'Api\CustomerCollateralController', ['as'=>'api']);
 
-	// Route::get('files', 'ImageController@getUploadForm');
-	// Route::post('/files/image','ImageController@postUpload');
 });

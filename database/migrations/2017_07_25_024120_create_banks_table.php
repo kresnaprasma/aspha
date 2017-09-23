@@ -13,7 +13,7 @@ class CreateBanksTable extends Migration
      */
     public function up()
     {
-        Schema::table('banks', function (Blueprint $table) {
+        Schema::create('banks', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
             $table->string('alias');

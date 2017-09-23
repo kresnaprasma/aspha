@@ -160,8 +160,9 @@ class CustomerController extends Controller
     {
         $customer = Customer::find($id);
         $customer->delete();
-        return response()->json([
-            'data'=>$this->transform($customer)]);
+        return $customer;
+        /*return response()->json([
+            'data'=>$this->transform($customer)])*/;
     }
 
     public function transformCollection($customers){
@@ -192,5 +193,15 @@ class CustomerController extends Controller
             'customer_province' => $customer['province'],
             'customer_kk_number' => $customer['kk_number']
         ];
+    }
+
+    public function getCustomerNo()
+    {
+        $customer = new Customer();
+        $customer->id = Uuid::uuid4()->getHex();
+        $customer->customer_no = Customer::Maxno();
+        // $customercollateral->save();
+
+        return $customer;
     }
 }

@@ -1,16 +1,12 @@
 <?php
-
 namespace App;
-
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
 class Cashfix extends Model
 {
     protected $fillable = ['cashfix_no','tenor_approve', 'payment', 'approve_date', 'leasing_no', 'cash_no'];
-
     public $incrementing = false;
-
     public function scopeMaxno($query)
     {
         $year=substr(date('Y'), 2);
@@ -19,7 +15,6 @@ class Cashfix extends Model
             ->where(DB::raw('YEAR(created_at)'), '=', date('Y'))
             ->orderBy('cashfix_no', 'asc')
             ->get();
-
         $array1 = array();
         if ($queryMax->count() > 0) {
             foreach ($queryMax as $k=>$v)
@@ -38,18 +33,14 @@ class Cashfix extends Model
         else{
             $kd_fix = '0001';
         }
-
         return 'FIX'.$year.date('m').$kd_fix;
 	}
-
     public function cash()
     {
         return $this->belongsTo('App\Cash','cash_no','cash_no');
     }
-
     public function leasing()
     {
         return $this->belongsTo('App\Leasing', 'leasing_no', 'leasing_no');
     }
-
 }

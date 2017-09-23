@@ -86,8 +86,8 @@ Route::group([
 	Route::get('approve/fix/{id}', ['as'=>'admin.approve.show', 'uses'=>'Admin\CashfixController@show']);*/
 
 
-	Route::post('/leasing/delete',['as'=>'admin.leasing.delete','uses'=>'Admin\LeasingController@delete']);
-	Route::resource('/leasing', 'Admin\LeasingController',['as'=>'admin']);
+	Route::post('/loan/leasing/delete',['as'=>'admin.loan.leasing.delete','uses'=>'Admin\LeasingController@delete']);
+	Route::resource('/loan/leasing', 'Admin\LeasingController',['as'=>'admin.loan']);
 
 
 	Route::post('custcoll/delete',['as'=>'admin.custcoll.delete','uses'=>'Admin\CustomerCollateralController@delete']);
