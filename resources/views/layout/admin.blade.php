@@ -95,17 +95,17 @@
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
-        <section class="content-header">
+        {{-- <section class="content-header">
             <h1>
                 {{ $page_title or "Page Title" }}
                 <small>{{ $page_description or null }}</small>
             </h1>
-            <!-- You can dynamically generate breadcrumbs here -->
+            You can dynamically generate breadcrumbs here
             <ol class="breadcrumb">
                 <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
                 <li class="active">Here</li>
             </ol>
-        </section>
+        </section> --}}
 
         <!-- Main content -->
         <section class="content">
@@ -124,6 +124,7 @@
 <!-- REQUIRED JS SCRIPTS -->
 
 <!-- our script bro-->
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
 <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
@@ -136,6 +137,7 @@
 <script src="{{ asset ("/assets/pickadate/picker.time.js")}}"></script>
 <script src="{{ asset ("/assets/selectize/selectize.min.js")}}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+
 
 <!-- AdminLTE App -->
 <script src="{{ asset ("/assets/adminlte/dist/js/app.min.js") }}" type="text/javascript"></script>

@@ -94,10 +94,6 @@ Route::group([
 	Route::resource('custcoll', 'Admin\CustomerCollateralController',['as'=>'admin']);
 
 
-	/*Route::post('/cashfix/delete',['as'=>'admin.cashfix.delete', 'uses'=>'Admin\CashfixController@delete']);*/
-	/*Route::resource('/cashfix', 'Admin\CashfixController',['as'=>'admin']);*/
-
-
 	Route::post('/history/delete', ['as'=>'admin.history.delete', 'uses'=>'Admin\HistoryController@delete']);
 	Route::resource('/history', 'Admin\HistoryController', ['as'=>'admin']);
 
@@ -114,9 +110,22 @@ Route::group([
 	Route::get('select2-autocomplete', 'Admin\CustomerController@dataAjax', ['as'=>'admin']);
 	
 
-	Route::resource('motor', 'Admin\MotorController', ['as' => 'admin']);
-	Route::post('/motor/delete', ['as'=>'admin.motor.delete', 'uses'=>'Admin\MotorController@delete']);
-	Route::get('/motor/type/{id}', ['as'=>'myForm.type', 'uses'=>'Admin\MotorController@myformAjax']);
-	Route::get('/motor/type/edit/{id}', ['as'=>'myForm.ajax', 'uses'=>'Admin\MotorController@myformEdit']);
-	Route::get('motor/downloadExcel/xls', 'Admin\MotorController@downloadExcel');
+	Route::resource('mokas', 'Admin\MokasController', ['as' => 'admin']);
+	Route::post('/mokas/delete', ['as'=>'admin.mokas.delete', 'uses'=>'Admin\MokasController@delete']);
+	Route::get('/mokas/type/{id}', ['as'=>'myForm.type', 'uses'=>'Admin\MokasController@myformAjax']);
+	Route::get('/mokas/type/edit/{id}', ['as'=>'myForm.ajax', 'uses'=>'Admin\MokasController@myformEdit']);
+	Route::get('mokas/downloadExcel/xls', 'Admin\MokasController@downloadExcel');
+
+
+	Route::resource('sales', 'Admin\SalesController', ['as' => 'admin']);
+	Route::post('/sales/delete', ['as'=>'admin.sales.delete', 'uses'=>'Admin\SalesController@delete']);
+	Route::get('/sales/type/{id}', ['as'=>'myForm.type', 'uses'=>'Admin\SalesController@myformAjax']);
+	Route::get('/sales/type/edit/{id}', ['as'=>'myForm.ajax', 'uses'=>'Admin\SalesController@myformEdit']);
+	Route::get('/sales/downloadExcel/xls', 'Admin\SalesController@downloadExcel');
+
+	Route::resource('/pricesaleshistory', 'Admin\PriceSalesHistoryController', ['as'=>'admin']);
+	Route::post('/pricesaleshistory/delete', ['as'=>'admin.pricesaleshistory.delete', 'uses'=>'Admin\PriceSalesHistoryController@delete']);
+	Route::get('/pricesaleshistory/type/{id}', ['as'=>'myForm.type', 'uses'=>'Admin\PriceSalesHistoryController@myformAjax']);
+	Route::get('/pricesaleshistory/type/edit/{id}', ['as'=>'myForm.ajax', 'uses'=>'Admin\PriceSalesHistoryController@myformEdit']);
+	Route::get('/pricesaleshistory/downloadExcel/xls', 'Admin\PriceSalesHistoryController@downloadExcel');	
 });

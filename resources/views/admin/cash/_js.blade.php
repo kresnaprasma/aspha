@@ -21,8 +21,8 @@
             done();
         },
 
-        success: function(file, response){
-            $('#uploadcollateral').append('<li><a href="/uploaddanatunai/show/'+response.data.original_filename+'" target="_blank">'+get_mime(response.data.mime)+response.data.filename+'<a><span class="pull-right"><a onclick="deleteUpload(this, '+response.data.id+')"><i class="fa fa-times fa-red" aria-hidden="true"></i></a></span></li>');
+        success: function(file, response, value){
+            $('#uploadcollateral').append('<li><a href="/uploaddanatunai/show/'+response.data.nameslug+'" target="_blank">'+get_mime(response.data.mime)+response.data.filename+'<a><span class="pull-right"><a onclick="deleteUpload(this, '+response.data.id+')"><i class="fa fa-times fa-red" aria-hidden="true"></i></a></span></li>');
         }
     });
 
@@ -59,6 +59,45 @@
         }
     });
 
+        var tableVehicleCollateral = $('#tableVehicleCollateral').DataTable({
+            'sDom': 'rt',
+            'columnDefs': [{
+                'targets': [],
+                'orderable': false
+            }]
+        });
+
+        $('#searchDtbox').keyup(function() {
+            tableVehicleCollateral.search($(this).val()).draw();
+        });
+        $('#tableVehicleCollateral tbody').on('dblclick', 'tr', function() {
+            if ( $(this).hasClass('selected')) {
+                $(this).removeClass('selected');
+
+                var vehiclecollateral_list = $(this).find('#idtableVehicleCollateral').val();
+
+                    $.ajax({
+                        url: 'http://localhost:8000/api/v1/vehiclecollateral/'+vehiclecollateral_list,
+                        type: 'GET',
+                        dataType: 'json',
+                            success: function (response) {
+                                console.log(response.data.id);
+                                $('#collateral_name').val(response.data.type_id);
+                                $('#vehicle_date').val(response.data.vehicle_date);
+                                $('#maxplafondCash').val(response.data.vehicle_price);
+                            },
+                            error: function(response){
+                                alert(response);
+                        }
+                    })
+                $('#tableVehicleCollateral').modal('hide');
+                
+                } else {
+                    tableVehicleCollateral.$('tr.selected').removeClass('selected');
+                    $(this).addClass('selected');
+                }
+        });
+
 
     $(".customer_select2").select2({
         tags: 'true',
@@ -91,6 +130,51 @@
         })     
     }
 
+    function AddVehicleCollateral() {
+        $('#viewVehicleModal').modal('show');
+    }
+
+    // function getVehicleList() {
+    //     var tableVehicleCollateral = $('#tableVehicleCollateral').DataTable({
+    //         'sDom': 'rt',
+    //         'columnDefs': [{
+    //             'targets': [],
+    //             'orderable': false
+    //         }]
+    //     });
+
+    //     $('#searchDtbox').keyup(function() {
+    //         tableVehicleCollateral.search($(this).val()).draw();
+    //     });
+    //     $('#tableVehicleCollateral tbody').on('dblclick', 'tr', function() {
+    //         if ( $(this).hasClass('selected')) {
+    //             $(this).removeClass('selected');
+    //         } else {
+    //             tableVehicleCollateral.$('tr.selected').removeClass('selected');
+    //             $(this).addClass('selected');
+
+    //             // var id = $(this).find('#idtableVehicleCollateral').val();
+    //             // window.location.href = "/admin/master/vehiclecollateral/"+id+"/edit";
+    //             var vehiclecollateral_list = $(this).find('#idtableVehicleCollateral').val();
+
+    //             $.ajax({
+    //                 url: 'http://localhost:8000/api/v1/vehiclecollateral/'+vehiclecollateral_list,
+    //                 type: 'GET',
+    //                 dataType: 'json',
+    //                     success: function (response) {
+    //                         console.log(response.data.id);
+    //                         $('#collateral_name').val(response.data.type_id);
+    //                         $('#stnk_due_date').val(response.data.vehicle_date);
+    //                         $('#maximum_plafond').val(response.data.vehicle_price);
+    //                     },
+    //                     error: function(response){
+    //                         alert(response);
+    //                 }
+    //             })
+    //         }
+    //     });
+    // }
+
     $('#addcustomerloan').click(function() {
         $.ajax({
             type: 'post',
@@ -119,7 +203,7 @@
             type: 'GET',
             success: function(response) {
                 console.log(response.cash_no);                
-                $('input[name=cash_no]').val(response.cash_no);                
+                $('input[name=cash_no]').val(response.cash_no);
             }
         })   
     }
@@ -180,6 +264,33 @@
     function getFile(value) {
         var markup = $('<li><a href="/uploaddanatunai/show/'+value.slugwithoutExt+'" target="_blank">'+get_mime(value.mime)+value.filename+'<a><span class="pull-right"><a onclick="deleteUpload(this, '+value.id+')"><i class="fa fa-times fa-red" aria-hidden="true"></i></a></span></li>');
         $('#UploadColalteral ul').append(markup);
+    }
+
+    function formatNumber(input)
+    {
+        var num = input.value.replace(/\,/g,'');
+        if(!isNaN(num))
+        {
+            if(num.indexOf('.') > -1)
+            {
+                num = num.split('.');
+                num[0] = num[0].toString().split('').reverse().join('').replace(/(?=\d*\.?)(\d{3})/g,'$1,').split('').reverse().join('').replace(/^[\,]/,'');
+                if(num[1].length > 2)
+                {
+                    num[1] = num[1].substring(0,num[1].length-1);
+                }
+                input.value = num[0]+'.'+num[1];
+            }
+            else
+            {
+                input.value = num.toString().split('').reverse().join('').replace(/(?=\d*\.?)(\d{3})/g,'$1,').split('').reverse().join('').replace(/^[\,]/,'');
+            }
+        }
+        else
+        {
+            alert('You may only enter decimals!');
+            input.value = input.value.substring(0,input.value.length-1);
+        }
     }
 
 

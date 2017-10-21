@@ -57,8 +57,8 @@
               <th><input type="checkbox" name="check_all"></th>
               <th>Merk</th>
               <th>Type</th>
-              <th>Tahun Kendaraan</th>
-              <th>Harga</th>
+              <th>Manufacture Year</th>
+              <th>Price</th>
             </thead>
             <tbody>
               @foreach($VehicleCollaterals as $vc)
@@ -82,7 +82,7 @@
                     <input type="hidden" id="dateTableCollateral" name="vehicle_date[]" value="{{ $vc->vehicle_date }}">
                   </td>
                   <td>
-                    <p>Rp{{ number_format($vc->vehicle_price, 2) }}</p>
+                    <p>Rp{{ $vc->vehicle_price }}</p>
                     <input type="hidden" id="priceTableCollateral" name="vehicle_price[]" value="{{ $vc->vehicle_price }}">
                   </td>
                 </tr>
@@ -167,7 +167,7 @@
     function GetEditDropdown(merks_id) {
       if (merks_id) {
         $.ajax({
-          url: '/admin/vehiclecollateral/type/'+ merks_id,
+          url: '/admin/master/vehiclecollateral/type/'+ merks_id,
           type: "GET",
           dataType: "json",
           success:function(data) {
@@ -181,6 +181,33 @@
       }else{
         $('#typeCollateral').empty();
       }
+    }
+
+    function formatNumber(input)
+    {
+        var num = input.value.replace(/\,/g,'');
+        if(!isNaN(num))
+        {
+            if(num.indexOf('.') > -1)
+            {
+                num = num.split('.');
+                num[0] = num[0].toString().split('').reverse().join('').replace(/(?=\d*\.?)(\d{3})/g,'$1,').split('').reverse().join('').replace(/^[\,]/,'');
+                if(num[1].length > 2)
+                {
+                    num[1] = num[1].substring(0,num[1].length-1);
+                }
+                input.value = num[0]+'.'+num[1];
+            }
+            else
+            {
+                input.value = num.toString().split('').reverse().join('').replace(/(?=\d*\.?)(\d{3})/g,'$1,').split('').reverse().join('').replace(/^[\,]/,'');
+            }
+        }
+        else
+        {
+            alert('You may only enter decimals!');
+            input.value = input.value.substring(0,input.value.length-1);
+        }
     }
   </script>
 @stop

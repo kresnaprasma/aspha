@@ -58,7 +58,9 @@
             <li class="treeview">
                 <a href="#"><span>Motor Bekas</span><i class="fa fa-angle-left pull-right"></i></a>
                 <ul class="treeview-menu">
-                    <li><a href="{{ url('/admin/motor') }}">Data Mokas</a></li>
+                    <li><a href="{{ url('/admin/mokas') }}">Data Mokas</a></li>
+                    <li><a href="{{ route('admin.sales.index') }}">Sales</a></li>
+                    <li><a href="{{ route('admin.pricesaleshistory.index') }}">Price Sales History</a></li>
                 </ul>
             </li>
             <li class="treeview">

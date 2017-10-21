@@ -5,34 +5,19 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
-class Customer extends Model
+class Sales extends Model
 {
-    protected $fillable = ['customer_no','name','address','email','phone','active','branch_id','birthdate','birthplace','identity_number','gender','rt','rw','postalcode','kelurahan','kecamatan','kabupaten','city','province','kk_number'];
+    protected $fillable = ['sales_no', 'stock', 'customer_name', 'payment_method', 'down_payment', 'tenor', 'payment', 'ktp', 'kk', 'rek_number', 'mokas_number', 'leasing_no', 'others_cost', 'cashier'];
 
     public $incrementing = false;
-    
-    public function customer_collateral()
-    {
-        return $this->hasMany('App\Customercollateral');
-    }
-
-    public function branch()
-    {
-        return $this->belongsTo('App\Branch');
-    }
-
-    public function cash()
-    {
-        return $this->hasMany('App\Cash', 'customer_no', 'customer_no');
-    }
 
     public function scopeMaxno($query)
     {
         $year=substr(date('Y'), 2);
-        $queryMax =  $query->select(DB::raw('SUBSTRING(`customer_no` ,8) AS kd_max'))
+        $queryMax =  $query->select(DB::raw('SUBSTRING(`sales_no` ,8) AS kd_max'))
             ->where(DB::raw('MONTH(created_at)'), '=', date('m'))
             ->where(DB::raw('YEAR(created_at)'), '=', date('Y'))
-            ->orderBy('customer_no', 'asc')
+            ->orderBy('sales_no', 'asc')
             ->get();
 
         $arr1 = array();
@@ -54,7 +39,12 @@ class Customer extends Model
             $kd_fix = '0001';
         }
 
-        return 'CRM'.$year.date('m').$kd_fix;
+        return 'SAL'.$year.date('m').$kd_fix;
 
+    }
+
+    public function types()
+    {
+        return $this->belongsTo('App\Type');
     }
 }

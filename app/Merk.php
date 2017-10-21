@@ -23,8 +23,13 @@ class Merk extends Model
     	return $this->hasMany("App\Loan");
     }
 
-    public function motor()
+    public function mokas()
     {
-        return $this->hasMany("App\Motor");
+        return $this->hasMany("App\Mokas");
+    }
+
+    public function pricesaleshistory()
+    {
+        return $this->hasMany('App\PriceSalesHistory');
     }
 }

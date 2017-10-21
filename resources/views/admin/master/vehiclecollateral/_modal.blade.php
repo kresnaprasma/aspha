@@ -25,11 +25,11 @@
 					</div>
 					<div class="form-group">
 						{!! Form::label('vehicle_date', 'Vehicle Date:') !!}
-						{!! Form::date('vehicle_date', null, ['class'=>'form-control', 'id' => 'dateCollateral']) !!}
+						{!! Form::selectYear('vehicle_date', 2009, date('Y'), old('vehicle_date'), ['class'=>'form-control', 'id'=>'dateCollateral']) !!}
 					</div>
 					<div class="form-group">
 						{!! Form::label('vehicle_price', 'Vehicle Price:') !!}
-						{!! Form::text('vehicle_price', null, ['class'=>'form-control', 'id' => 'priceCollateral']) !!}
+						{!! Form::text('vehicle_price', null, ['class'=>'form-control detail-purchasing','required','autofocus','id'=>'priceCollateral', 'onkeyup'=>'formatNumber(this)', 'onkeypress'=>'formatNumber(this)']) !!}
 					</div>
 					{!! Form::submit('Update', ['class'=>'btn btn-primary']) !!}
 					{!! Form::close() !!}

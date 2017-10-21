@@ -26,6 +26,7 @@ Route::group([
 	Route::resource('customer', 'Api\CustomerController', ['as'=>'api']);
 
 	Route::resource('merk', 'Api\MerkController', ['as'=>'api']);
+	Route::resource('vehiclecollateral', 'Api\VehicleCollateralController', ['as' => 'api']);
 
 	Route::get('uploaddanatunai/get', 'Api\ImageController@get', ['as'=>'api.uploaddanatunai.get']);
 	Route::get('uploaddanatunai/getTmp', 'Api\ImageController@getFileTmp', ['as'=>'api.uploaddanatunai.getTmp']);
@@ -36,5 +37,7 @@ Route::group([
 
 	Route::get('customercollateral/no', 'Api\CustomerCollateralController@getCollateralNo', ['as'=>'api']);
 	Route::resource('customercollateral', 'Api\CustomerCollateralController', ['as'=>'api']);
+
+	Route::resource('mokas', 'Api\MokasController', ['as'=>'api']);
 
 });

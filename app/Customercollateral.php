@@ -51,5 +51,10 @@ class Customercollateral extends Model
     {
         return $this->belongsTo('App\Customer');
     }
+
+    public function type()
+    {
+        return $this->belongsTo('App\Type');
+    }
     
 }

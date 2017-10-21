@@ -2,13 +2,16 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Merk;
+use App\Type;
 use App\Cash;
 use App\Cashfix;
 use App\Leasing;
 use App\Branch;
 use App\Customer;
 use App\CreditType;
-use App\CustomerCollateral;
+use App\Customercollateral;
+use App\VehicleCollateral;
 
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -29,7 +32,8 @@ class CashController extends Controller
         $customer_id = Customer::Maxno();
         $branch_list = Branch::pluck('name', 'id');
         $credittype_list = CreditType::pluck('name', 'id');
-        return view('admin.cash.index', compact('cash', 'branch_list', 'customer_id', 'credittype_list'));
+        $vehiclecollaterals = VehicleCollateral::all();
+        return view('admin.cash.index', compact('cash', 'branch_list', 'customer_id', 'credittype_list', 'vehiclecollaterals'));
     }
 
     /**
@@ -43,7 +47,11 @@ class CashController extends Controller
         $branch_list = Branch::pluck('name', 'id');
         $customer_list = Customer::pluck('name', 'customer_no');
         $credittype_list = CreditType::pluck('name', 'id');
+        $vehicle_list = VehicleCollateral::pluck('type_id', 'id');
         $customer_id = Customer::Maxno();
+        $vehiclecollaterals = VehicleCollateral::all();
+        $types = Type::all();
+        $merks = Merk::all();
 
         $vehicle_colorlist = ['WHITE'=>'WHITE', 'SILVER'=>'SILVER', 'BLACK'=>'BLACK', 'GREY'=>'GREY', 
             'RED'=>'RED', 'BLUE-NAVY'=>'BLUE-NAVY', 'BLUE'=>'BLUE', 
@@ -56,7 +64,7 @@ class CashController extends Controller
         $tenor_requestlist = ['3'=>'3 bulan', '4'=>'4 bulan', '5'=>'5 bulan', 
             '6'=>'6 bulan', '12'=>'12 bulan', '18'=>'18 bulan', '24'=>'24 bulan', 
             '30'=>'30 bulan', '36'=>'36 bulan'];
-        return view('admin.cash.create', compact('leasing_list', 'branch_list', 'customer_list', 'customer_id', 'vehicle_cclist', 'tenor_requestlist', 'vehicle_colorlist', 'credittype_list'));
+        return view('admin.cash.create', compact('leasing_list', 'branch_list', 'customer_list', 'customer_id', 'vehicle_cclist', 'tenor_requestlist', 'vehicle_colorlist', 'credittype_list', 'vehicle_list', 'vehiclecollaterals', 'types', 'merks'));
     }
 
     /**
@@ -93,14 +101,20 @@ class CashController extends Controller
         $cash->leasing_no = $request->input('leasing_no');
         $cash->branch_id = $request->input('branch_id');
         $cash->credit_type = $request->input('credit_type');
+        $cash->maximum_plafond = $request->input('maximum_plafond');
         $cash->user_id = auth()->user()->id;
         $cash->approval = $request->input('approval');
-        $cash->save();
+
+        if ($cash->credit_ceiling_request <= $cash->maximum_plafond) {
+            $cash->save();
+        }else{
+            return redirect()->back()->withInput()->withErrors('cannot create Dana Tunai');
+        }
 
 
-        $cc = new CustomerCollateral();
+        $cc = new Customercollateral();
         $cc->id = Uuid::uuid4()->getHex();
-        $cc->customercollateral_no = CustomerCollateral::Maxno();
+        $cc->customercollateral_no = Customercollateral::Maxno();
         $cc->stnk = $request->input('stnk');
         $cc->bpkb = $request->input('bpkb');
         $cc->machine_number = $request->input('machine_number');
@@ -139,11 +153,12 @@ class CashController extends Controller
      */
     public function edit($id)
     {
-        $cash = Cash::find($id); 
+        $cash = Cash::find($id);
         $leasing_list = Leasing::pluck('name', 'leasing_no');
         $branch_list = Branch::pluck('name', 'id');
         $credittype_list = CreditType::pluck('name', 'id');
         $customer_list = Customer::pluck('name', 'customer_no');
+        $customer_id = Customer::Maxno();
 
         $vehicle_colorlist = ['WHITE'=>'WHITE', 'SILVER'=>'SILVER', 'BLACK'=>'BLACK', 'GREY'=>'GREY', 
             'RED'=>'RED', 'BLUE-NAVY'=>'BLUE-NAVY', 'BLUE'=>'BLUE', 
@@ -157,7 +172,7 @@ class CashController extends Controller
             '6'=>'6 bulan', '12'=>'12 bulan', '18'=>'18 bulan', '24'=>'24 bulan', 
             '30'=>'30 bulan', '36'=>'36 bulan'];
 
-        return view('admin.cash.create', compact('cash', 'leasing_list', 'branch_list', 'customer_list', 'vehicle_cclist', 'vehicle_colorlist', 'vehicle_cclist','tenor_requestlist', 'credittype_list'));
+        return view('admin.cash.create', compact('cash', 'leasing_list', 'branch_list', 'customer_id', 'customer_list', 'vehicle_cclist', 'vehicle_colorlist', 'vehicle_cclist','tenor_requestlist', 'credittype_list'));
     }
 
     /**
@@ -189,7 +204,7 @@ class CashController extends Controller
         $cash->update($request->all());
 
         $col_id = $cash->CustomerCollateral->id;
-        $cc = CustomerCollateral::find($col_id);
+        $cc = Customercollateral::find($col_id);
         $cc->update($request->all());
 
         if (!$cash) {

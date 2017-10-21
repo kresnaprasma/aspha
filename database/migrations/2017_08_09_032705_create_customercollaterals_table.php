@@ -22,7 +22,10 @@ class CreateCustomercollateralsTable extends Migration
             $table->string('chassis_number')->unique();
             $table->string('vehicle_color')->nullable();
             $table->string('vehicle_cc')->nullable();
+            
             $table->string('collateral_name')->nullable();
+            $table->foreign('collateral_name')->references('id')->on('types');
+
             $table->date('vehicle_date')->nullable();
             $table->date('stnk_due_date')->nullable();
 

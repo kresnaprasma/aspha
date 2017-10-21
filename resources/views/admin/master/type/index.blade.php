@@ -75,7 +75,6 @@
             @endif
             </tbody>
           </table>
-          {!! $types->render() !!}
           {!! Form::close() !!}
         </div><!-- /.box-body -->
       </div>

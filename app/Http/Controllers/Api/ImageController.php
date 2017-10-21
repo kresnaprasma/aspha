@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Api;
 //use Request;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-// use Illuminate\Contracts\Filesystem\Factory as Storage;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Storage;
@@ -76,7 +75,7 @@ class ImageController extends Controller
 
     public function show($id)
     {
-    	$image = Uploadcustomer::where('slugwithoutExt', $id)->first();
+    	$image = Uploadcustomer::where('nameslug', $id)->first();
 
     	if (!$image) {
     		return response()->json([

@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\DB;
 
 class Cash extends Model
 {
-    protected $fillable = ['cash_no', 'credit_ceiling_request', 'tenor_request', 'customer_no', 'leasing_no', 'branch_id', 'user_id'];
+    protected $fillable = ['cash_no', 'credit_ceiling_request', 'tenor_request', 'customer_no', 'maximum_plafond', 'leasing_no', 'branch_id', 'user_id'];
 
     public $incrementing = false;
 
@@ -64,7 +64,7 @@ class Cash extends Model
 
     public function customerCollateral()
     {
-        return $this->belongsTo('App\CustomerCollateral', 'customer_no','customer_no');
+        return $this->belongsTo('App\Customercollateral', 'customer_no','customer_no');
     }
     public function user()
     {

@@ -5,34 +5,19 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
-class Customer extends Model
+class Mokas extends Model
 {
-    protected $fillable = ['customer_no','name','address','email','phone','active','branch_id','birthdate','birthplace','identity_number','gender','rt','rw','postalcode','kelurahan','kecamatan','kabupaten','city','province','kk_number'];
+    protected $fillable = ['mokas_no', 'merk_id', 'type_id', 'purchase_price', 'selling_price', 'discount', 'stnk', 'bpkb', 'machine_number', 'plat', 'manufacture_year', 'kilometers', 'stnk_due_date', 'period_tax', 'note', 'branch_id', 'cek_ok', 'sales_id', 'user_id'];
 
     public $incrementing = false;
-    
-    public function customer_collateral()
-    {
-        return $this->hasMany('App\Customercollateral');
-    }
-
-    public function branch()
-    {
-        return $this->belongsTo('App\Branch');
-    }
-
-    public function cash()
-    {
-        return $this->hasMany('App\Cash', 'customer_no', 'customer_no');
-    }
 
     public function scopeMaxno($query)
     {
         $year=substr(date('Y'), 2);
-        $queryMax =  $query->select(DB::raw('SUBSTRING(`customer_no` ,8) AS kd_max'))
+        $queryMax =  $query->select(DB::raw('SUBSTRING(`mokas_no` ,8) AS kd_max'))
             ->where(DB::raw('MONTH(created_at)'), '=', date('m'))
             ->where(DB::raw('YEAR(created_at)'), '=', date('Y'))
-            ->orderBy('customer_no', 'asc')
+            ->orderBy('mokas_no', 'asc')
             ->get();
 
         $arr1 = array();
@@ -54,7 +39,22 @@ class Customer extends Model
             $kd_fix = '0001';
         }
 
-        return 'CRM'.$year.date('m').$kd_fix;
+        return 'MBB'.$year.date('m').$kd_fix;
 
+    }
+
+    public function branch()
+    {
+        return $this->belongsTo('App\Branch');
+    }
+
+    public function merks()
+    {
+        return $this->belongsTo('App\Merk', 'merk_id', 'id');
+    }
+
+    public function types()
+    {
+        return $this->belongsTo('App\Type', 'type_id', 'id');
     }
 }

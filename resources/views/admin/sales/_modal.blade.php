@@ -1,6 +1,6 @@
 {{-- Create Modal Customer --}}
 <div class="modal fade" id="createCustomerModal" tabindex="-1" role="dialog" aria-labelledby="Create Customer">
-	<div class="modal-dialog" role="document">
+	<div class="modal-dialog modal-lg" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
 				<button class="close" type="button" data-dismiss="modal" aria-label="Close">
@@ -107,33 +107,10 @@
 	</div>	
 </div>
 
-{{-- Delete Modal Cash--}}
-<div class="modal fade" id="deleteCashModal" tabindex="-1" role="dialog" aira-labelledby="DeleteCash">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismis="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-				<h4 class="modal-title" id="CreateCash">Please Confirm</h4>
-			</div>
-			<div class="modal-body">
-				<p class="modal-body">
-					<i class="fa fa-question-circle fa-lg"></i>
-					Are you sure you want to delete this Dana Tunai?
-				</p>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-				<button type="submit" class="btn btn-danger" onclick=DeleteCash()><i class="fa fa-times-circle"></i> Yes
-			</div>
-		</div>
-	</div>
-</div>
 
-{{-- View Vehicle Modal --}}
-<div class="modal fade" id="viewVehicleModal" tabindex="-1" role="dialog" aira-labelledby="DeleteCash">
-	<div class="modal-dialog" role="document">
+{{-- View Mokas Modal --}}
+<div class="modal fade" id="viewMokasModal" tabindex="-1" role="dialog" aira-labelledby="DeleteCash">
+	<div class="modal-dialog modal-lg" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismis="modal" aria-label="Close">
@@ -145,28 +122,57 @@
 				<div class="col-md-4">
 			    	<input type="text" id="searchDtbox" class="form-control" placeholder="Search">
 		   		</div>
-				<table class="table table-striped" id="tableVehicleCollateral">
+				<table class="table table-striped" id="tableMokas">
 					<thead>
 						<th></th>
-						<th>Merk</th>
 						<th>Type</th>
-						<th>Vehicle date</th>
-						<th>Price</th>
+						<th>Selling Price</th>
+						<th>Discount</th>
+						<th>No. Mokas</th>
+						<th>Manufacture Year</th>
+						<th>Plat</th>
 					</thead>
 					<tbody>
-						@foreach($vehiclecollaterals as $vc)
+						@foreach($mokas as $mo)
 						<tr>
 							<td>
-								<input type="hidden" id="idtableVehicleCollateral" name="id[]" class="checkin" value="{{ $vc->id }}">
+								<input type="hidden" id="idtableMokas" name="id[]" class="checkin" value="{{ $mo->id }}">
 							</td>
-							<td>{{ $vc->merks['name'] }}</td>
-							<td>{{ $vc->types['name'] }}</td>
-							<td>{{ $vc->vehicle_date }}</td>
-							<td>{{ $vc->vehicle_price }}</td>
+							<td>{{ $mo->types['name'] }}</td>
+							<td>{{ $mo->selling_price }}</td>
+							<td>{{ $mo->discount }}</td>
+							<td>{{ $mo->mokas_no }}</td>
+							<td>{{ $mo->manufacture_year }}</td>
+							<td>{{ $mo->plat }}</td>
 						</tr>
 						@endforeach
 					</tbody>
 				</table>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+{{-- Delete Sales--}}
+<div class="modal fade" id="deleteSalesModal" tabindex="-1" role="dialog" aira-labelledby="DeleteSales">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismis="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<h4 class="modal-title" id="CreateSales">Please Confirm</h4>
+			</div>
+			<div class="modal-body">
+				<p class="modal-body">
+					<i class="fa fa-question-circle fa-lg"></i>
+					Are you sure you want to delete this Sales?
+				</p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				<button type="submit" class="btn btn-danger" onclick=DeleteSales()><i class="fa fa-times-circle"></i> Yes
 			</div>
 		</div>
 	</div>

@@ -8,7 +8,7 @@ use App\Cash;
 use App\Leasing;
 use App\Customer;
 use App\CreditType;
-use App\CustomerCollateral;
+use App\Customercollateral;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -154,7 +154,7 @@ class CashfixController extends Controller
     {
         $cashfix = Cashfix::find($id);
         $cash = Cash::find($id);
-        $collateral_id = CustomerCollateral::find($id);
+        $collateral_id = Customerocllateral::find($id);
         $customer_id = Customer::find($id);
         $customer_list = Customer::pluck('name', 'customer_no');
         $branch_list = Branch::pluck('name', 'id');

@@ -13,19 +13,18 @@
 
 		<div class="form-group">
 			{!! Form::label('type_id', 'Type:') !!}
-			{{-- {!! Form::select('type_id', null, ['class'=>'form-control m-bot15']) !!} --}}
 			<select name="type_id" id="type_id" class="form-control" style="width: 285px">
 				<option value="">--- Select Type ---</option>
 			</select>
 		</div>
 
 		<div class="form-group">
-			{!! Form::label('vehicle_date', 'Tahun Pembuatan Motor:') !!}
-			{!! Form::date('vehicle_date', null, ['class'=>'form-control']) !!}
+			{!! Form::label('vehicle_date', 'Year Manufacturing:') !!}
+			{!! Form::selectYear('vehicle_date', 2009, date('Y'), old('vehicle_date'), ['class'=>'form-control', 'id'=>'vehicle_date']) !!}
 		</div>
 		<div class="form-group">
 			{!! Form::label('vehicle_price', 'Harga:') !!}
-			{!! Form::text('vehicle_price', null, ['class'=>'form-control']) !!}
+			{!! Form::text('vehicle_price', null, ['class'=>'form-control detail-purchasing','required','autofocus','id'=>'vehicle_price', 'onkeyup'=>'formatNumber(this)', 'onkeypress'=>'formatNumber(this)']) !!}
 		</div>
 			{!! Form::submit('save' , ['class' =>'btn btn-primary']) !!}
 			{!! Form::close() !!}

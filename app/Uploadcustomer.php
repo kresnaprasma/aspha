@@ -7,10 +7,10 @@ use Illuminate\Support\Facades\DB;
 
 class Uploadcustomer extends Model
 {
-     protected $fillable = ['filename', 'mime', 'original_filename', 'nameslug', 'slugwithoutExt', 'customercollateral_no'];
+    protected $fillable = ['filename', 'mime', 'original_filename', 'nameslug', 'slugwithoutExt', 'customercollateral_no'];
 
     public function customercollateral()
     {
-		return $this->belongsTo('App\CustomerCollateral', 'customercollateral_no', 'customercollateral_no');
+		return $this->belongsTo('App\Customercollateral', 'customercollateral_no', 'customercollateral_no');
     }
 }
