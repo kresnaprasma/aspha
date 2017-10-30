@@ -71,7 +71,7 @@ class SalesController extends Controller
      */
     public function store(Request $request)
     {
-        //return $request->all();
+        return $request->all();
         $validator = validator::make($request->all(), [
             'customer_name' => 'required',
             'mokas_number' => 'required',
@@ -88,7 +88,7 @@ class SalesController extends Controller
 
         $sales = new Sales();
         $sales->id = Uuid::uuid4()->getHex();
-        $sales->sales_no = sales::Maxno();
+        $sales->sales_no = Sales::Maxno();
         $sales->customer_name = $request->input('customer_name');
         $sales->mokas_number = $request->input('mokas_number');
         $sales->ktp = $request->input('ktp');

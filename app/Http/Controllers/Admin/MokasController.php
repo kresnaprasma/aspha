@@ -74,7 +74,7 @@ class MokasController extends Controller
 
         $mokas = new Mokas();
         $mokas->id = Uuid::uuid4()->getHex();
-        $mokas->mokas_no = mokas::Maxno();
+        $mokas->mokas_no = Mokas::Maxno();
         $mokas->merk_id = $request->input('merk_id');
         $mokas->type_id = $request->input('type_id');
         $mokas->purchase_price = $request->input('purchase_price');

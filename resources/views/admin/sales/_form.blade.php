@@ -1,7 +1,6 @@
 <div class="box box-primary">
     <div class="box-header with-border">
         <h3 class="box-title">Aspha Mokas Sales
-            {!! Form::hidden('sales_no', old('sales_no'), ['class'=>'form-control']) !!}
         </h3>
         <div class="box-tools pull-right">
             <button class="btn btn-box-tool" data-widget="collapse" data-toogle="tooltip" title="Collapse"><i class="fa fa-minus"></i></button>
@@ -12,7 +11,7 @@
 			<div class="col-md-6">
 				<div class="form-group{{ $errors->has('sales_no') ? ' has-error' : '' }}">
 	                {!! Form::label('sales_no', "No. Sales") !!}
-	                {!! Form::text('sales_no', App\Sales::Maxno(), ['class'=>'form-control','required', 'id'=>'sales_no', 'readonly'=>'true']) !!}
+	                {!! Form::text('sales_no', App\Sales::Maxno(), ['class'=>'form-control','required', 'id'=>'sales_noSales', 'readonly'=>'true']) !!}
 	                @if ($errors->has('sales_no'))
 	                    <span class="help-block">
 	                        <strong>{{ $errors->first('sales_no') }}</strong>

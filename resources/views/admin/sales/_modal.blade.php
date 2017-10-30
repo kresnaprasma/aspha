@@ -127,9 +127,9 @@
 						<th></th>
 						<th>Type</th>
 						<th>Selling Price</th>
-						<th>Discount</th>
-						<th>No. Mokas</th>
-						<th>Manufacture Year</th>
+						<th>No. Mesin</th>
+						<th>No. Rangka</th>
+						<th>Tahun Buat</th>
 						<th>Plat</th>
 					</thead>
 					<tbody>
@@ -140,8 +140,8 @@
 							</td>
 							<td>{{ $mo->types['name'] }}</td>
 							<td>{{ $mo->selling_price }}</td>
-							<td>{{ $mo->discount }}</td>
-							<td>{{ $mo->mokas_no }}</td>
+							<td>{{ $mo->machine_number }}</td>
+							<td>{{ $mo->chassis_number }}</td>
 							<td>{{ $mo->manufacture_year }}</td>
 							<td>{{ $mo->plat }}</td>
 						</tr>
