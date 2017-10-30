@@ -173,6 +173,15 @@
 	                    </span>
 	                @endif
 	            </div>
+	            <div class="form-group{{ $errors->has('bank_id') ? ' has-error' : '' }}">
+	                {!! Form::label('bank_id', "Bank") !!}
+	                {!! Form::select('bank_id', $banks, old('bank'), ['class'=>'form-control','required', 'id'=>'bank', 'placeholder'=> '-- Select Bank --']) !!}
+	                @if ($errors->has('bank_id'))
+	                    <span class="help-block">
+	                        <strong>{{ $errors->first('bank_id') }}</strong>
+	                    </span>
+	                @endif
+	            </div>
 	            <div class="form-group{{ $errors->has('rek_number') ? ' has-error' : '' }}">
 	                {!! Form::label('rek_number', "Rek. Number") !!}
 	                {!! Form::text('rek_number', old('rek_number'), ['class'=>'form-control','required']) !!}
@@ -291,6 +300,26 @@
         </div>
     </div>
     <!-- /.box-body -->
+</div>
+
+{{-- Upload Sales --}}
+<div class="box box-primary">
+    <div class="box-header with-border">
+        <h3 class="box-title">Attachment Upload</b></h3>
+        <input type="text" class="dial" id="dial" value="0" data-width="48" data-height="48" data-fgColor="#0788a5" data-bgColor="#3e4043" style="display: none;" />
+        <div class="box-tools pull-right">
+            <button class="btn btn-box-tool" data-widget="collapse" data-toogle="tooltip" title="Collapse"><i class="fa fa-minus"></i></button>
+        </div>
+    </div>
+    <div class="box-body">
+        <button type="button" class="btn btn-default start upload-collateral dz-clickable">
+            <i class="fa fa-upload" aria-hidden="true"> Upload</i>
+        </button>
+        <div id="uploadcollateral">
+            <ul class="list-inline">
+            </ul>
+        </div>
+    </div>
     <div class="box-footer">
 		{!! Form::submit('save' , ['class' =>'btn btn-primary']) !!}
 	</div>

@@ -29,7 +29,7 @@
 		        </div>
 	        	<!-- /.tab-pane -->
 		        <div class="tab-pane" id="tab_3">
-		            <h3><b>Upload Mokas COOMING SOON</b></h3>
+		            @include('admin.mokas._tab3')
 		        </div>
 	        <!-- /.tab-pane -->
 	        </div>

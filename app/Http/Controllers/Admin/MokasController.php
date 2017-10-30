@@ -8,6 +8,7 @@ use App\Merk;
 use App\Type;
 use App\Customer;
 use App\Leasing;
+use App\PriceSalesHistory;
 
 use Ramsey\Uuid\Uuid;
 use Illuminate\Support\Facades\Validator;
@@ -27,7 +28,8 @@ class MokasController extends Controller
         $merkall = Merk::pluck("name", "id");
         $merkedit = Merk::pluck("name", "id");
         $typeall = Type::pluck('name', 'id');
-        return view('admin.mokas.index', compact('mokas', 'merkall', 'merkedit', 'typeall'));
+        $pricesaleshistory = PriceSalesHistory::all();
+        return view('admin.mokas.index', compact('mokas', 'merkall', 'merkedit', 'typeall', 'pricesaleshistory'));
     }
 
     /**
@@ -37,9 +39,10 @@ class MokasController extends Controller
      */
     public function create()
     {
+        $pricesaleshistory = PriceSalesHistory::all();
         $branch_list = Branch::pluck('name', 'id');
         $merkall = Merk::pluck("name", "id");
-        return view('admin.mokas.create', compact('branch_list', 'merkall'));
+        return view('admin.mokas.create', compact('branch_list', 'merkall', 'pricesaleshistory'));
     }
 
     /**

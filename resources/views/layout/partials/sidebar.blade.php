@@ -32,41 +32,41 @@
             <li class="header">ADMIN AREA</li>
             <!-- Optionally, you can add icons to the links -->
             <li class="treeview">
-                <a href="#"><span>Master Data</span> <i class="fa fa-angle-left pull-right"></i></a>
+                <a href="#"><i class="fa fa-plus-circle"></i><span>Master Data</span> <i class="fa fa-angle-left pull-right"></i></a>
                 <ul class="treeview-menu">
-                    <li><a href="{{ route('admin.master.merk.index') }}">Merk</a></li>
-                    <li><a href="{{ route('admin.master.type.index') }}">Type</a></li>
-                    <li><a href="{{ route('admin.master.vehiclecollateral.index') }}">Vehicle Collateral</a></li>
-                    <li><a href="{{ route('admin.master.bank.index') }}">Bank</a></li>
-                    <li><a href="{{ route('admin.master.branch.index') }}">Branch</a></li>
-                    <li><a href="{{ route('admin.master.supplier.index') }}">Supplier</a></li>
-                    <li><a href="{{ route('admin.master.credittype.index') }}">Credit Type</li>
-                    <li><a href="{{ route('admin.loan.leasing.index') }}">Leasing</a></li>
-                    <li><a href="{{ route('admin.master.user.index') }}">User</a></li>
-                    <li><a href="{{ route('admin.master.role.index') }}">Role</a></li>
-                    <li><a href="{{ route('admin.master.permission.index') }}">Permission</a></li>
+                    <li><a href="{{ route('admin.master.merk.index') }}"><i class="fa fa-road"></i>Merk</a></li>
+                    <li><a href="{{ route('admin.master.type.index') }}"><i class="fa fa-motorcycle"></i>Type</a></li>
+                    <li><a href="{{ route('admin.master.vehiclecollateral.index') }}"><i class="fa fa-signal"></i>Vehicle Collateral</a></li>
+                    <li><a href="{{ route('admin.master.bank.index') }}"><i class="fa fa-bank"></i>Bank</a></li>
+                    <li><a href="{{ route('admin.master.branch.index') }}"><i class="fa fa-external-link-square"></i>Branch</a></li>
+                    <li><a href="{{ route('admin.master.supplier.index') }}"><i class=" fa fa-truck"></i>Supplier</a></li>
+                    <li><a href="{{ route('admin.master.credittype.index') }}"><i class="fa fa-sort"></i>Credit Type</li>
+                    <li><a href="{{ route('admin.loan.leasing.index') }}"><i class="fa fa-credit-card"></i>Leasing</a></li>
+                    <li><a href="{{ route('admin.master.user.index') }}"><i class="fa fa-user-plus"></i>User</a></li>
+                    <li><a href="{{ route('admin.master.role.index') }}"><i class="fa fa-binoculars"></i>Role</a></li>
+                    <li><a href="{{ route('admin.master.permission.index') }}"><i class="fa fa-user-secret"></i>Permission</a></li>
                 </ul>
             </li>
             <li class="treeview">
-                <a href="#"><span>Dana Tunai</span> <i class="fa fa-angle-left pull-right"></i></a>
+                <a href="#"><i class="fa fa-money"></i><span>Dana Tunai</span> <i class="fa fa-angle-left pull-right"></i></a>
                 <ul class="treeview-menu">
-                    <li><a href="{{ route('admin.cash.index') }}">DaTun Request</a></li>
-                    <li><a href="{{ route('admin.approve.index') }}">Inbox</a></li>
-                    <li><a href="{{ route('admin.approve.create') }}">Approve Fix</a></li>
+                    <li><a href="{{ route('admin.cash.index') }}"><i class="fa fa-bar-chart"></i>DaTun Request</a></li>
+                    <li><a href="{{ route('admin.approve.index') }}"><i class="fa fa fa-download"></i>Inbox</a></li>
+                    <li><a href="{{ route('admin.approve.create') }}"><i class="fa fa fa-check-square-o"></i>Approve Fix</a></li>
                 </ul>
             </li>
             <li class="treeview">
-                <a href="#"><span>Motor Bekas</span><i class="fa fa-angle-left pull-right"></i></a>
+                <a href="#"><i class="fa fa-motorcycle"></i><span>Motor Bekas</span><i class="fa fa-angle-left pull-right"></i></a>
                 <ul class="treeview-menu">
-                    <li><a href="{{ url('/admin/mokas') }}">Data Mokas</a></li>
-                    <li><a href="{{ route('admin.sales.index') }}">Sales</a></li>
-                    <li><a href="{{ route('admin.pricesaleshistory.index') }}">Price Sales History</a></li>
+                    <li><a href="{{ url('/admin/mokas') }}"><i class="fa fa-motorcycle"></i>Data Mokas</a></li>
+                    <li><a href="{{ route('admin.sales.index') }}"><i class="fa fa-tachometer"></i>Sales</a></li>
+                    <li><a href="{{ route('admin.pricesaleshistory.index') }}"><i class="fa fa-tags"></i>Price Sales History</a></li>
                 </ul>
             </li>
             <li class="treeview">
-                <a href="#"><span>Customer</span><i class="fa fa-angle-left pull-right"></i></a>
+                <a href="#"><i class="fa fa-users"></i><span>Customer</span><i class="fa fa-angle-left pull-right"></i></a>
                 <ul class="treeview-menu">
-                    <li><a href="{{ url('/admin/customer') }}">Data Customer</a></li>
+                    <li><a href="{{ url('/admin/customer') }}"><i class="fa fa-user"></i><span>Data Customer</span></a></li>
                 </ul>
             </li>
         </ul><!-- /.sidebar-menu -->

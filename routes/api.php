@@ -39,5 +39,6 @@ Route::group([
 	Route::resource('customercollateral', 'Api\CustomerCollateralController', ['as'=>'api']);
 
 	Route::resource('mokas', 'Api\MokasController', ['as'=>'api']);
-
+	Route::resource('uploadmokas', 'Api\ImageMokasController', ['as'=>'api']);
+	Route::resource('uploadsales', 'Api\ImageSalesController', ['as'=>'api']);
 });

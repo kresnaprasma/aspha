@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Bank;
 use App\Sales;
 use App\Mokas;
 use App\Branch;
@@ -44,6 +45,7 @@ class SalesController extends Controller
         $customer_list = Customer::pluck('name', 'customer_no');
         $branch_list = Branch::pluck('name', 'id');
         $leasing_list = Leasing::pluck('name', 'id');
+        $banks = Bank::pluck('name', 'id');
 
         $mokas = Mokas::all();
 
@@ -58,7 +60,7 @@ class SalesController extends Controller
         $tenor_requestlist = ['3'=>'3 bulan', '4'=>'4 bulan', '5'=>'5 bulan', 
             '6'=>'6 bulan', '12'=>'12 bulan', '18'=>'18 bulan', '24'=>'24 bulan', 
             '30'=>'30 bulan', '36'=>'36 bulan'];
-        return view('admin.sales.create', compact('branch_list', 'leasing_list', 'customer_list', 'tenor_requestlist', 'customer_id', 'branch_list', 'vehicle_cclist', 'vehicle_colorlist', 'mokas'));
+        return view('admin.sales.create', compact('branch_list', 'leasing_list', 'customer_list', 'tenor_requestlist', 'customer_id', 'branch_list', 'vehicle_cclist', 'vehicle_colorlist', 'mokas', 'banks'));
     }
 
     /**
@@ -125,8 +127,8 @@ class SalesController extends Controller
     public function edit($id)
     {
         $sales = Sales::find($id);
-
-        return view('admin.sales.edit', compact('sales'));
+        $banks = Bank::pluck('name', 'id');
+        return view('admin.sales.edit', compact('sales', 'banks'));
     }
 
     /**

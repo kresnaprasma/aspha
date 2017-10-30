@@ -9,12 +9,10 @@
                     {!! Form::text('mokas_no', old('mokas_no'), ['class'=>'form-control', 'readonly'=>'true']) !!}
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                     {!! Form::label('merk_id', 'Merk:') !!}
-                    {{-- {!! Form::text('merk_id', old('merk_id'), ['class'=>'form-control', 'readonly'=>'true']) !!} --}}
                     {!! Form::text('merk_id', $mokas->merks->name, ['class'=>'form-control', 'readonly'=>'true']) !!}
                 </div>
                 <div class="form-group">
                     {!! Form::label('type_id', 'Type:') !!}
-                    {{-- {!! Form::text('type_id', old('type_id'), ['class'=>'form-control', 'readonly'=>'true']) !!} --}}
                     {!! Form::text('merk_id', $mokas->types->name, ['class'=>'form-control', 'readonly'=>'true']) !!}
                 </div>
                 <div class="form-group{{ $errors->has('sales_id') ? ' has-error' : '' }}">
@@ -94,17 +92,22 @@
         <div class="row">
             <div class="col-md-4 col-lg-offset-1">
                 <div class="form-group">
-                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                    {!! Form::label('merk_id', 'Merk:') !!}
-                    <select name="merk_id" id="merk_id" class="form-control">
-                        <option value="">--- Select Merk ---</option>
-                        @foreach ($merkall as $key => $value)
-                            <option value="{{ $key }}">{{ $value }}</option>
-                        @endforeach
-                    </select>
+                    <div class="input-group">
+                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                        <select name="merk_id" id="merk_id" class="form-control">
+                            <option value="">--- Select Merk ---</option>
+                            @foreach ($merkall as $key => $value)
+                                <option value="{{ $key }}">{{ $value }}</option>
+                            @endforeach
+                        </select>
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-default" onclick="AddPriceSalesHistory()">
+                                <i class="fa fa-search" aria-hidden="true"></i>
+                            </button>
+                        </span>
+                    </div>
                 </div>
                 <div class="form-group">
-                    {!! Form::label('type_id', 'Type:') !!}
                     <select name="type_id" id="type_id" class="form-control">
                         <option value="">--- Select Type ---</option>
                     </select>
@@ -176,9 +179,5 @@
                 </div>
             </div>
         </div>
-    </div>
-    <div class="box-footer">
-        <button type="submit" class="btn btn-primary">Save
-        </button>
     </div>
 @endif

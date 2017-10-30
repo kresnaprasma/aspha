@@ -18,11 +18,12 @@ class CreateSalesTable extends Migration
             $table->string('sales_no')->unique();
 
             $table->string('customer_name');
-            $table->foreing('customer_name')->references('name')->on('customers');
+            $table->foreign('customer_name')->references('name')->on('customers');
             
             $table->string('mokas_number');
             $table->boolean('ktp');
             $table->boolean('kk');
+            $table->string('bank_id');
             $table->string('rek_number');
             $table->double('others_cost');
 

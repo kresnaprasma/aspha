@@ -2,36 +2,42 @@
 
 namespace App\Http\Controllers\Api;
 
-//use Request;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
 use Response;
+use Image;
 
-use App\Customer;
-use App\Customercollateral;
-use App\Uploadcustomer;
-use App\Http\Requests;
-use App\Http\Controllers\Controller;
+use App\Uploadmotor;
 
-class ImageController extends Controller
+class ImageMokasController extends Controller
 {
     public function index()
     {
-    	$images = Uploadcustomer::all();
+        $images = Uploadmotor::all();
 
-    	return response()->json([
-    		'data'=>$this->transformCollection($images)
-    	], 200);
+        return response()->json([
+            'data'=>$this->transformCollection($imagemokas)
+        ], 200);
+    }
+
+    public function create()
+    {
+        //
     }
 
     public function store(Request $request)
     {
+    	$validator = Validator::make($request->all(), [
+            'image' => 'required|image|mimes:jpeg, png, jpg, gif, svg| max:2048'  
+        ]);
+
         $file = Input::file('image');
-        $customercollateral_no = $request->input('customercollateral_no');
+        $mokas_no = $request->input('mokas_no');
 
         $input = array('image' => $file);
         $mime = array('image' => 'jpeg, png, jpg, gif, pdf, application/vnd.ms-excel' );
@@ -39,7 +45,7 @@ class ImageController extends Controller
         $validator = Validator::make($input, $rules, $mime);
 
 
-        $image = new Uploadcustomer();
+        $image = new Uploadmotor();
         $image->mime = $file->getClientMimeType();
         $image->original_filename = $file->getClientOriginalName();
         $ext = $file->getClientOriginalExtension();
@@ -52,10 +58,10 @@ class ImageController extends Controller
         $allowedName = $this->createUniqueFilename($image->filename,$ext);
         $filenameExt = $allowedName.'.'.$ext;
         
-        $image->customercollateral_no = $customercollateral_no;
+        $image->mokas_no = $mokas_no;
         $image->save();
 
-        $uploadSuccess = Storage::disk('local')->put('/DanaTunai/'.$filenameExt, File::get($file));
+        $uploadSuccess = Storage::disk('local')->put('/MotorBekas/'.$filenameExt, File::get($file));
 
 
         if ( $validator->fails() )
@@ -74,45 +80,44 @@ class ImageController extends Controller
 
     public function show($id)
     {
-    	$image = Uploadcustomer::where('nameslug', $id)->first();
+        $image = Uploadmotor::where('nameslug', $id)->first();
 
-    	if (!$image) {
-    		return response()->json([
-    			'error'=>[
-    				'message' => 'Image does not exist'
-    			]
-    		], 400);
-    	}
+        if (!$image) {
+            return response()->json([
+                'error'=>[
+                    'message' => 'Image does not exist'
+                ]
+            ], 400);
+        }
 
-    	return response()->json([
-    		'data'=>$this->transform($image)
-    	], 200);
+        return response()->json([
+            'data'=>$this->transform($image)
+        ], 200);
     }
 
-    public function edit()
+    public function edit($id)
     {
-    	//
+        //
     }
 
-    public function update()
+    public function update(Request $request, $id)
     {
-    	$image = UploadCustomer::find($id);
-    	$client->update($request->all());
-    	return response()->json([
-    		'data'=>$this->transform($image)
-    	]);
+        $image = Uploadmotor::find($id);
+        $client->update($request->all());
+        return response()->json([
+            'data'=>$this->transform($image)
+        ]);
     }
 
     public function destroy($id)
     {
-
-    	$image = Uploadcustomer::find($id)->first();
+        $image = Uploadmotor::find($id)->first();
         $filenameExt = $image['nameslug'];
         Storage::disk('local')->delete('/DanaTunai/'. $filenameExt);
-    	$image->delete();
-    	return response()->json([
-    		'data'=>$this->transform($image)
-    	]);
+        $image->delete();
+        return response()->json([
+            'data'=>$this->transform($image)
+        ]);
     }
 
     public function getFileTmp($filename)
@@ -126,7 +131,7 @@ class ImageController extends Controller
 
     public function get($filename)
     {
-        $entry = Fileentry::where('filename', '=', $filename)->firstOrFail();
+        $entry = Uploadmotor::where('filename', '=', $filename)->firstOrFail();
         $file = Storage::disk('local')->get($entry->filename);
 
         return(new Response($file, 200))
@@ -134,19 +139,19 @@ class ImageController extends Controller
     }
 
     private function transformCollection($image) {
-    	return array_map([$this, 'transform'], $image->toArray());
+        return array_map([$this, 'transform'], $image->toArray());
     }
 
     private function transform($image) {
-    	return [
-    		'image_id' => $image['id'],
-    		'image_original_name' => $image['original_filename'],
-    		'image_filename' => $image['filename'],
+        return [
+            'image_id' => $image['id'],
+            'image_original_name' => $image['original_filename'],
+            'image_filename' => $image['filename'],
             'image_mime' => $image['mime'],
             'image_nameslug' => $image['nameslug'],
             'image_slugwithoutExt' => $image['slugwithoutExt'],
-    		'image_customercollateral_no' => $image['customercollateral_no']
-    	];
+            'image_mokas_no' => $image['mokas_no']
+        ];
     }
 
     public function createUniqueFilename($filename)

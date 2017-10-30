@@ -1,4 +1,65 @@
 <script type="text/javascript">
+
+    var checkload = true;
+    var sales_no = $('[name=sales_no]').val();
+
+    Dropzone.autoDiscover = false;
+
+    var myDropzone = new Dropzone('div#uploadcollateral', {
+        url: "http://localhost:8000/api/v1/uploadsales",
+        paramName: 'image',
+        parallelUploads: 10,
+        maxFilesize: 8,
+        previewTemplate: '<div style="display:none"></div>',
+        clickable: '.upload-collateral',
+
+        init: function(){
+            var myDropzones = this;
+        },
+        accept: function(file, done){
+            console.log('Successfully Uploaded!');
+            done();
+        },
+
+        success: function(file, response, value){
+            $('#uploadcollateral').append('<li><a href="/uploadsales/show/'+response.data.nameslug+'" target="_blank">'+get_mime(response.data.mime)+response.data.filename+'<a><span class="pull-right"><a onclick="deleteUpload(this, '+response.data.id+')"><i class="fa fa-times fa-red" aria-hidden="true"></i></a></span></li>');
+        }
+    });
+
+
+    myDropzone.on('sending', function(file, xhr, formData){
+        formData.append('_token', $('[name=_token]').val());
+        formData.append('sales_no', $('[name=sales_no]').val());
+        // $('.dial').knob();
+        $('.dial').show();
+        $('.upload-collateral').hide();
+    });
+
+    myDropzone.on('totaluploadprogress', function(progress){
+        $('.dial').val(progress);
+    });
+
+    myDropzone.on('queuecomplete', function(progress){
+        $('.dial').closest('div').remove();
+        $('.dial').hide();
+        $('.upload-collateral').show();
+    });
+
+    myDropzone.on('success', function(file, response){
+        getFile(response);
+        $('.upload-collateral').show();
+        $('.dial').hide();
+    });
+
+    myDropzone.on('error', function(file, response){
+        if (response.error == true) {
+            $('.alert-upload').show();
+            $('#message-upload').append(response.message);
+            return false;
+        }
+    });
+
+
     var mokasTable = $('#tableMokas').DataTable({
         "dom": "rtip",
             "pageLength": 10,
@@ -41,6 +102,7 @@
             $('#viewMokasModal').modal('hide');
         }
     });
+
 
     $('#tenorSales').attr('disabled', 'disabled');
     $('#leasingSales').attr('disabled', 'disabled');
