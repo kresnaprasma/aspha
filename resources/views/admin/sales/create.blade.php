@@ -2,7 +2,7 @@
 
 @section('content')
 
-    {!! Form::model($sales = new \App\Sales, ['route'=>'admin.sales.store','id'=>'formSales']) !!}
+    {!! Form::model($sales = new \App\Sales, ['route'=>'admin.sales.store','id'=>'formSales', 'method'=> 'POST']) !!}
     <div class="row">
         <div class="col-md-12">
             @include('admin.sales._form',['edit'=>false])

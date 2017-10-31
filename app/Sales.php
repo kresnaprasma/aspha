@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\DB;
 
 class Sales extends Model
 {
-    protected $fillable = ['sales_no', 'stock', 'customer_name', 'payment_method', 'down_payment', 'tenor', 'payment', 'ktp', 'kk', 'rek_number', 'mokas_number', 'leasing_no', 'others_cost', 'cashier'];
+    protected $fillable = ['sales_no', 'customer_name', 'mokas_number', 'ktp', 'kk', 'bank_id', 'rek_number', 'others_cost', 'payment_method', 'down_payment', 'tenor', 'payment', 'mokas_number', 'leasing_no', 'cashier'];
 
     public $incrementing = false;
 

@@ -71,7 +71,7 @@ class SalesController extends Controller
      */
     public function store(Request $request)
     {
-        return $request->all();
+        // return $request->all();
         $validator = validator::make($request->all(), [
             'customer_name' => 'required',
             'mokas_number' => 'required',
@@ -82,27 +82,29 @@ class SalesController extends Controller
 
         if ($validator->fails()) {
             $messages = $validator->messages();
-
+            
             return redirect()->back()->withInput()->withErrors($validator);
         }
 
-        $sales = new Sales();
-        $sales->id = Uuid::uuid4()->getHex();
-        $sales->sales_no = Sales::Maxno();
-        $sales->customer_name = $request->input('customer_name');
-        $sales->mokas_number = $request->input('mokas_number');
-        $sales->ktp = $request->input('ktp');
-        $sales->kk = $request->input('kk');
-        $sales->rek_number = $request->input('rek_number');
-        $sales->other_cost = $request->input('other_cost');
-        $sales->payment_method = $request->input('payment_method');
-        $sales->branch_id = $request->input('branch_id');
-        $sales->leaisng_no = $request->input('leaisng_no');
-        $sales->save();
+        $sales = Sales::create($request->all());
+
+        // $sales = new Sales();
+        // $sales->id = Uuid::uuid4()->getHex();
+        // $sales->sales_no = Sales::Maxno();
+        // $sales->customer_name = $request->input('customer_name');
+        // $sales->mokas_number = $request->input('mokas_number');
+        // $sales->ktp = $request->input('ktp');
+        // $sales->kk = $request->input('kk');
+        // $sales->rek_number = $request->input('rek_number');
+        // $sales->other_cost = $request->input('other_cost');
+        // $sales->payment_method = $request->input('payment_method');
+        // $sales->branch_id = $request->input('branch_id');
+        // $sales->leaisng_no = $request->input('leaisng_no');
+        // $sales->save();
 
         if (!$sales) {
-            return redirect()->back()->withInput()->withErrors('cannot create Sales');
-        } else {
+            return redirect()->back()->withInput()->withError('cannot create sales');
+        }else{
             return redirect('/admin/sales')->with('success', 'Successfully create sales');
         }
     }
@@ -127,8 +129,25 @@ class SalesController extends Controller
     public function edit($id)
     {
         $sales = Sales::find($id);
+        
         $banks = Bank::pluck('name', 'id');
-        return view('admin.sales.edit', compact('sales', 'banks'));
+        $branch_list = Branch::pluck('name', 'id');
+        $customer_list = Customer::pluck('name', 'customer_no');
+        $leasing_list = Leasing::pluck('name', 'id');
+        
+        $vehicle_colorlist = ['WHITE'=>'WHITE', 'SILVER'=>'SILVER', 'BLACK'=>'BLACK', 'GREY'=>'GREY', 
+            'RED'=>'RED', 'BLUE-NAVY'=>'BLUE-NAVY', 'BLUE'=>'BLUE', 
+            'ORANGE'=>'ORANGE', 'YELLOW'=>'YELLOW', 'CREAM'=>'CREAM', 
+            'GREEN'=>'GREEN', 'BROWN'=>'BROWN', 'MAGENTA'=>'MAGENTA', 
+            'PURPLE'=>'PURPLE', 'PINK'=>'PINK', 'SPECIAL EDITION'=>'SPECIAL EDITION'];
+        $vehicle_cclist = ['110'=>'110', '115'=>'115', 
+            '125'=>'125', '135'=>'135', '150'=>'150', 
+            '225'=>'225', '250'=>'250'];
+        $tenor_requestlist = ['3'=>'3 bulan', '4'=>'4 bulan', '5'=>'5 bulan', 
+            '6'=>'6 bulan', '12'=>'12 bulan', '18'=>'18 bulan', '24'=>'24 bulan', 
+            '30'=>'30 bulan', '36'=>'36 bulan'];
+
+        return view('admin.sales.edit', compact('sales', 'banks', 'branch_list', 'customer_list', 'leasing_list', 'vehicle_colorlist', 'vehicle_cclist', 'tenor_requestlist'));
     }
 
     /**

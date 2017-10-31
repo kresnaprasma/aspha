@@ -32,6 +32,7 @@ class CreateSalesTable extends Migration
             
             $table->string('leasing_no')->nullable();
             $table->foreign('leasing_no')->references('leasing_no')->on('leasings');
+            $table->string('cashier');
             $table->timestamps();
         });
     }

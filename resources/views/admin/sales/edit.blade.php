@@ -1,7 +1,7 @@
 @extends('layout.admin')
 
 @section('content')
-    {!! Form::model($sales ,['route'=>['admin.sales.update', $sales->id],'id'=>'formSales', 'method'=>'PUT']) !!}
+    {!! Form::model($sales ,['route'=>['admin.sales.update', $sales['id']],'id'=>'formSales', 'method'=>'PUT']) !!}
     <div class="row">
         <div class="col-md-12">
             @include('admin.sales._form',['edit'=>true])

@@ -84,13 +84,13 @@
 		});
 
 		$("#searchDtbox").keyup(function() {
-	    	tableMokas.search($(this).val()).draw();
+	    	salesTable.search($(this).val()).draw();
 	    });
 	    $('#tableSales tbody').on('dblclick', 'tr', function () {
 	    	if ( $(this).hasClass('selected') ) {
 	    		$(this).removeClass('selected');
 	    	} else {
-		        tableSales.$('tr.selected').removeClass('selected');
+		        salesTable.$('tr.selected').removeClass('selected');
 		        $(this).addClass('selected');
 
 		        var id = $(this).find('#idtableSales').val();
