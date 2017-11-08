@@ -49,6 +49,10 @@
         });
       }
     }
-    createNo();
+    @if (!$errors->any())
+      createNo();
+    @else 
+      getPicture();
+    @endif
   </script>
 @stop

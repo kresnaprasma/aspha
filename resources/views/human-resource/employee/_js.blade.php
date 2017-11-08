@@ -1,6 +1,7 @@
 <script type="text/javascript">
   var checkload = true;
 	var upload_url = "/api/profile/";
+  var id_employee = 0;
 	/*dropzone*/
 	var myDropzone = new Dropzone(document.body, { 
 		// Make the whole body a dropzone
@@ -75,6 +76,7 @@
         console.log(response);
         $("input[name=nip]").val(response.employee_nip);
         $("#id_employee").val(response.employee_id);
+        id_employee = response.employee_id;
       },
       error: function(response){
         console.log(response);
@@ -83,11 +85,20 @@
 	}
 
   function getPicture(){
-    var id = $("#profile_id").val();
-    if (id != '') {
-      $('#profile_img').attr('src', upload_url+id + '?' + new Date().getTime());
-      $( ".btn-upload-profile" ).hide();
-      $( ".btn-delete-profile" ).show();
-    }
+    var id = $("input[name=id]").val();
+    
+    $.ajax({
+      url: '/api/human-resource/employee/'+id,
+      type: 'GET',
+      success: function(response){
+        $('#profile_img').attr('src', upload_url+response.data.employee_pictures[0].id + '?' + new Date().getTime());
+        $( ".btn-upload-profile" ).hide();
+        $( ".btn-delete-profile" ).show();
+        $('#profile_id').val(response.data.employee_pictures[0].id);
+      },
+      error: function(response){
+        console.log(response);
+      }
+    })
   }
 </script>
