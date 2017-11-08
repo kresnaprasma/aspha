@@ -79,8 +79,9 @@
 		</div>
 	</div>
 
-	@include('admin.master.bank._modal')
+	
 @stop
+
 
 @section('scripts')
 	<script type="text/javascript">

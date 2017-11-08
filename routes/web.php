@@ -117,4 +117,14 @@ Route::group([
 	Route::post('/upload/add', ['as'=>'addupload', 'uses' => 'UploadController@add']);
 	Route::delete('/upload/{id}', 'UploadController@destroy');
 
+	// delete Employee
+	Route::post('/human-resource/employee/delete',['as'=>'human-resource.employee.delete','uses'=>'EmployeeController@delete']);
+	// delete Department
+	Route::post('/human-resource/department/delete',['as'=>'human-resource.department.delete','uses'=>'EmployeeDepartmentController@delete']);
+	// delete Position
+	Route::post('/human-resource/position/delete',['as'=>'human-resource.position.delete','uses'=>'EmployeePositionController@delete']);
+
+	Route::resource('/human-resource/employee', 'EmployeeController',['as'=>'human-resource']);
+	Route::resource('/human-resource/department', 'EmployeeDepartmentController',['as'=>'human-resource']);
+	Route::resource('/human-resource/position', 'EmployeePositionController',['as'=>'human-resource']);
 });
