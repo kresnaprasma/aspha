@@ -13,7 +13,8 @@ class CreateTypesTable extends Migration
     public function up()
     {
         Schema::create('types', function (Blueprint $table) {
-            $table->string('id');
+            $table->string('id')->index();
+            $table->primary('id');
             $table->string('name');
             
             $table->string('merk_id');
