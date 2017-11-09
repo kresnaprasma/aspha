@@ -170,11 +170,11 @@ class CustomerController extends Controller
         }
 
         foreach ($request->input('id') as $key => $value) {
-            $supplier = Customer::find($value);
-            $supplier->delete();   
+            $customer = Customer::find($value);
+            $customer->delete();   
         }
 
-        if (!$supplier) {
+        if (!$customer) {
             return redirect()->back()->withInput()->withError('cannot delete customer');
         }else{
             return redirect()->back()->with('success', 'Successfully delete customer');

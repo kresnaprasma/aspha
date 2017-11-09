@@ -18,7 +18,7 @@ class ImageMokasController extends Controller
 {
     public function index()
     {
-        $images = Uploadmotor::all();
+        $imagemokas = Uploadmotor::all();
 
         return response()->json([
             'data'=>$this->transformCollection($imagemokas)

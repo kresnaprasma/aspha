@@ -127,5 +127,14 @@ Route::group([
 	Route::post('/pricesaleshistory/delete', ['as'=>'admin.pricesaleshistory.delete', 'uses'=>'Admin\PriceSalesHistoryController@delete']);
 	Route::get('/pricesaleshistory/type/{id}', ['as'=>'myForm.type', 'uses'=>'Admin\PriceSalesHistoryController@myformAjax']);
 	Route::get('/pricesaleshistory/type/edit/{id}', ['as'=>'myForm.ajax', 'uses'=>'Admin\PriceSalesHistoryController@myformEdit']);
-	Route::get('/pricesaleshistory/downloadExcel/xls', 'Admin\PriceSalesHistoryController@downloadExcel');	
+	Route::get('/pricesaleshistory/downloadExcel/xls', 'Admin\PriceSalesHistoryController@downloadExcel');
+
+	Route::resource('/pricehistory', 'Admin\PriceHistoryController', ['as'=>'admin']);
+	Route::post('/pricehistory/delete', ['as'=>'admin.pricehistory.delete', 'uses'=>'Admin\PriceHistoryController@delete']);
+
+	Route::resource('master/checklist', 'Admin\ChecklistController', ['as'=>'admin.master']);
+	Route::post('master/checklist/delete', ['as'=>'admin.master.checklist.delete', 'uses'=>'Admin\ChecklistController@delete']);
+
+	Route::resource('/mokaschecklist', 'Admin\MokasChecklistController', ['as'=>'admin']);
+	Route::post('/mokaschecklist/delete', ['as'=>'admin.mokaschecklist.delete', 'uses'=>'Admin\MokasChecklistController@delete']);
 });

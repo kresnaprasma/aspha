@@ -1,5 +1,33 @@
 <script type="text/javascript">
 
+    var checkload = true;
+    var customercollateral_no = $('[name=customercollateral_no]').val();
+
+    Dropzone.autoDiscover = false;
+
+    var myDropzone = new Dropzone('div#uploadcollateral', {
+        url: "http://localhost:8000/api/v1/uploaddanatunai",
+        paramName: 'image',
+        parallelUploads: 10,
+        maxFilesize: 8,
+        previewTemplate: '<div style="display:none"></div>',
+        clickable: '.upload-collateral',
+
+        init: function(){
+            var myDropzones = this;
+        },
+        accept: function(file, done){
+            console.log('Successfully Uploaded!');
+            done();
+        },
+
+        success: function(file, response, value){
+            $('#uploadcollateral').append('<li><a href="/uploaddanatunai/show/'+response.data.nameslug+'" target="_blank">'+get_mime(response.data.mime)+response.data.filename+'<a><span class="pull-right"><a onclick="deleteUpload(this, '+response.data.id+')"><i class="fa fa-times fa-red" aria-hidden="true"></i></a></span></li>');
+        }
+    });
+
+    
+
     var pricesaleshistoryTable = $('#tablePriceSalesHistory').DataTable({
         "dom": "rtip",
             "pageLength": 10,

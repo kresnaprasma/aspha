@@ -1,16 +1,6 @@
 <div class="box-body">
 	<div class="row">
-		{!! Form::open(array('route' => 'api.uploadmokas.store', 'method'=>'POST', 'files'=>'true')) !!}
-    	
-    	<div class="col-md-4">
-    		<label>Select image to upload:</label>
-			<br/>
-			{!! Form::file('mokasimage', array('class'=>'form-control')) !!}
-		</div>
-		<div class="col-md-4">
-			<br/>
-			<button type="submit" class="btn btn-primary">Upload</button>
-		</div>
+		{!! Form::open(['route'=>'api.uploadmokas.store', 'files'=>true, 'enctype'=>'multipart/form-data', 'class'=>'dropzone', 'id'=>'uploadmokas']) !!}
 	</div>
 	{!! Form::close() !!}
 

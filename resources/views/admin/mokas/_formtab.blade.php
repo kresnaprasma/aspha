@@ -3,8 +3,9 @@
 	    <!-- Custom Tabs -->
 	    <div class="nav-tabs-custom">
 	        <ul class="nav nav-tabs">
-		        <li class="active"><a href="#tab_1" data-toggle="tab">Type</a></li>
-		        <li><a href="#tab_2" data-toggle="tab">Spesification</a></li>
+		        <li class="active"><a href="#tab_type" data-toggle="tab">Type</a></li>
+		        <li><a href="#tab_spec" data-toggle="tab">Spesification</a></li>
+		        <li><a href="#tab_4" data-toggle="tab">Checklist</a></li>
 		        <li><a href="#tab_3" data-toggle="tab">Upload Mokas</a></li>
 		        <li class="dropdown">
 		        	<a class="dropdown-toggle" data-toggle="dropdown" href="#">
@@ -20,12 +21,16 @@
 		        </li>
 	        </ul>
 	        <div class="tab-content">
-	        	<div class="tab-pane active" id="tab_1">
+	        	<div class="tab-pane active" id="tab_type">
 	        		@include('admin.mokas._tab1')
 	        	</div>
 	          	<!-- /.tab-pane -->
-		        <div class="tab-pane" id="tab_2">
+		        <div class="tab-pane" id="tab_spec">
 				    @include('admin.mokas._tab2')
+		        </div>
+		        <!-- /.tab-pane -->
+		        <div class="tab-pane" id="tab_4">
+		            @include('admin.mokas._tab4')
 		        </div>
 	        	<!-- /.tab-pane -->
 		        <div class="tab-pane" id="tab_3">

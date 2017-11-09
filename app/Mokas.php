@@ -39,7 +39,7 @@ class Mokas extends Model
             $kd_fix = '0001';
         }
 
-        return 'MBB'.$year.date('m').$kd_fix;
+        return 'MOK'.$year.date('m').$kd_fix;
 
     }
 
@@ -56,5 +56,15 @@ class Mokas extends Model
     public function types()
     {
         return $this->belongsTo('App\Type', 'type_id', 'id');
+    }
+
+    public function pricehistory()
+    {
+        return $this->hasMany('App\PriceHistory');
+    }
+
+    public function checklist()
+    {
+        return $this->hasOne('App\MokasChecklist');
     }
 }
