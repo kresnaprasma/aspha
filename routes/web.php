@@ -128,4 +128,14 @@ Route::group([
 =======
 >>>>>>> fb4514c33e4bbbc179916665db0ee7f00a823618
 
+	// delete Employee
+	Route::post('/human-resource/employee/delete',['as'=>'human-resource.employee.delete','uses'=>'EmployeeController@delete']);
+	// delete Department
+	Route::post('/human-resource/department/delete',['as'=>'human-resource.department.delete','uses'=>'EmployeeDepartmentController@delete']);
+	// delete Position
+	Route::post('/human-resource/position/delete',['as'=>'human-resource.position.delete','uses'=>'EmployeePositionController@delete']);
+
+	Route::resource('/human-resource/employee', 'EmployeeController',['as'=>'human-resource']);
+	Route::resource('/human-resource/department', 'EmployeeDepartmentController',['as'=>'human-resource']);
+	Route::resource('/human-resource/position', 'EmployeePositionController',['as'=>'human-resource']);
 });

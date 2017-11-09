@@ -20,7 +20,8 @@
     <link href="{{ asset("/assets/pickadate/themes/default.date.css")}}" rel="stylesheet">
     <link href="{{ asset("/assets/pickadate/themes/default.time.css")}}" rel="stylesheet">
     <link href="{{ asset("/assets/selectize/css/selectize.css")}}" rel="stylesheet">
-    <link href="{{ asset("/assets/selectize/css/selectize.bootstrap3.css")}}" rel="stylesheet">
+    <link href="{{ asset("/assets/selectize/css/selectize.bootstrap3.css")}}" rel="stylesheet"
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.2.0/dropzone.css">
 
     <link href="{{ asset("/assets/adminlte/dist/css/skins/skin-blue.min.css")}}" rel="stylesheet" type="text/css" />
     
@@ -76,6 +77,70 @@
         #previews .file-row.dz-success .delete {
         display: block;
         }
+        /*profile hrm*/
+        .outer-div {
+          height: 210px;
+          width: 210px;
+          background-color: #fff;
+          border: 2px dashed #ccc;
+          position: relative;
+          border-radius: 10px;
+        }
+        .inner-div {
+          height: 200px;
+          width: 200px;
+          background-color: #ccc;
+          position: absolute;
+          margin: -100px 0 0 -100px;
+          left: 50%;
+          top: 50%;
+        }
+        .outer-div-lg {
+          height: 210px;
+          background-color: #fff;
+          border: 2px dashed #ccc;
+          position: relative;
+          border-radius: 10px;
+        }
+        .inner-div-lg {
+          height: 200px;
+          /*width: 100%;*/
+          background-color: #fff;
+          position: absolute;
+          margin: -100px 0 0 -100px;
+          left: 50%;
+          top: 50%;
+        }
+
+        .btn-upload-profile {
+          position: absolute;
+          color: white;
+          border: 0;
+          width: 40px;
+          height: 40px;
+          margin: -20px 0 0 -20px;
+          left: 50%;
+          top: 50%;
+        }
+        .btn-upload-profile:hover {
+          background-color: rgba(0, 0, 0, 0.3);
+        }
+        .btn-delete-profile {
+          display: none;
+          position: absolute;
+          top: -10px;
+          right: -10px;
+          width: 25px;
+          height: 25px;
+          border-radius: 50%;
+          background-color: #3087BD;
+          color: white;
+          border: 0;
+        }
+        .btn-delete-profile:hover {
+          background-color: #7F6091;
+        }
+        /*end profile hrm*/
     </style>
 </head>
 <body class="skin-blue">
@@ -128,6 +193,9 @@
 
 <!-- AdminLTE App -->
 <script src="{{ asset ("/assets/adminlte/dist/js/app.min.js") }}" type="text/javascript"></script>
+
+<!-- Dropzone -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.2.0/dropzone.js"></script>
 
 @yield('scripts')
 <!-- Optionally, you can add Slimscroll and FastClick plugins.
