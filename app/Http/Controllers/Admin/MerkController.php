@@ -16,7 +16,7 @@ class MerkController extends Controller
     public function index()
     {
         $merks = Merk::all();
-        return view('admin.merk.index', compact('merks')); 
+        return view('admin.master.merk.index', compact('merks')); 
     }
 
     /**

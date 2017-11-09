@@ -19,8 +19,30 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::group([
 	// 'middleware' => ['auth:api'],
-], function(){
-	// Create NIP
+	'prefix' => 'v1'/*
+	'middleware' => 'auth',*/
+], function(){ 
+
+	Route::get('customer/no', 'Api\CustomerController@getCustomerNo', ['as'=>'api']);
+	Route::resource('customer', 'Api\CustomerController', ['as'=>'api']);
+
+	Route::resource('merk', 'Api\MerkController', ['as'=>'api']);
+	Route::resource('vehiclecollateral', 'Api\VehicleCollateralController', ['as' => 'api']);
+
+	Route::get('uploaddanatunai/get', 'Api\ImageController@get', ['as'=>'api.uploaddanatunai.get']);
+	Route::get('uploaddanatunai/getTmp', 'Api\ImageController@getFileTmp', ['as'=>'api.uploaddanatunai.getTmp']);
+	Route::resource('uploaddanatunai', 'Api\ImageController', ['as'=>'api']);
+
+	Route::get('cash/no', 'Api\CashController@getNo', ['as'=>'api']);
+	Route::resource('cash', 'Api\CashController', ['as'=>'api']);
+
+	Route::get('customercollateral/no', 'Api\CustomerCollateralController@getCollateralNo', ['as'=>'api']);
+	Route::resource('customercollateral', 'Api\CustomerCollateralController', ['as'=>'api']);
+
+	Route::resource('mokas', 'Api\MokasController', ['as'=>'api']);
+	Route::resource('uploadmokas', 'Api\ImageMokasController', ['as'=>'api']);
+	Route::resource('uploadsales', 'Api\ImageSalesController', ['as'=>'api']);
+
 	Route::post('/human-resource/employee/create-nip', ['as'=>'api.human-resource.employee.createnip','uses'=>'Api\EmployeeController@createNip']);
 
 	Route::resource('profile', 'Api\ProfilePictureController');

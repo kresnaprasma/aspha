@@ -5,9 +5,11 @@
 	<title>{{ $page_title or "Aspha Dashboard" }}</title>
 	<meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
 
-	<!-- our style bro -->
-	<link rel="stylesheet" type="text/css" href="{{ asset("/assets/css/style.css") }}">
-	<!-- Ionicons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/4.0.1/min/dropzone.min.css" rel="stylesheet">
+    <!-- our style bro -->
+    <link rel="stylesheet" type="text/css" href="{{ asset("/assets/css/style.css") }}">
+    <!-- Ionicons -->
     <link href="http://code.ionicframework.com/ionicons/2.0.0/css/ionicons.min.css" rel="stylesheet" type="text/css" />
     <!-- Theme style -->
     <link href="{{ asset("/assets/adminlte/dist/css/AdminLTE.min.css")}}" rel="stylesheet" type="text/css" />
@@ -24,6 +26,9 @@
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.2.0/dropzone.css">
 
     <link href="{{ asset("/assets/adminlte/dist/css/skins/skin-blue.min.css")}}" rel="stylesheet" type="text/css" />
+
+
+
     
     @yield('styles')
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -155,17 +160,17 @@
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
-        <section class="content-header">
+        {{-- <section class="content-header">
             <h1>
                 {{ $page_title or "Page Title" }}
                 <small>{{ $page_description or null }}</small>
             </h1>
-            <!-- You can dynamically generate breadcrumbs here -->
+            You can dynamically generate breadcrumbs here
             <ol class="breadcrumb">
                 <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
                 <li class="active">Here</li>
             </ol>
-        </section>
+        </section> --}}
 
         <!-- Main content -->
         <section class="content">
@@ -184,12 +189,20 @@
 <!-- REQUIRED JS SCRIPTS -->
 
 <!-- our script bro-->
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/4.2.0/min/dropzone.min.js"></script>
+
 <script src="{{ asset ("/assets/js/style.js") }}"></script>
 
 <script src="{{ asset ("/assets/pickadate/picker.js")}}"></script>
 <script src="{{ asset ("/assets/pickadate/picker.date.js")}}"></script>
 <script src="{{ asset ("/assets/pickadate/picker.time.js")}}"></script>
 <script src="{{ asset ("/assets/selectize/selectize.min.js")}}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+
 
 <!-- AdminLTE App -->
 <script src="{{ asset ("/assets/adminlte/dist/js/app.min.js") }}" type="text/javascript"></script>

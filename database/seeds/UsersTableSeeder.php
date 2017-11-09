@@ -45,5 +45,13 @@ class UsersTableSeeder extends Seeder
         ]);
 
         $super->assignRole('super');
+
+        $super = App\User::create([
+                'name' => 'KRESNA PRASMADEWA',
+                'email' => 'kresnaprasmadewa@gmail.com',
+                'password' => bcrypt('12341234'),
+        ]);
+
+        $super->assignRole('super');
     }
 }

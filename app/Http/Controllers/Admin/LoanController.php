@@ -2,21 +2,16 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\CustomerCollateral;
+use App\Cash;
+use App\Leasing;
+use App\Branch;
+use App\Customer;
 
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
-
-use App\Merk;
-use App\Loan;
-use App\VehicleCollateral;
-use App\Type;
-
 use App\Http\Controllers\Controller;
-use DB;
-use Illuminate\Facades\Input;
-use Excel;
-use PDF;
-use Elibyy\TCPDF\Facades\TCPDF;
+use Illuminate\Support\Facades\Validator;
+use Ramsey\Uuid\Uuid;
 
 class LoanController extends Controller
 {
@@ -27,8 +22,8 @@ class LoanController extends Controller
      */
     public function index()
     {
-        $loans = Loan::all();
-        return view('admin.loan.index', compact('loans'));
+        $approvalfix = Cashfix::where('approve', 1)->get();
+        return view('admin.approve.fix', compact('approvalfix'));
     }
 
     /**
@@ -38,11 +33,13 @@ class LoanController extends Controller
      */
     public function create()
     {
-        $merkall = Merk::pluck('name', 'id');
-        return view('admin.loan.create', compact('merkall'));
+        $branch_list = Branch::pluck('name', 'id');
+        $customer_list = Customer::pluck('name', 'customer_no');
+        $leasing_list = Leasing::pluck('name', 'leasing_no');
+        return view('admin.loan.create', compact('customer_list', 'branch_list', 'leasing_list'));
     }
 
-    public function myformAjax($id)
+    /*public function myformAjax($id)
     {
         $typeall = Type::where("merk_id", $id)
                 ->pluck("name", "name");
@@ -54,7 +51,7 @@ class LoanController extends Controller
         $typeedit = Type::where("merk_id", $id)
                 ->pluck("name", "name");
         return json_encode($typeedit);
-    }
+    }*/
     /**
      * Store a newly created resource in storage.
      *
@@ -63,60 +60,52 @@ class LoanController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
-                'merk' => 'required',
-                'type' => 'required',
-                'vehicle_color' => 'required',
-                'vehicle_cc' => 'required|numeric',
-                'bpkb' => 'required|min:10|max:10',
-                'chassis_number' => 'required|unique|min:17|max:17',
-                'machine_number' => 'required|unique|min:12|max:12',
-                'stnk_due_date' => 'required',
-                'vehicle_date' => 'required',
-                'tenor' => 'required',
-                'price_request' => 'required|numeric',
-            ],[
-                'merk.required' => 'Kolom merk harus diisi',
-                'type.required' => 'Kolom type harus diisi',
-                'vehicle_color.required' => 'Warna motor harus diisi',
-                'vehicle_cc.required' => 'CC Motor wajib diisi',
-                'bpkb.required' => 'Kolom BPKB wajib diisi',
-                'bpkb.min' => 'BPKB wajib 10 karakter',
-                'bpkb.max' => 'Terlalu banyak karakter yang dimasukkan',
-                'chassis_number.unique' => 'Nomor angka sudah terdaftar',
-                'chassis_number.required' => 'Nomor Rangka harus diisi',
-                'chassis_number.min' => 'Wajib diisi dengan 17 karakter',
-                'chassis_number.max' => 'Wajib diisi dengan 17 karakter',
-                'machine_number.unique' => 'Nomor mesin sudah terdaftar',
-                'machine_number.required' => 'Nomor mesin harus diisi',
-                'machine_number.min' => 'Wajib diisi dengan 12 karakter', 
-                'machine_number.max' => 'Wajib diisi dengan 12 karakter',
-                'stnk_due_date.required' => 'Masa berlaku pajak kendaraan harap diisi',
-                'vehicle_date.required' => 'Tahun pembuatan kendaraan wajib diisi',
-                'tenor' => 'Tenor Jangka waktu peminjaman harap diisi',
-                'price_request.required' => 'Isilah permohonan peminjaman anda',
-                'price_request.numeric' => 'Harus diisi dengan angka tanpa simbol',
+        $validator = validator::make($request->all(), [
+            'stnk' => 'required',
+            'bpkb' => 'required',
+            'machine_number' => 'required|numeric',
+            'chassis_number' => 'required|numeric',
+            'credit_ceiling_request' => 'required',
+            'tenor_request' => 'required',
         ]);
-        
-        $loan = new Loan();
-        $merk_id = $request->input('merk');
-        $type_id = $request->input('type');
-        $vehicle_date = $request->input('vehicle_date');
-        
-        $id = DB::select("SELECT vehicle_collaterals.id as collateral_id
-                            FROM vehicle_collaterals
-                            JOIN types ON vehicle_collaterals.type_id = types.id
-                            WHERE vehicle_collaterals.merk_id =".$merk_id."
-                            AND types.name LIKE  '".$type_id."'
-                            AND YEAR( vehicle_collaterals.vehicle_date ) =  '".substr($vehicle_date,0,4)."' ");
-        
-        echo $id[0]->collateral_id;
-        $request->request->add(['collateral_id' => $id[0]->collateral_id]);
-        $request->request->add(['merk' => $merk_id]);
-        $request->request->add(['type' => $type_id]);
-        $request->request->add(['user_approval' => auth()->user()->id]);
-        Loan::create($request->all());
-        return redirect('/admin/loan')->with('Success', 'Loan Created Successfully');
+
+        if ($validator->fails()) {
+            $messages = $validator->messages();
+
+            return redirect()->back()->withInput()->withErrors($validator);
+        }
+
+        $custcoll = New CustomerCollateral();
+        $custcoll->id = Uuid::uuid4()->getHex();
+        $custcoll->customercollateral_no = CustomerCollateral::Maxno();
+        $custcoll->stnk = $request->input('stnk');
+        $custcoll->bpkb = $request->input('bpkb');
+        $custcoll->machine_number = $request->input('machine_number');
+        $custcoll->chassis_number = $request->input('chassis_number');
+        $custcoll->vehicle_color = $request->input('vehicle_color');
+        $custcoll->vehicle_cc = $request->input('vehicle_cc');
+        $custcoll->collateral_name = $request->input('collateral_name');
+        $custcoll->vehicle_date = $request->input('vehicle_date');
+        $custcoll->stnk_due_date = $request->input('stnk_due_date');
+        $custcoll->save();
+
+        $cash = new Cash();
+        $cash->id = Uuid::uuid4()->getHex();
+        $cash->cash_no = Cash::Maxno();
+        $cash->credit_ceiling_request = $request->input('credit_ceiling_request');
+        $cash->tenor_request = $request->input('tenor_request');
+        $cash->customer_no = $request->input('customer_no');
+        $cash->leasing_no = $request->input('leasing_no');
+        $cash->branch_id = $request->input('branch_id');
+        $cash->save();
+
+
+        if (!$custcoll || !$cash) {
+            return redirect()->back()->withInput()->withErrors('Cannot Create Loan');
+        }else{
+            return redirect('admin/loan/')->with('success', 'Successfully create Loan');
+        }
+
     }
 
     /**
@@ -137,9 +126,7 @@ class LoanController extends Controller
      */
     public function edit($id)
     {
-        $merkall = Merk::pluck('name', 'id');
-        $loan = Loan::find($id);
-        return view('admin.loan.edit', compact('loan', 'id', 'merkall'));
+       //
     }
 
     /**
@@ -151,43 +138,44 @@ class LoanController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->validate($request, [
-                'merk' => 'required',
-                'type' => 'required',
-                'vehicle_color' => 'required',
-                'vehicle_cc' => 'required|numeric',
-                'bpkb' => 'required|min:10|max:10',
-                'chassis_number' => 'required|unique:loan|min:17|max:17',
-                'machine_number' => 'required|unique:loan|min:12|max:12',
-                'stnk_due_date' => 'required',
-                'vehicle_date' => 'required',
-                'tenor' => 'required',
-                'price_request' => 'required|numeric',
-            ],[
-                'merk.required' => 'Kolom merk harus diisi',
-                'type.required' => 'Kolom type harus diisi',
-                'vehicle_color.required' => 'Warna motor harus diisi',
-                'vehicle_cc.required' => 'CC Motor wajib diisi',
-                'bpkb.required' => 'Kolom BPKB wajib diisi',
-                'bpkb.min' => 'BPKB wajib 10 karakter',
-                'bpkb.max' => 'Terlalu banyak karakter yang dimasukkan',
-                'chassis_number.unique' => 'Nomor angka sudah terdaftar',
-                'chassis_number.required' => 'Nomor Rangka harus diisi',
-                'chassis_number.min' => 'Wajib diisi dengan 17 karakter',
-                'chassis_number.max' => 'Wajib diisi dengan 17 karakter',
-                'machine_number.unique' => 'Nomor mesin sudah terdaftar',
-                'machine_number.required' => 'Nomor mesin harus diisi',
-                'machine_number.min' => 'Wajib diisi dengan 12 karakter', 
-                'machine_number.max' => 'Wajib diisi dengan 12 karakter',
-                'stnk_due_date.required' => 'Masa berlaku pajak kendaraan harap diisi',
-                'vehicle_date.required' => 'Tahun pembuatan kendaraan wajib diisi',
-                'tenor' => 'Tenor Jangka waktu peminjaman harap diisi',
-                'price_request.required' => 'Isilah permohonan peminjaman anda',
-                'price_request.numeric' => 'Harus diisi dengan angka tanpa simbol',
+        $validator = validator::make($request->all(), [
+            'stnk' => 'required',
+            'bpkb' => 'required',
+            'machine_number' => 'required|numeric',
+            'chassis_number' => 'required|numeric',
+            'credit_ceiling_request' => 'required',
+            'tenor_request' => 'required',
+            'tenor_approve' => 'required',
+            'payment' => 'required',
         ]);
-        
-        $edit = Loan::find($id)->update($request->all());
-        return redirect()->back()->with('Success', 'Loan Updated Successfully');
+
+        if ($validator->fails()) {
+            $messages = $validator->messages();
+
+            return redirect()->back()->withInput()->withErrors($validator);
+        }
+
+        $custcoll = CustomerCollateral::find($id);
+        $cash = Cash::find($id);
+        $cashfix = new Cashfix();
+        $cashfix->id = Uuid::uuid4()->getHex();
+        $cashfix->cashfix_no = Cashfix::Maxno();
+        $cashfix->tenor_approve = $request->input('tenor_approve');
+        $cashfix->payment = $request->input('payment');
+        $cashfix->approve_date = $request->input('approve_date');
+        $cashfix->leasing_no = $request->input('leasing_no');
+        $cashfix->cash_no = $request->input('cash_no');
+        $cashfix->save();
+
+        $custcoll->update($request->all());
+        $cash->update($request->all());
+
+        if (!$custcoll || !$cash || !$cashfix) {
+            return redirect()->back()->withInput()->withErrors('
+                Cant update Customer Collateral' );
+        }else{
+            return redirect('/admin/loan/')->with('success', 'Successfully update Customer Collateral');
+        }
     }
 
     /**
@@ -203,16 +191,6 @@ class LoanController extends Controller
        }
         return redirect()->back()->with('Success', 'Loan deleted Successfully');
     }
-
-    /*public function export()
-    {
-        $loans = Loan::all();
-        Excel::create('loans', function($excel) use($loans) {
-            $excel->sheet('ExportFile', function($sheet) use($loans) {
-                $sheet->fromArray($loans);
-            });
-        })->export('xls');
-    }*/
 
     public function downloadExcel()
     {

@@ -1,3 +1,5 @@
+
+
 {{-- Delete Modal --}}
 <div class="modal fade" id="deleteCustomerModal" tabindex="-1" role="dialog" aira-labelledby="Delete Customer">
 	<div class="modal-dialog" role="document">

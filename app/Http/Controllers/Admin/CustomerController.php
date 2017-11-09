@@ -19,8 +19,10 @@ class CustomerController extends Controller
     public function index()
     {
         $customer = Customer::all();
+        $customer_list = Customer::pluck('name', 'id');
+        $branch_list = Branch::pluck('name', 'id');
 
-        return view('admin.customer.index', compact('customer'));
+        return view('admin.customer.index', compact('customer', 'branch_list', 'customer_list'));
     }
 
     /**
@@ -31,8 +33,8 @@ class CustomerController extends Controller
     public function create()
     {
         $branch_list = Branch::pluck('name', 'id');
-
-        return view('admin.customer.create', compact('branch_list'));
+        $customer_id = Customer::Maxno();
+        return view('admin.customer.create', compact('branch_list', 'customer_id'));
     }
 
     /**
@@ -48,10 +50,12 @@ class CustomerController extends Controller
             'name'=>'required',
             'email'=>'required|string|unique:suppliers',
             'address'=>'required',
+            'identity_number' => 'required',
+            'phone' => 'required'
         ]);
 
         if ($validator->fails()) {
-            $messages = $validator->messages(); 
+            $messages = $validator->messages();
             
             return redirect()->back()->withInput()->withErrors($validator);
         }
@@ -83,7 +87,7 @@ class CustomerController extends Controller
         if (!$customer) {
             return redirect()->back()->withInput()->withError('cannot create customer');
         }else{
-            return redirect('/admin/customer')->with('success', 'Successfully create customer');
+            return redirect(/*'/admin/loan/create'*/)->back()->with('success', 'Successfully create customer');
         }
     }
 
@@ -166,11 +170,11 @@ class CustomerController extends Controller
         }
 
         foreach ($request->input('id') as $key => $value) {
-            $supplier = Customer::find($value);
-            $supplier->delete();   
+            $customer = Customer::find($value);
+            $customer->delete();   
         }
 
-        if (!$supplier) {
+        if (!$customer) {
             return redirect()->back()->withInput()->withError('cannot delete customer');
         }else{
             return redirect()->back()->with('success', 'Successfully delete customer');

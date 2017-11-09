@@ -25,26 +25,26 @@
         }
     </style>
 </head>
-<body id="app-layout">
-    <nav class="navbar navbar-default navbar-static-top">
+<body id="app-layout"  style="background: #2980b9">
+    <nav class="navbar navbar-default navbar-static-top" style="background: #3498db;">
         <div class="container">
             <div class="navbar-header">
 
                 <!-- Collapsed Hamburger -->
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse">
+                {{-- <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse">
                     <span class="sr-only">Toggle Navigation</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
-                </button>
+                </button> --}}
 
                 <!-- Branding Image -->
-                <a class="navbar-brand" href="{{ url('/blog') }}">
+                <a class="navbar-brand" href="{{ url('/blog') }}" style="color: #ffffff">
                     Aspha
                 </a>
             </div>
 
-            <div class="collapse navbar-collapse" id="app-navbar-collapse">
+            <div class="collapse navbar-collapse" id="app-navbar-collapse"  style="background: #3498db;">
                 <!-- Left Side Of Navbar -->
                 {{-- <ul class="nav navbar-nav">
                     <li><a href="{{ url('/blog') }}">Home</a></li>
@@ -54,7 +54,7 @@
                 <ul class="nav navbar-nav navbar-right">
                     <!-- Authentication Links -->
                     @if (Auth::guest())
-                        <li><a href="{{ url('/login') }}">Login</a></li>
+                        <li><a href="{{ url('/login') }}" style="color: #ffffff"><b>Login</b></a></li>
                         {{-- <li><a href="{{ url('/register') }}">Register</a></li> --}}
                     @else
                         <li class="dropdown">

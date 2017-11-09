@@ -8,12 +8,15 @@
         "php": ">=5.6.4",
         "doctrine/dbal": "^2.5",
         "elibyy/tcpdf-laravel": "^5.4",
+        "enyo/dropzone": "^5.1",
         "intervention/image": "^2.4",
         "laravel/framework": "5.4.*",
         "laravel/tinker": "~1.0",
         "laravelcollective/html": "^5.4.0",
         "maatwebsite/excel": "~2.1.0",
         "ramsey/uuid": "^3.6",
+        "sofa/eloquence": "^5.4",
+        "tucker-eric/eloquentfilter": "^1.2",
         "tymon/jwt-auth": "^0.5.12"
     },
     "require-dev": {

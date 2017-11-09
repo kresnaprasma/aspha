@@ -6,8 +6,9 @@ use Illuminate\Http\Request;
 use App\VehicleCollateral;
 use App\Merk;
 use App\Type;
-use App\Http\Controllers\Controller;
 
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
 use Excel;
 
 class VehicleCollateralController extends Controller
@@ -20,10 +21,10 @@ class VehicleCollateralController extends Controller
     public function index()
     {
         $VehicleCollaterals = VehicleCollateral::all();
-        $merkall = Merk::pluck('name', 'id');
+        $merkall = Merk::pluck("name", "id");
         $merkedit = Merk::pluck("name", "id");
         $typeall = Type::pluck('name', 'id');
-        return view('admin.vehiclecollateral.index', compact('VehicleCollaterals', 'merkall', 'merkedit', 'typeall'));
+        return view('admin.master.vehiclecollateral.index', compact('VehicleCollaterals', 'merkall', 'merkedit', 'typeall'));
     }
 
     /**
@@ -33,8 +34,9 @@ class VehicleCollateralController extends Controller
      */
     public function create()
     {
+        $vehiclecollateral = VehicleCollateral::all();
         $merkall = Merk::pluck("name", "id");
-        return view('admin.vehiclecollateral.create', compact("merkall"));
+        return view('admin.master.vehiclecollateral.create', compact("merkall", 'vehiclecollateral'));
     }
 
     public function myformAjax($id)
@@ -60,8 +62,31 @@ class VehicleCollateralController extends Controller
      */
     public function store(Request $request)
     {
-        VehicleCollateral::create($request->all());
-        return redirect('/admin/vehiclecollateral')->with('Success', 'Collateral Created Successfully');
+        $validator = validator::make($request->all(), [
+            'merk_id' => 'required',
+            'type_id' => 'required',
+            'vehicle_date' => 'required',
+            'vehicle_price' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            $messages = $validator->messages();
+
+            return redirect()->back()->withInput()->withErrors($validator);
+        }
+
+        $vehiclecollateral = new VehicleCollateral();
+        $vehiclecollateral->merk_id = $request->input('merk_id');
+        $vehiclecollateral->type_id = $request->input('type_id');
+        $vehiclecollateral->vehicle_date = $request->input('vehicle_date');
+        $vehiclecollateral->vehicle_price = $request->input('vehicle_price');
+        $vehiclecollateral->save();
+
+        if (!$vehiclecollateral) {
+            return redirect()->back()->withInput()->withErrors('cannot create Dana Tunai');
+        }else{
+            return redirect('admin/master/vehiclecollateral')->with('success', 'Successfully create Dana Tunai');
+        }
     }
 
     /**
@@ -107,7 +132,7 @@ class VehicleCollateralController extends Controller
      */
     public function delete(Request $request)
     {
-        foreach ($request->input('id') as $value) {
+        foreach($request->input('id') as $value) {
             VehicleCollateral::find($value)->delete();
         }
 

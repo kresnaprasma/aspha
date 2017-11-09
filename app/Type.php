@@ -31,8 +31,23 @@ class Type extends Model
         return $this->hasMany('App\Loan');
     }
 
-    public function motor()
+    public function mokas()
     {
-        return $this->hasMany('App\Motor');
+        return $this->hasMany('App\Mokas');
+    }
+
+    public function customercollateral()
+    {
+        return $this->hasMany('App\Customercollateral');
+    }
+
+    public function pricesaleshistory()
+    {
+        return $this->hasMany('App\PriceSalesHistory');
+    }
+
+    public function sales()
+    {
+        return $this->hasMany('App\Sales');
     }
 }

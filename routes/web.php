@@ -19,114 +19,125 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-
-
 Route::group([
 	'prefix' => 'admin',
-	'middleware' => 'auth',
+	/*'middleware' => 'auth',*/
 ], function(){
-	Route::resource('/merk', 'Admin\MerkController');
-	Route::post('/merk/store', ['as'=>'admin.merk.store', 'uses'=>'Admin\MerkController@store']);
-	Route::post('/merk/delete', ['as'=>'admin.merk.delete', 'uses'=>'Admin\MerkController@delete']);
+	Route::resource('master/merk', 'Admin\MerkController', ['as'=>'admin.master']);
+	Route::post('master/merk/store', ['as'=>'admin.master.merk.store', 'uses'=>'Admin\MerkController@store']);
+	Route::post('master/merk/delete', ['as'=>'admin.master.merk.delete', 'uses'=>'Admin\MerkController@delete']);
 
 
-	Route::resource('/type', 'Admin\TypeController');
-	Route::post('/type/store', ['as'=>'admin.type.store', 'uses'=>'Admin\TypeController@store']);
-	Route::post('/type/delete', ['as'=>'admin.type.delete', 'uses'=>'Admin\TypeController@delete']);
+	Route::resource('master/type', 'Admin\TypeController', ['as'=>'admin.master']);
+	Route::post('/type/store', ['as'=>'admin.master.type.store', 'uses'=>'Admin\TypeController@store']);
+	Route::post('master/type/delete', ['as'=>'admin.master.type.delete', 'uses'=>'Admin\TypeController@delete']);
 
 
-	Route::resource('/vehiclecollateral', 'Admin\VehicleCollateralController');
-	Route::post('/vehiclecollateral/store', [
-		'as'=>'admin.vehiclecollateral.store', 
-		'uses'=>'Admin\VehicleCollateralController@store'
-	]);
-	Route::post('/vehiclecollateral/delete', [
-		'as'=>'admin.vehiclecollateral.delete', 
+	Route::resource('master/vehiclecollateral', 'Admin\VehicleCollateralController', ['as'=>'admin.master']);
+	Route::post('master/vehiclecollateral/delete', [
+		'as'=>'admin.master.vehiclecollateral.delete', 
 		'uses'=>'Admin\VehicleCollateralController@delete'
 	]);
-	Route::get('/vehiclecollateral/create', [
-		'as'=>'admin.vehiclecollateral.create', 
-		'uses'=>'Admin\VehicleCollateralController@create'
-	]);
-	Route::get('/vehiclecollateral/type/{id}', [
+	Route::get('master/vehiclecollateral/type/{id}', [
 		'as'=>'myForm.type', 
 		'uses'=>'Admin\VehicleCollateralController@myformAjax'
 	]);
-	Route::get('/vehiclecollateral/type/edit/{id}', [
+	Route::get('master/vehiclecollateral/type/edit/{id}', [
 		'as'=>'myForm.ajax', 
 		'uses'=>'Admin\VehicleCollateralController@myformEdit'
 	]);
-	Route::get('vehiclecollateral/downloadExcel/xls', 'Admin\VehicleCollateralController@downloadExcel');
+	Route::get('master/vehiclecollateral/downloadExcel/xls', 'Admin\VehicleCollateralController@downloadExcel');
 
-
-
-	Route::resource('/loan', 'Admin\LoanController');
-	Route::post('/loan/store', ['as'=>'admin.loan.store', 'uses'=>'Admin\LoanController@store']);
-	Route::post('/loan/delete', ['as'=>'admin.loan.delete', 'uses'=>'Admin\LoanController@delete']);
-	Route::get('/loan/create', ['as'=>'myForm', 'uses'=>'Admin\LoanController@create']);
-	Route::get('/loan/ajax/{id}', ['as'=>'myForm.ajax', 'uses'=>'Admin\LoanController@myformAjax']);
-	Route::post('/loan/edit/ajax/{id}', ['as' => 'myForm.loan', 'uses' => 'Admin\LoanController@myformEdit']);
-	Route::get('/loan/edit/{id}', ['as'=>'admin.loan.edit', 'uses'=>'Admin\LoanController@edit']);
-	Route::patch('/loan/{id}', [
-		'as' => 'admin.loan.update',
-		'uses' => 'Admin\LoanController@update']);
-	Route::get('loan/downloadExcel/xls', 'Admin\LoanController@downloadExcel');
-
-
-
-	Route::resource('/motor', 'Admin\MotorController');
-	Route::post('/motor/store', ['as'=>'admin.motor.store', 'uses'=>'Admin\MotorController@store']);
-	Route::post('/motor/delete', ['as'=>'admin.motor.delete', 'uses'=>'Admin\MotorController@delete']);
-	Route::get('/motor/create', ['as'=>'admin.motor.create', 'uses' => 'Admin\MotorController@create']);
-	Route::get('/motor/edit/{id}', ['as' => 'admin.motor.edit', 'uses' => 'Admin\MotorController@edit']);
-	Route::patch('/motor/{id}', ['as' => 'admin.motor.update', 'uses' => 'Admin\MotorController@update']);
-	Route::get('/motor/type/{id}', ['as'=>'myForm.type', 'uses'=>'Admin\MotorController@myformAjax']);
-	Route::get('/motor/type/edit/{id}', ['as'=>'myForm.ajax', 'uses'=>'Admin\MotorController@myformEdit']);
-	Route::get('motor/downloadExcel/xls', 'Admin\MotorController@downloadExcel');
 
 	Route::post('master/bank/delete', ['as'=>'admin.master.bank.delete','uses'=>'Admin\BankController@delete']);
 	Route::resource('master/bank', 'Admin\BankController',['as'=>'admin.master']);
 
+
 	Route::post('master/branch/delete', ['as'=>'admin.master.branch.delete','uses'=>'Admin\BranchController@delete']);
 	Route::resource('master/branch', 'Admin\BranchController',['as'=>'admin.master']);
+
 
 	Route::post('master/supplier/delete',['as'=>'admin.master.supplier.delete','uses'=>'Admin\SupplierController@delete']);
 	Route::resource('master/supplier','Admin\SupplierController',['as'=>'admin.master']);
 
-	Route::post('customer/delete', ['as'=>'admin.customer.delete','uses'=>'Admin\CustomerController@delete']);
-	Route::resource('customer', 'Admin\CustomerController',['as'=>'admin']);
 
 	Route::post('master/user/delete',['as'=>'admin.master.user.delete','uses'=>'Admin\UserController@delete']);
 	Route::resource('master/user','Admin\UserController',['as'=>'admin.master']);
 
-<<<<<<< HEAD
 
-=======
->>>>>>> fb4514c33e4bbbc179916665db0ee7f00a823618
 	Route::post('master/role/delete',['as'=>'admin.master.role.delete','uses'=>'Admin\RoleController@delete']);
 	Route::resource('master/role','Admin\RoleController',['as'=>'admin.master']);
 
+
 	Route::post('master/permission/delete',['as'=>'admin.master.permission.delete','uses'=>'Admin\PermissionController@delete']);
 	Route::resource('master/permission', 'Admin\PermissionController',['as'=>'admin.master']);
-<<<<<<< HEAD
-=======
-	/*Route::resource('/fileentry', 'HomeController');
-	Route::get('/fileentry/', 'HomeController@index');
-	Route::get('/fileentry/get/{ filename }', ['as' => 'getentry', 'uses' => 'HomeController@get']);
-	Route::post('/fileentry/add', ['as' => 'addentry', 'uses' => 'FileEntryController@add']);
-	Route::post('/fileentry/addmultiple', ['as' => 'multiple_upload', 'uses' => 'FileEntryController@multiple_upload']);
-	Route::delete('/fileentry/{id}', 'FileEntryController@destroy');*/
->>>>>>> fb4514c33e4bbbc179916665db0ee7f00a823618
 
-	Route::resource('/upload', 'UploadController');
-	Route::get('/upload/', 'UploadController@index');
-	Route::get('/upload/get/{filename}', ['as' => 'getupload', 'uses'=>'UploadController@get']);
-	Route::post('/upload/add', ['as'=>'addupload', 'uses' => 'UploadController@add']);
-	Route::delete('/upload/{id}', 'UploadController@destroy');
-<<<<<<< HEAD
 
-=======
->>>>>>> fb4514c33e4bbbc179916665db0ee7f00a823618
+	Route::post('master/credittype/delete', ['as'=>'admin.master.credittype.delete', 'uses'=>'Admin\CreditTypeController@delete']);
+	Route::resource('master/credittype', 'Admin\CreditTypeController', ['as'=>'admin.master']);
+
+
+	Route::post('cash/delete',['as'=>'admin.cash.delete', 'uses'=>'Admin\CashController@delete']);
+	Route::resource('cash', 'Admin\CashController',['as'=>'admin']);
+
+
+	Route::post('approve/delete', ['as'=>'admin.cashfix.delete', 'uses'=>'Admin\CashfixController@delete']);
+	Route::resource('approve', 'Admin\CashfixController', ['as'=>'admin']);/*
+	Route::get('approve/fix', ['as'=>'admin.approve.fix', 'uses'=>'Admin\CashfixController@cashapp']);*//*
+	Route::get('approve/fix/{id}', ['as'=>'admin.approve.show', 'uses'=>'Admin\CashfixController@show']);*/
+
+
+	Route::post('/loan/leasing/delete',['as'=>'admin.loan.leasing.delete','uses'=>'Admin\LeasingController@delete']);
+	Route::resource('/loan/leasing', 'Admin\LeasingController',['as'=>'admin.loan']);
+
+
+	Route::post('custcoll/delete',['as'=>'admin.custcoll.delete','uses'=>'Admin\CustomerCollateralController@delete']);
+	Route::resource('custcoll', 'Admin\CustomerCollateralController',['as'=>'admin']);
+
+
+	Route::post('/history/delete', ['as'=>'admin.history.delete', 'uses'=>'Admin\HistoryController@delete']);
+	Route::resource('/history', 'Admin\HistoryController', ['as'=>'admin']);
+
+
+	Route::resource('/customerupload', 'Admin\CustomerUploadController', ['as'=>'admin']);
+
+
+	Route::get('cash/upload', ['as' => 'admin.loan.customerupload.create', 'uses' => 'Admin\CustomerUploadController@create']);
+	Route::post('cash/upload', ['as' => 'admin.loan.customerupload.store' , 'uses' => 'Admin\CustomerUploadController@store']);
+
+
+	Route::post('customer/delete', ['as'=>'admin.customer.delete','uses'=>'Admin\CustomerController@delete']);
+	Route::resource('customer', 'Admin\CustomerController',['as'=>'admin']);
+	Route::get('select2-autocomplete', 'Admin\CustomerController@dataAjax', ['as'=>'admin']);
+	
+
+	Route::resource('mokas', 'Admin\MokasController', ['as' => 'admin']);
+	Route::post('/mokas/delete', ['as'=>'admin.mokas.delete', 'uses'=>'Admin\MokasController@delete']);
+	Route::get('/mokas/type/{id}', ['as'=>'myForm.type', 'uses'=>'Admin\MokasController@myformAjax']);
+	Route::get('/mokas/type/edit/{id}', ['as'=>'myForm.ajax', 'uses'=>'Admin\MokasController@myformEdit']);
+	Route::get('mokas/downloadExcel/xls', 'Admin\MokasController@downloadExcel');
+
+
+	Route::resource('sales', 'Admin\SalesController', ['as' => 'admin']);
+	Route::post('/sales/delete', ['as'=>'admin.sales.delete', 'uses'=>'Admin\SalesController@delete']);
+	Route::get('/sales/type/{id}', ['as'=>'myForm.type', 'uses'=>'Admin\SalesController@myformAjax']);
+	Route::get('/sales/type/edit/{id}', ['as'=>'myForm.ajax', 'uses'=>'Admin\SalesController@myformEdit']);
+	Route::get('/sales/downloadExcel/xls', 'Admin\SalesController@downloadExcel');
+
+	Route::resource('/pricesaleshistory', 'Admin\PriceSalesHistoryController', ['as'=>'admin']);
+	Route::post('/pricesaleshistory/delete', ['as'=>'admin.pricesaleshistory.delete', 'uses'=>'Admin\PriceSalesHistoryController@delete']);
+	Route::get('/pricesaleshistory/type/{id}', ['as'=>'myForm.type', 'uses'=>'Admin\PriceSalesHistoryController@myformAjax']);
+	Route::get('/pricesaleshistory/type/edit/{id}', ['as'=>'myForm.ajax', 'uses'=>'Admin\PriceSalesHistoryController@myformEdit']);
+	Route::get('/pricesaleshistory/downloadExcel/xls', 'Admin\PriceSalesHistoryController@downloadExcel');
+
+	Route::resource('/pricehistory', 'Admin\PriceHistoryController', ['as'=>'admin']);
+	Route::post('/pricehistory/delete', ['as'=>'admin.pricehistory.delete', 'uses'=>'Admin\PriceHistoryController@delete']);
+
+	Route::resource('master/checklist', 'Admin\ChecklistController', ['as'=>'admin.master']);
+	Route::post('master/checklist/delete', ['as'=>'admin.master.checklist.delete', 'uses'=>'Admin\ChecklistController@delete']);
+
+	Route::resource('/mokaschecklist', 'Admin\MokasChecklistController', ['as'=>'admin']);
+	Route::post('/mokaschecklist/delete', ['as'=>'admin.mokaschecklist.delete', 'uses'=>'Admin\MokasChecklistController@delete']);
 
 	// delete Employee
 	Route::post('/human-resource/employee/delete',['as'=>'human-resource.employee.delete','uses'=>'EmployeeController@delete']);

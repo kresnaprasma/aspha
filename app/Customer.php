@@ -11,9 +11,19 @@ class Customer extends Model
 
     public $incrementing = false;
     
+    public function customer_collateral()
+    {
+        return $this->hasMany('App\Customercollateral');
+    }
+
     public function branch()
     {
         return $this->belongsTo('App\Branch');
+    }
+
+    public function cash()
+    {
+        return $this->hasMany('App\Cash', 'customer_no', 'customer_no');
     }
 
     public function scopeMaxno($query)

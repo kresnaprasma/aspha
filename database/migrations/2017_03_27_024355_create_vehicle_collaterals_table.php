@@ -18,7 +18,7 @@ class CreateVehicleCollateralsTable extends Migration
             $table->string('merk_id');
             $table->string('type_id');
 
-            $table->date('vehicle_id');
+            $table->date('vehicle_date');
             $table->string('vehicle_price');
             $table->timestamps();
         });

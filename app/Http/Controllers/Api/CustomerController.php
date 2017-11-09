@@ -4,6 +4,10 @@ namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
+use Ramsey\Uuid\Uuid;
+use App\Customer;
+use App\Branch;
 
 class CustomerController extends Controller
 {
@@ -37,9 +41,64 @@ class CustomerController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+            'address' =>'required',
+            'identity_number' => 'required',
+            'phone' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(
+                [
+                    'status' => '404',
+                    'message' => $validator->errors(),
+                    'data' => []
+                ], 404
+            );
+        }
+
+        /*$customer = Customer::create($request->all());*/
+        $c = new Customer();
+        $c->id = Uuid::uuid4()->getHex();
+        $c->customer_no = Customer::Maxno();
+        $c->name = $request->input('name');
+        $c->address = $request->input('address');
+        $c->email = $request->input('email');
+        $c->phone = $request->input('phone');
+        $c->active = $request->input('active');
+        $c->branch_id = $request->input('branch_id');
+        $c->birthdate = $request->input('birthdate');
+        $c->birthplace = $request->input('birthplace');
+        $c->identity_number = $request->input('identity_number');
+        $c->gender = $request->input('gender');
+        $c->rt = $request->input('rt');
+        $c->rw = $request->input('rw');
+        $c->postalcode = $request->input('postalcode');
+        $c->kelurahan = $request->input('kelurahan');
+        $c->kecamatan = $request->input('kecamatan');
+        $c->kabupaten = $request->input('kabupaten');
+        $c->city = $request->input('city');
+        $c->province = $request->input('province');
+        $c->kk_number = $request->input('kk_number');
+        $c->save();
+
+        if (!$c) {
+            return response()->json([
+                'status'=>'404',
+                'message'=>'cannot save this data',
+                'data'=> []
+            ], 404);
+        }else{
+            return response()->json([
+                'status' => '200',
+                'message' => 'Customer created Successfully',
+                'data' => $this->transform($c)
+            ], 200);
+        }
     }
 
     /**
@@ -50,9 +109,9 @@ class CustomerController extends Controller
      */
     public function show($id)
     {
-        $customer = Customer::find($id);
+        $customer = Customer::where('customer_no', $id)->first();
 
-        if (!$loan) {
+        if (!$customer) {
             return response()->json([
                 'error'=>[
                     'message' => 'Customer does not exist'
@@ -61,7 +120,7 @@ class CustomerController extends Controller
         }
 
         return response()->json([
-            'data'=>$this->transformCollection($customer)
+            'data'=>$this->transform($customer)
         ], 200);
     }
 
@@ -101,29 +160,48 @@ class CustomerController extends Controller
     {
         $customer = Customer::find($id);
         $customer->delete();
-        return response()->json([
-            'data'=>$this->transform($customer)]);
+        return $customer;
+        /*return response()->json([
+            'data'=>$this->transform($customer)])*/;
     }
 
-    private function transformCollection($customers){
+    public function transformCollection($customers){
         return array_map([$this, 'transform'], $customers->toArray());
     }
 
-    private function transform($customers){
+    public function transform($customer){
         return [
-            'customer_id' => $customer['id'];
-            'customer_ktp_number' => $customer['ktp_number'];
-            'customer_familycard_number' => $customer['familycard_number'];
-            'customer_fullname' => $customer['fullname'];
-            'customer_address' => $customer ['address'];
-            'customer_post_code' => $customer['post_code'];
-            'customer_birth_date' => $customer['birth_date'];
-            'customer_job' => $customer['job'];
-            'customer_company_address' => $customer['company_address'];
-            'customer_handphone' => $customer['handphone'];
-            'customer_salary' => $customer['salary'];
-            'customer_email' => $customer['email'];
-            'customer_password' => $customer['password'];
+            'customer_id' => $customer['id'],
+            'customer_no' => $customer['customer_no'],
+            'customer_name' => $customer['name'],
+            'customer_address' => $customer['address'],
+            'customer_email' => $customer ['email'],
+            'customer_phone' => $customer['phone'],
+            'customer_active' => $customer['active'],
+            'customer_branch_id' => $customer['branch_id'],
+            'customer_birthdate' => $customer['birthdate'],
+            'customer_birthplace' => $customer['birthplace'],
+            'customer_identity_number' => $customer['identity_number'],
+            'customer_gender' => $customer['gender'],
+            'customer_rt' => $customer['rt'],
+            'customer_rw' => $customer['rw'],
+            'customer_postalcode' => $customer['postalcode'],
+            'customer_kelurahan' => $customer['kelurahan'],
+            'customer_kecamatan' => $customer['kecamatan'],
+            'customer_kabupaten' => $customer['kabupaten'],
+            'customer_city' => $customer['city'],
+            'customer_province' => $customer['province'],
+            'customer_kk_number' => $customer['kk_number']
         ];
+    }
+
+    public function getCustomerNo()
+    {
+        $customer = new Customer();
+        $customer->id = Uuid::uuid4()->getHex();
+        $customer->customer_no = Customer::Maxno();
+        // $customercollateral->save();
+
+        return $customer;
     }
 }

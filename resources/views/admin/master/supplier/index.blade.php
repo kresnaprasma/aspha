@@ -89,11 +89,9 @@
         		"orderable": false
       		}]
 		});
-
 		$("#searchDtbox").keyup(function() {
       		tableSupplier.search($(this).val()).draw();
     	});
-
     	$('#tableSupplier tbody').on('dblclick', 'tr', function () {
       		if ( $(this).hasClass('selected') ) {
         		$(this).removeClass('selected');
@@ -105,7 +103,6 @@
 	          	window.location.href = "/admin/master/supplier/"+id+"/edit";
 	      	}
     	});
-
     	function deleteSupplier() {
 			if ($('.checkin').is(':checked')) 
 			{
@@ -114,7 +111,6 @@
 				$('#deleteNoModal').modal("show");
 				}
 		}
-
 		function DeleteSupplier() {
 			$("#formDeleteSupplier").submit();
 		}

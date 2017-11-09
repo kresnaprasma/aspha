@@ -15,12 +15,11 @@ class TypeController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function index(Request $request)
+    public function index()
     {
         $types = Type::all();
-        $types = Type::paginate(15);
         $merks = Merk::pluck('name', 'id');
-        return view('admin.type.index', compact('types', 'merks'));
+        return view('admin.master.type.index', compact('types', 'merks'));
     }
 
     /**
