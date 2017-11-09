@@ -336,7 +336,8 @@
                     </div>
 
                     <div class="input-group{{ $errors->has('collateral_name') ? ' has-error' : '' }}">
-                        {!! Form::text('collateral_name', $cash->customercollateral->type, ['class'=>'form-control','id'=>'collateral_name', 'readonly' => 'true', 'placeholder' => 'Motor Type']) !!}
+                        
+                        {!! Form::text('collateral_name', null, ['class'=>'form-control','id'=>'collateral_name', 'readonly' => 'true', 'placeholder' => 'Motor Type']) !!}
                         <span class="input-group-btn">
                             <button type="button" class="btn btn-default" onclick="AddVehicleCollateral()">
                                 <i class="fa fa-plus" aria-hidden="true"></i>

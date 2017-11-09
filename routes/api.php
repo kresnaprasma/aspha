@@ -46,5 +46,5 @@ Route::group([
 	Route::post('/human-resource/employee/create-nip', ['as'=>'api.human-resource.employee.createnip','uses'=>'Api\EmployeeController@createNip']);
 
 	Route::resource('profile', 'Api\ProfilePictureController');
-	Route::resource('/human-resource/employee', 'Api\EmployeeController');
+	Route::resource('/human-resource/employee', 'Api\EmployeeController',['as'=>'api.human-resource']);
 });
