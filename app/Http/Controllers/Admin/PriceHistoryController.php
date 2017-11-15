@@ -19,7 +19,7 @@ class PriceHistoryController extends Controller
     {
         $pricehistory = PriceHistory::all();
         $mokas_list =  Mokas::pluck('chassis_number', 'id');
-        return view('admin.pricehistory.index', compact('pricehistory', 'mokas_list'));
+        return view('pricehistory.index', compact('pricehistory', 'mokas_list'));
     }
 
     /**
@@ -29,7 +29,7 @@ class PriceHistoryController extends Controller
      */
     public function create()
     {
-         return view('admin.pricehistory.create');
+         return view('pricehistory.create');
     }
 
     /**
@@ -62,7 +62,7 @@ class PriceHistoryController extends Controller
         if (!$pricehistory) {
             return redirect()->back()->withInput()->withErrors('cannot create Sales');
         } else {
-            return redirect('admin/pricehistory')->with('success', 'Successfully create sales history');
+            return redirect('pricehistory')->with('success', 'Successfully create sales history');
         }
     }
 
@@ -87,7 +87,7 @@ class PriceHistoryController extends Controller
     {
         $pricehistory = PriceHistory::find($id);
 
-        return view('admin.pricehistory.edit', compact('pricehistory'));
+        return view('pricehistory.edit', compact('pricehistory'));
     }
 
     /**
@@ -117,7 +117,7 @@ class PriceHistoryController extends Controller
         if (!$pricehistory) {
             return redirect()->back()->withInput()->withErrors('cannot update customer');
         } else {
-            return redirect('admin/pricehistory')->with('success', 'Successfully update Price Sales');
+            return redirect('pricehistory')->with('success', 'Successfully update Price Sales');
         }
     }
 

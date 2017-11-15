@@ -1,7 +1,7 @@
 @extends('layout.admin')
 
 @section('content')
-    {!! Form::model($cash ,['route'=>['admin.approve.store', $cash->id],'id'=>'formApprove']) !!}
+    {!! Form::model($cash ,['route'=>['approve.store', $cash->id],'id'=>'formApprove']) !!}
     <div class="row">
         <div class="col-md-12">
             @include('admin.approve._form',['edit'=>true])

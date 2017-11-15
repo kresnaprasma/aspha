@@ -75,11 +75,10 @@ class CashController extends Controller
      */
     public function store(Request $request)
     {
-        /*return $request->all();*/
-        $validator = validator::make($request->all(), [
+        // return $request->all();
+        $validator = Validator::make($request->all(), [
+            'id' => 'required',
             'credit_ceiling_request' => 'required',
-            'tenor_request' => 'required',
-            'credit_type' => 'required',
             'stnk' => 'required',
             'bpkb' => 'required',
             'machine_number' => 'required',
@@ -87,14 +86,11 @@ class CashController extends Controller
         ]);
 
         if ($validator->fails()) {
-            $messages = $validator->messages();
-
             return redirect()->back()->withInput()->withErrors($validator);
         }
 
-        $cash = new Cash();
-        $cash->id = Uuid::uuid4()->getHex();
-        $cash->cash_no = Cash::Maxno();
+        $cash = Cash::find($request->input('id'));
+
         $cash->credit_ceiling_request = $request->input('credit_ceiling_request');
         $cash->tenor_request = $request->input('tenor_request');
         $cash->customer_no = $request->input('customer_no');
@@ -104,33 +100,34 @@ class CashController extends Controller
         $cash->maximum_plafond = $request->input('maximum_plafond');
         $cash->user_id = auth()->user()->id;
         $cash->approval = $request->input('approval');
+        $cash->save();
 
-        if ($cash->credit_ceiling_request <= $cash->maximum_plafond) {
-            $cash->save();
-        }else{
+
+        // if ($cash->credit_ceiling_request <= $cash->maximum_plafond) {
+        //     $cash->save();
+        // }else{
+        //     return redirect()->back()->withInput()->withErrors('cannot create Dana Tunai');
+        // }
+
+
+        // $cc = Customercollateral::find($request->input('id'));
+
+        // $cc->stnk = $request->input('stnk');
+        // $cc->bpkb = $request->input('bpkb');
+        // $cc->machine_number = $request->input('machine_number');
+        // $cc->chassis_number = $request->input('chassis_number');
+        // $cc->vehicle_color = $request->input('vehicle_color');
+        // $cc->vehicle_cc  = $request->input('vehicle_cc');
+        // $cc->collateral_name = $request->input('collateral_name');
+        // $cc->vehicle_date = $request->input('vehicle_date');
+        // $cc->stnk_due_date = $request->input('stnk_due_date');
+        // $cc->customer_no = $request->input('customer_no');
+        // $cc->save();
+
+        if (empty($cash)) {
             return redirect()->back()->withInput()->withErrors('cannot create Dana Tunai');
-        }
-
-
-        $cc = new Customercollateral();
-        $cc->id = Uuid::uuid4()->getHex();
-        $cc->customercollateral_no = Customercollateral::Maxno();
-        $cc->stnk = $request->input('stnk');
-        $cc->bpkb = $request->input('bpkb');
-        $cc->machine_number = $request->input('machine_number');
-        $cc->chassis_number = $request->input('chassis_number');
-        $cc->vehicle_color = $request->input('vehicle_color');
-        $cc->vehicle_cc  = $request->input('vehicle_cc');
-        $cc->collateral_name = $request->input('collateral_name');
-        $cc->vehicle_date = $request->input('vehicle_date');
-        $cc->stnk_due_date = $request->input('stnk_due_date');
-        $cc->customer_no = $request->input('customer_no');
-        $cc->save();
-
-        if (!$cash) {
-            return redirect()->back()->withInput()->withErrors('cannot create Dana Tunai');
         }else{
-            return redirect('admin/cash/')->with('success', 'Successfully create Dana Tunai');
+            return redirect('/cash')->with('success', 'Successfully create Dana Tunai');
         }
     }
 
@@ -172,7 +169,7 @@ class CashController extends Controller
             '6'=>'6 bulan', '12'=>'12 bulan', '18'=>'18 bulan', '24'=>'24 bulan', 
             '30'=>'30 bulan', '36'=>'36 bulan'];
 
-        return view('admin.cash.create', compact('cash', 'leasing_list', 'branch_list', 'customer_id', 'customer_list', 'vehicle_cclist', 'vehicle_colorlist', 'vehicle_cclist','tenor_requestlist', 'credittype_list'));
+        return view('admin.cash.edit', compact('cash', 'leasing_list', 'branch_list', 'customer_id', 'customer_list', 'vehicle_cclist', 'vehicle_colorlist', 'vehicle_cclist','tenor_requestlist', 'credittype_list'));
     }
 
     /**
@@ -184,7 +181,7 @@ class CashController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $validator = validator::make($request->all(), [
+        $validator = Validator::make($request->all(), [
             'credit_ceiling_request' => 'required',
             'tenor_request' => 'required',
             'credit_type' => 'required',
@@ -210,7 +207,7 @@ class CashController extends Controller
         if (!$cash) {
             return redirect()->back()->withInput()->withErrors('Cant update cash');
         }else{
-            return redirect('/admin/cash')->with('success', 'Successfully update cash');
+            return redirect('/cash')->with('success', 'Successfully update cash');
         }
     }
 

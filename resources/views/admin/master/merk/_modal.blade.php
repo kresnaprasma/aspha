@@ -9,7 +9,7 @@
 					<h4 class="modal-title" id="CreateColor">Create Merk</h4>
 				</div>
 				<div class="modal-body">
-					{!! Form::open(['route'=>'admin.master.merk.store']) !!}
+					{!! Form::open(['route'=>'master.merk.store']) !!}
 						<div class="form-group">
 							{!! Form::label('name', 'Name:') !!}
 							{!! Form::text('name',null,['class'=>'form-control']) !!}

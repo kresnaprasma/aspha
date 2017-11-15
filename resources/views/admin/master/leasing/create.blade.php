@@ -6,22 +6,18 @@
     	<div class="col-md-12">
     		<div class="box box-primary">
     			<div class="box-header with-border">
-    				<h3 class="box-title">Customer - <b>{{ App\Customer::Maxno() }}</b></h3>
+    				<h3 class="box-title">Leasing - <b>{{ App\Leasing::Maxno() }}</b></h3>
     				<div class="box-tools pull-right">
-                        <a href="/admin/customer/">
-                            {{-- <i aria-hidden="true"></i>
-                            <b>Back</b> --}}
+                        <a href="/admin/master/leasing/">
                             <span class="glyphicon glyphicon-chevron-left"></span>
                         </a>
     					<button class="btn btn-box-tool" data-widget="collapse" data-toogle="tooltip" title="Collapse"><i class="fa fa-minus"></i></button>
     				</div>
     			</div>
-                {!! Form::model($customer = new \App\Customer, ['route'=>'customer.store','id'=>'formCreateCustomer']) !!}
+                {!! Form::model($leasing = new \App\Leasing, ['route'=>'master.leasing.store','id'=>'formCreateLeasing', 'class'=>'form-horizontal']) !!}
     			<div class="box-body">
-                    <form role="form">
-                        @include('admin.customer._form',['edit'=>true])
-                    </form>
-              <!-- /.box-body -->
+                    @include('admin.master.leasing._form',['edit'=>false])
+                <!-- /.box-body -->
 
                 <div class="box-footer">
                     <button type="submit" class="btn btn-primary">Submit</button>

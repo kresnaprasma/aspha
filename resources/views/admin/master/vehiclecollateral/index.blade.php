@@ -15,7 +15,7 @@
         <div class="box-body">
           <div class="col-md-12 box-body-header">  
             <div class="col-md-8">
-              <a href="/admin/master/vehiclecollateral/create" type="button" class="btn btn-default">
+              <a href="/master/vehiclecollateral/create" type="button" class="btn btn-default">
                 <i class="fa fa-plus" aria-hidden="true"></i> New
               </a>
               {{-- <button type="button" class="btn btn-default" onclick="AddCollateral()">
@@ -32,7 +32,7 @@
                 <ul class="dropdown-menu">
                   <li><a href="#">Print</a></li>
                   <li><a href="#">Import</a></li>
-                  <li><a href="{{ url('admin/vehiclecollateral/downloadExcel/xls') }}">Export</a></li>
+                  <li><a href="{{ url('vehiclecollateral/downloadExcel/xls') }}">Export</a></li>
                   <li role="separator" class="divider"></li>
                   <li><a href="#">Find</a></li>
                 </ul>
@@ -42,7 +42,7 @@
                 <input type="text" id="searchDtbox" class="form-control" placeholder="Search">
             </div>
 
-            {!! Form::open(['route'=>'admin.master.vehiclecollateral.delete', 'id'=>'formDeleteCollateral']) !!}
+            {!! Form::open(['route'=>'master.vehiclecollateral.delete', 'id'=>'formDeleteCollateral']) !!}
 
           </div>
 
@@ -111,52 +111,26 @@
       tableCollateral.search($(this).val()).draw();
     });
 
-    $('#tableCollateral tbody').on('dblclick', 'tr', function(){
-      if ( $(this).hasClass('selected') ) {
-        $(this).removeClass('selected');
-      }
-      else {
-        tableCollateral.$('tr.selected').removeClass('selected');
-        $(this).addClass('selected'); 
+    $('#tableCollateral tbody').on('dblclick', 'tr', function () {
+        if ( $(this).hasClass('selected') ) {
+          $(this).removeClass('selected');
+        }
+        else {
+          tableCollateral.$('tr.selected').removeClass('selected');
+          $(this).addClass('selected');
 
           var id = $(this).find('#idTableCollateral').val();
-          var merks_id = $(this).find('#merkTableCollateral').val();
-          var types_id = $(this).find('#typeTableCollateral').val();
-          var vehicle_date = $(this).find('#dateTableCollateral').val();
-          var vehicle_price = $(this).find('#priceTableCollateral').val();
-          GetEditDropdown(merks_id);
           
-          EditCollateral(id, merks_id, types_id, vehicle_date, vehicle_price);
-      }
+          window.location.href = "/master/vehiclecollateral/"+id+"/edit";
+        }
     });
-
-    $('select[id="merks_id"]').on('change', function() { 
-      var merks_id = $(this).val();
-      GetEditDropdown(merks_id);    
-    });
-
-    function AddCollateral() {
-      $('#createCollateralModal').modal('show');
-    }
-
-    function EditCollateral(id, merks_id, types_id, vehicle_date, vehicle_price) {
-      $("#editCollateral").attr('action', '/admin/master/vehiclecollateral/' + id);
-      $('#idCollateral').val(id);
-      $("#merkCollateral").val(merks_id);
-      $("#typeCollateral").val(types_id);
-      $("#dateCollateral").val(vehicle_date);
-      $("#priceCollateral").val(vehicle_price);
-
-      $("#editCollateralModal").modal("show");
-    }
 
     function deleteCollateral() {
-      if ($('.checkin').is(':checked')) {
-        $('#deleteCollateralModal').modal("show");
-      }
-      else
+      if ($('.checkin').is(':checked')) 
       {
-        $('#deleteNoModal').modal("show");
+          $('#deleteCollateralModal').modal("show");
+      } else {
+          $('#deleteNoModal').modal("show");
       }
     }
 
@@ -164,50 +138,62 @@
       $("#formDeleteCollateral").submit();
     }
 
-    function GetEditDropdown(merks_id) {
-      if (merks_id) {
-        $.ajax({
-          url: '/admin/master/vehiclecollateral/type/'+ merks_id,
-          type: "GET",
-          dataType: "json",
-          success:function(data) {
+    // $('#tableCollateral tbody').on('dblclick', 'tr', function(){
+    //   if ( $(this).hasClass('selected') ) {
+    //     $(this).removeClass('selected');
+    //   }
+    //   else {
+    //     tableCollateral.$('tr.selected').removeClass('selected');
+    //     $(this).addClass('selected'); 
 
-            $('#typeCollateral').empty();
-            $.each(data, function(key, value) {
-              $('#typeCollateral').append('<option value="'+ key +'">'+ value + '</option>');
-            });
-          }
-        });
-      }else{
-        $('#typeCollateral').empty();
-      }
-    }
+    //       var id = $(this).find('#idTableCollateral').val();
+    //       var merks_id = $(this).find('#merkTableCollateral').val();
+    //       var types_id = $(this).find('#typeTableCollateral').val();
+    //       var vehicle_date = $(this).find('#dateTableCollateral').val();
+    //       var vehicle_price = $(this).find('#priceTableCollateral').val();
+    //       GetEditDropdown(merks_id);
+          
+    //       EditCollateral(id, merks_id, types_id, vehicle_date, vehicle_price);
+    //   }
+    // });
 
-    function formatNumber(input)
-    {
-        var num = input.value.replace(/\,/g,'');
-        if(!isNaN(num))
-        {
-            if(num.indexOf('.') > -1)
-            {
-                num = num.split('.');
-                num[0] = num[0].toString().split('').reverse().join('').replace(/(?=\d*\.?)(\d{3})/g,'$1,').split('').reverse().join('').replace(/^[\,]/,'');
-                if(num[1].length > 2)
-                {
-                    num[1] = num[1].substring(0,num[1].length-1);
-                }
-                input.value = num[0]+'.'+num[1];
-            }
-            else
-            {
-                input.value = num.toString().split('').reverse().join('').replace(/(?=\d*\.?)(\d{3})/g,'$1,').split('').reverse().join('').replace(/^[\,]/,'');
-            }
-        }
-        else
-        {
-            alert('You may only enter decimals!');
-            input.value = input.value.substring(0,input.value.length-1);
-        }
-    }
+    // $('select[id="merks_id"]').on('change', function() { 
+    //   var merks_id = $(this).val();
+    //   GetEditDropdown(merks_id);    
+    // });
+
+    // function AddCollateral() {
+    //   $('#createCollateralModal').modal('show');
+    // }
+
+    // function EditCollateral(id, merks_id, types_id, vehicle_date, vehicle_price) {
+    //   $("#editCollateral").attr('action', '/master/vehiclecollateral/' + id);
+    //   $('#idCollateral').val(id);
+    //   $("#merkCollateral").val(merks_id);
+    //   $("#typeCollateral").val(types_id);
+    //   $("#dateCollateral").val(vehicle_date);
+    //   $("#priceCollateral").val(vehicle_price);
+
+    //   $("#editCollateralModal").modal("show");
+    // }
+
+    // function GetEditDropdown(merks_id) {
+    //   if (merks_id) {
+    //     $.ajax({
+    //       url: '/master/vehiclecollateral/type/'+ merks_id,
+    //       type: "GET",
+    //       dataType: "json",
+    //       success:function(data) {
+
+    //         $('#typeCollateral').empty();
+    //         $.each(data, function(key, value) {
+    //           $('#typeCollateral').append('<option value="'+ key +'">'+ value + '</option>');
+    //         });
+    //       }
+    //     });
+    //   }else{
+    //     $('#typeCollateral').empty();
+    //   }
+    // }
   </script>
 @stop

@@ -9,7 +9,7 @@
 					<h4 class="modal-title" id="CreateColor">Create Credit Type</h4>
 				</div>
 				<div class="modal-body">
-					{!! Form::open(['route'=>'admin.master.credittype.store']) !!}
+					{!! Form::open(['route'=>'master.credittype.store']) !!}
 						<div class="form-group">
 							{!! Form::label('name', 'Name:') !!}
 							{!! Form::text('name',null,['class'=>'form-control']) !!}
@@ -33,10 +33,6 @@
 				</div>
 				<div class="modal-body">
 					{!! Form::open(['id'=>'editCreditType', 'method'=>"PATCH"]) !!}
-						<div class="form-group">
-							{!! Form::label('id', 'Id:') !!}
-							{!! Form::text('id', null,['class'=> 'form-control', 'id'=>'idCreditType']) !!}
-						</div>
 						<div class="form-group">
 							{!! Form::label('name', 'Name:') !!}
 							{!! Form::text('name',null,['class'=>'form-control', 'id'=>'nameCreditType']) !!}

@@ -40,7 +40,7 @@
             </div>
           </div>
 
-          {!! Form::open(['route'=>'admin.master.merk.delete', 'id'=>'formDeleteMerk']) !!}
+          {!! Form::open(['route'=>'master.merk.delete', 'id'=>'formDeleteMerk']) !!}
           <table class="table table-bordered table-striped table-color" id="tableMerk">
             <thead>
               <th><input type="checkbox" id="check_all"/></th>
@@ -104,7 +104,7 @@
     }
 
     function EditMerk(id, name) {
-      $("#editMerk").attr('action', '/admin/master/merk/' + id);
+      $("#editMerk").attr('action', '/master/merk/' + id);
       $('#idMerk').val(id);
       $("#nameMerk").val(name);
       $("#editMerkModal").modal("show");

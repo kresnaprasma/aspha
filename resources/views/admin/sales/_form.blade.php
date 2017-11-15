@@ -613,7 +613,7 @@
 	                    @endif
 	                </div>	
 	            </div>
-	            <div class="col-md-4">
+	            {{-- <div class="col-md-4">
 	            	<div class="form-group{{ $errors->has('picture') ? ' has-error' : '' }}">
 	                    {!! Form::label('picture', "Motor View") !!}
 	                    <img src="storage/MotorBekas/zeus-helmet-logo.png" class="img-responsive" alt="">
@@ -623,7 +623,7 @@
 	                    </span>
 	                    @endif
 	                </div>
-	            </div>
+	            </div> --}}
 	        </div>
 	    </div>
 	    <!-- /.box-body -->

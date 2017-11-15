@@ -77,7 +77,7 @@ class SupplierController extends Controller
         if (!$supplier) {
             return redirect()->back()->withInput()->withError('cannot create supplier');
         }else{
-            return redirect()->back()->with('success', 'Successfully create supplier');
+            return redirect('/master/supplier')->with('success', 'Successfully create supplier');
         }
     }
 
@@ -134,7 +134,8 @@ class SupplierController extends Controller
         if (!$supplier) {
             return redirect()->back()->withInput()->withError('cannot update supplier');
         }else{
-            return redirect()->back()->with('success', 'Successfully update supplier');
+            return redirect('/master/supplier')->with('success', 'Successfully create supplier');
+
         }
     }
 

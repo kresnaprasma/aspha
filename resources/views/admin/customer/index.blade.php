@@ -17,7 +17,7 @@
 				<div class="box-body">
 					<div class="col-md-12 box-body-header">
 					   	<div class="col-md-8">
-					    	<a href="{{ route('admin.customer.create') }}" class="btn btn-default">
+					    	<a href="{{ route('customer.create') }}" class="btn btn-default">
 					    		<i class="fa fa-plus" aria-hidden="true"></i> New
 					    	</a>
 					    	<button type="button" class="btn btn-default" onclick="deleteCustomer()">
@@ -31,7 +31,7 @@
 
 					</div>
 
-					{!! Form::open(['route'=>'admin.customer.delete', 'id'=>'formDeleteCustomer']) !!}
+					{!! Form::open(['route'=>'customer.delete', 'id'=>'formDeleteCustomer']) !!}
 					<div>
 
 					    @if ($message = Session::get('success'))
@@ -108,7 +108,7 @@
 
 		        var id = $(this).find('#idTableCustomer').val();
 	        	
-	        	window.location.href = "/admin/customer/"+id+"/edit";
+	        	window.location.href = "/customer/"+id+"/edit";
 	        }
     	});
 

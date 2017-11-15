@@ -17,7 +17,7 @@ class MokasChecklistController extends Controller
     public function index()
     {
         $mokaschecklists = MokasChecklist::all();
-        return view('admin.mokaschecklist.index', compact('mokaschecklists'));
+        return view('mokaschecklist.index', compact('mokaschecklists'));
     }
 
     /**
@@ -27,7 +27,7 @@ class MokasChecklistController extends Controller
      */
     public function create()
     {
-        return view('admin.mokaschecklist.create');
+        return view('mokaschecklist.create');
     }
 
     /**
@@ -63,7 +63,7 @@ class MokasChecklistController extends Controller
         if (!$mokaschecklist) {
             return redirect()->back()->withInput()->withErrors('cannot create Cust. Checklist');
         }else{
-            return redirect('/admin/mokaschecklist')->with('success', 'Successfully create Checklist');
+            return redirect('/mokaschecklist')->with('success', 'Successfully create Checklist');
         }
     }
 
@@ -87,7 +87,7 @@ class MokasChecklistController extends Controller
     public function edit($id)
     {
         $mokaschecklist = MokasChecklist::find($id);
-        return view('admin.mokaschecklist.update', compact('mokaschecklist'));
+        return view('mokaschecklist.update', compact('mokaschecklist'));
     }
 
     /**
@@ -115,7 +115,7 @@ class MokasChecklistController extends Controller
         if (!$mokaschecklist) {
             return redirect()->back()->withInput()->withError('cannot update checklist');
         }else{
-            return redirect('/admin/mokaschecklist')->with('success', 'Successfully update checklist');
+            return redirect('/mokaschecklist')->with('success', 'Successfully update checklist');
         }
     }
 

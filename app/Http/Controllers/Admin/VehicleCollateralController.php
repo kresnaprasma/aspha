@@ -51,7 +51,6 @@ class VehicleCollateralController extends Controller
         $typeedit = Type::where("name", $id)
                         ->pluck("name", "id");
         return json_encode($typeedit);
-        /*return view('admin.vehiclecollateral.index', compact('merkedit'));*/
     }
 
     /**
@@ -85,7 +84,7 @@ class VehicleCollateralController extends Controller
         if (!$vehiclecollateral) {
             return redirect()->back()->withInput()->withErrors('cannot create Dana Tunai');
         }else{
-            return redirect('admin/master/vehiclecollateral')->with('success', 'Successfully create Dana Tunai');
+            return redirect('master/vehiclecollateral')->with('success', 'Successfully create Dana Tunai');
         }
     }
 
@@ -108,7 +107,10 @@ class VehicleCollateralController extends Controller
      */
     public function edit($id)
     {
-       //
+        $vehiclecollateral = VehicleCollateral::find($id);
+        $merkall = Merk::pluck("name", "id");
+        $typeall = Type::pluck('name', 'id');
+        return view('admin.master.vehiclecollateral.edit', compact("merkall", 'typeall', 'vehiclecollateral'));
     }
 
     /**
@@ -120,8 +122,27 @@ class VehicleCollateralController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $edit = VehicleCollateral::find($id)->update($request->all());
-        return redirect()->back()->with('Success', 'Collateral updated Successfully');
+        // $edit = VehicleCollateral::find($id)->update($request->all());
+        // return redirect()->back()->with('Success', 'Collateral updated Successfully');
+
+        $validator = Validator::make($request->all(), [
+            'type_id' => 'required'
+        ]);
+
+        if ($validator->fails()) {
+            $messages = $validator->messages();
+
+            return redirect()->back()->withInput()->withErrors($validator);
+        }
+
+        $vehiclecollateral = VehicleCollateral::find($id);
+        $vehiclecollateral->update($request->all());
+
+        if (!$vehiclecollateral) {
+            return redirect()->back()->withInput()->withError('cannot update customer');
+        }else{
+            return redirect('/master/vehiclecollateral')->with('success', 'Successfully update Vehicle Collateral');
+        }
     }
 
     /**
@@ -130,13 +151,40 @@ class VehicleCollateralController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
+    public function destroy($id)
+    {
+        //
+    }
+
     public function delete(Request $request)
     {
-        foreach($request->input('id') as $value) {
-            VehicleCollateral::find($value)->delete();
+        // foreach ($request->input('id') as $value) {
+        //     VehicleCollateral::find($value)->delete();
+        // }
+
+        // return redirect()->back()->with('Success', "Department deleted Successfully");
+    
+        $validator = Validator::make($request->all(), [
+            'id'=>'required',
+        ]);
+
+        if ($validator->fails()) {
+            $messages = $validator->messages(); 
+            
+            return redirect()->back()->withInput()->withErrors($validator);
         }
 
-        return redirect()->back()->with('Success', "Collateral Deleted Successfully");
+        foreach ($request->input('id') as $key => $value) {
+            $customer = VehicleCollateral::find($value);
+            $customer->delete();   
+        }
+
+        if (!$customer) {
+            return redirect()->back()->withInput()->withError('cannot delete customer');
+        }else{
+            return redirect()->back()->with('success', 'Successfully delete customer');
+        }
     }
 
     public function downloadExcel()

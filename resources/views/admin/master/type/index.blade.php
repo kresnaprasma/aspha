@@ -40,7 +40,7 @@
             </div>
           </div>
 
-          {!! Form::open(['route'=>'admin.master.type.delete', 'id'=>'formDeleteType']) !!}
+          {!! Form::open(['route'=>'master.type.delete', 'id'=>'formDeleteType']) !!}
           <table class="table table-bordered table-striped table-color" id="tableType">
             <thead>
               <th><input type="checkbox" id="check_all"/></th>
@@ -116,7 +116,7 @@
     }
 
     function EditType(id, name, merk_id) {
-      $("#editType").attr('action', '/admin/master/type/' + id);
+      $("#editType").attr('action', '/master/type/' + id);
       $('#codeType').val(id);
       $("#nameType").val(name);
       $("#merkType").val(merk_id);

@@ -15,9 +15,6 @@
 				<div class="box-body">
 					<div class="col-md-12 box-body-header">
 					   <div class="col-md-8">
-					      {{-- <a href="{{ route('admin.approve.create') }}" class="btn btn-default">
-					      	<i class="fa fa-plus" aria-hidden="true"></i> New
-					      </a> --}}
 					      <button type="button" class="btn btn-default" onclick="deleteApprove()">
 					      <i class="fa fa-times" aria-hidden="true"></i> Delete
 					      </button>
@@ -27,7 +24,6 @@
 				   		</div>
 					</div>
 
-					{{-- {!! Form::open(['route'=>'admin.cash.delete', 'id'=>'formDeleteCash']) !!} --}}
 					<div>
 					    @if ($message = Session::get('success'))
 				        	<div class="alert alert-success">

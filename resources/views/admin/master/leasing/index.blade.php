@@ -5,7 +5,7 @@
 		<div class="col-md-12">
 			<div class="box box-primary">
 				<div class="box-header with-border">
-				   <h3 class="box-title">Dana Tunai Approve</h3>
+				   <h3 class="box-title">Leasing</h3>
 				   <div class="box-tools pull-right">
 				      <button class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse"><i class="fa fa-minus"></i></button>
 				      <button class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove"><i class="fa fa-times"></i></button>
@@ -15,10 +15,10 @@
 				<div class="box-body">
 					<div class="col-md-12 box-body-header">
 					   <div class="col-md-8">
-					      {{-- <a href="{{ route('admin.approve.create') }}" class="btn btn-default">
+					      <a href="{{ route('master.leasing.create') }}" class="btn btn-default">
 					      	<i class="fa fa-plus" aria-hidden="true"></i> New
-					      </a> --}}
-					      <button type="button" class="btn btn-default" onclick="deleteCash()">
+					      </a>
+					      <button type="button" class="btn btn-default" onclick="deleteLeasing()">
 					      <i class="fa fa-times" aria-hidden="true"></i> Delete
 					      </button>
 					   </div>
@@ -27,7 +27,7 @@
 				   		</div>
 					</div>
 
-					{!! Form::open(['route'=>'cash.delete', 'id'=>'formDeleteCash']) !!}
+					{!! Form::open(['route'=>'master.leasing.delete', 'id'=>'formDeleteLeasing']) !!}
 					<div>
 
 					    @if ($message = Session::get('success'))
@@ -36,42 +36,32 @@
 	        				</div>
     					@endif
 					
-					<table class="table table-bordered table-striped table-color" id="tableApprove">
+					<table class="table table-bordered table-striped table-color" id="tableLeasing">
 						<thead>
 							<th><input type="checkbox" id="check_all"></th>
-							<th>Cash No.</th>
-							<th>Plafon Credit</th>
-							<th>Tenor Request</th>
-							<th>Customer No.</th>
 							<th>Leasing No.</th>
+							<th>Name</th>
+							<th>Email</th>
+							<th>Phone</th>
+							<th>Address</th>
+							<th>PIC Name</th>
 							<th>Branch</th>
-							<th>Credit Type</th>
-							<th>User</th>
 						</thead>
 						<tbody>
-							@foreach($cashfix as $cf)
+							@foreach($leasing as $leas)
 								<tr>
 									<td>
-										<input type="checkbox" id="idTableApprove" name="id[]" class="checkin" value="{{ $cf->id }}">
+										<input type="checkbox" id="idTableLeasing" name="id[]" class="checkin" value="{{ $leas->id }}">
 									</td>
-									<td><b>{{ $cf->cash_no }}</b></td>
-									<td>{{ $cf->credit_ceiling_request }}</td>
-									<td>{{ $cf->tenor_request }}</td>
-									<td>{{ $cf->customer_no }}</td>
-									<td>{{ $cf->leasing_no }}</td>
+									<td><b>{{ $leas->leasing_no }}</b></td>
+									<td>{{ $leas->name }}</td>
+									<td>{{ $leas->email }}</td>
+									<td>{{ $leas->phone }}</td>
+									<td>{{ $leas->address }}</td>
+									<td>{{ $leas->pic_name }}</td>
 									<td>
-										@if ($cf->branch()->count() > 0)
-											{{ $cf->branch->name }}
-										@endif
-									</td>
-									<td>
-										@if ($cf->credittype()->count() > 0)
-											{{ $cf->credittype->name }}
-										@endif
-									</td>
-									<td>
-										@if($cf->user()->count() > 0)
-											{{ $cf->user->name }}
+										@if ($leas->branch()->count() > 0)
+											{{ $leas->branch->name }}
 										@endif
 									</td>
 								</tr>
@@ -85,45 +75,46 @@
 		</div>
 	</div>
 
-	@include('admin.approve._modal')
+	@include('admin.master.leasing._modal')
 @stop
 
 @section('scripts')
 	<script type="text/javascript">
-		var tableApprove = $('#tableApprove').DataTable({
-			"dom": "rtip",
-	        "pageLength": 10,
-    	    "retrieve": true,
+		var tableLeasing = $('#tableLeasing').DataTable({
+			"sDom": 'rt',
+      		"columnDefs": [{
+        		"targets": [],
+        		"orderable": false
+      		}]
 		});
 
 		$("#searchDtbox").keyup(function() {
-      		tableApprove.search($(this).val()).draw();
+      		tableLeasing.search($(this).val()).draw();
     	});
 
-    	$('#tableApprove tbody').on('dblclick', 'tr', function () {
+    	$('#tableLeasing tbody').on('dblclick', 'tr', function () {
       		if ( $(this).hasClass('selected') ) {
         		$(this).removeClass('selected');
       		}
 	      	else {
-	        	tableApprove.$('tr.selected').removeClass('selected');
+	        	tableLeasing.$('tr.selected').removeClass('selected');
 	        	$(this).addClass('selected');
-	        	var id = $(this).find('#idTableApprove').val();
-	          	window.location.href = "/admin/approve/"+id+"/edit";
-	          	/*window.location.href = "/admin/approve/create";*/
+	        	var id = $(this).find('#idTableLeasing').val();
+	          	window.location.href = "/master/leasing/"+id+"/edit";
 	      	}
     	});
 
-    	function deleteCash() {
+    	function deleteLeasing() {
 			if ($('.checkin').is(':checked')) 
 			{
-				$('#deleteCashModal').modal("show");
+				$('#deleteLeasingModal').modal("show");
 			} else {
 				$('#deleteNoModal').modal("show");
 				}
 		}
 
-		function DeleteCash() {
-			$("#formDeleteCash").submit();
+		function DeleteLeasing() {
+			$("#formDeleteLeasing").submit();
 		}
 	</script>
 @stop

@@ -12,7 +12,7 @@
 
 @section('scripts')
     @include('admin.mokas._js')
-    <script src="http://demo.itsolutionstuff.com/plugin/jquery.js"></script>
+    {{-- <script src="http://demo.itsolutionstuff.com/plugin/jquery.js"></script> --}}
     
     <script type="text/javascript">
     $(document).ready(function() {
@@ -20,7 +20,7 @@
             var merkID = $(this).val();
             if(merkID) {
                 $.ajax({
-                    url: '/admin/mokas/type/'+merkID,
+                    url: '/mokas/type/'+merkID,
                     type: "GET",
                     dataType: "json",
                     success:function(data) {

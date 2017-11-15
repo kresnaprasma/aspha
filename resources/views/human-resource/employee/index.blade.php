@@ -104,7 +104,7 @@
 
 		        var id = $(this).find('#idTableEmployee').val();
 	        	
-	        	window.location.href = "/admin/human-resource/employee/"+id+"/edit";
+	        	window.location.href = "/human-resource/employee/"+id+"/edit";
 	        }
     	});
 

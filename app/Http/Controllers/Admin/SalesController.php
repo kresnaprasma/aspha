@@ -105,7 +105,7 @@ class SalesController extends Controller
         if (!$sales) {
             return redirect()->back()->withInput()->withError('cannot create sales');
         }else{
-            return redirect('/admin/sales')->with('success', 'Successfully create sales');
+            return redirect('/sales')->with('success', 'Successfully create sales');
         }
     }
 
@@ -179,7 +179,7 @@ class SalesController extends Controller
         if (!$sales) {
             return redirect()->back()->withInput()->withErrors('Cannot Update Sales');
         } else {
-            return redirect('/admin/sales')->with('success', 'success update sales');
+            return redirect('/sales')->with('success', 'success update sales');
         }
     }
 

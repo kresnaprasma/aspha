@@ -9,7 +9,7 @@
 				<h4 class="modal-title" id="CreateColor">Create Role</h4>
 			</div>
 			<div class="modal-body">
-				{!! Form::open(['route'=> 'admin.master.role.store']) !!}
+				{!! Form::open(['route'=> 'master.role.store']) !!}
 					<div class="form-group">
 						{!! Form::label('name', 'Name') !!}
 						{!! Form::text('name', null,['class'=>'form-control']) !!}
@@ -33,7 +33,7 @@
 				<h4 class="modal-title" id="EditType">Edit Role</h4>
 			</div>
 			<div class="modal-body">
-				{!! Form::open(['url'=> '/admin/master/role/','method'=>"PATCH",'id'=>'editRoleForm']) !!}
+				{!! Form::open(['url'=> '/master/role/','method'=>"PATCH",'id'=>'editRoleForm']) !!}
 					<div class="form-group">
 						{!! Form::label('name', 'Name') !!}
 						{!! Form::text('name', null,['class'=>'form-control','id'=>'nameRole']) !!}

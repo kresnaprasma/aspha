@@ -18,7 +18,7 @@ class ChecklistController extends Controller
     public function index()
     {
         $checklists = Checklist::all();
-        return view('admin.master.checklist.index', compact('checklists'));
+        return view('master.checklist.index', compact('checklists'));
     }
 
     /**

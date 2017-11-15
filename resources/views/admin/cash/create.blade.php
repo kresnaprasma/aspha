@@ -2,7 +2,7 @@
 
 @section('content')
 
-    {!! Form::model($cash = new \App\Cash, ['route'=>'admin.cash.store','id'=>'formCash']) !!}
+    {!! Form::model($cash = new \App\Cash, ['route'=>'cash.store','id'=>'formCash']) !!}
     <div class="row">
         <div class="col-md-12">
             @include('admin.cash._form',['edit'=>false])

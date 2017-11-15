@@ -61,7 +61,7 @@ class UserController extends Controller
 
         $user->roles()->sync($request->input('role_id'));
 
-        return redirect('admin/master/user')->with('success', 'Successfully create user');
+        return redirect('master/user')->with('success', 'Successfully create user');
     }
 
     /**
@@ -119,7 +119,7 @@ class UserController extends Controller
         $user->save();
         $user->roles()->sync($request->input('role_id'));
 
-        return redirect('admin/master/user')->with('success', 'Successfully update user');
+        return redirect('master/user')->with('success', 'Successfully update user');
     }
 
     /**
@@ -133,7 +133,7 @@ class UserController extends Controller
         $user = User::find($id);
         $user->delete();
 
-        return redirect('admin/master/user')->with('success', 'Successfully delete user');
+        return redirect('master/user')->with('success', 'Successfully delete user');
     }
 
     public function delete(Request $request)
@@ -152,6 +152,6 @@ class UserController extends Controller
             $user->delete();
         }
 
-        return redirect('admin/master/user')->with('success', 'Successfully delete user');
+        return redirect('master/user')->with('success', 'Successfully delete user');
     }
 }

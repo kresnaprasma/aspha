@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\DB;
 
 class Cash extends Model
 {
-    protected $fillable = ['cash_no', 'credit_ceiling_request', 'tenor_request', 'customer_no', 'maximum_plafond', 'leasing_no', 'branch_id', 'user_id'];
+    protected $fillable = ['cash_no', 'credit_ceiling_request', 'tenor_request', 'customer_no', 'maximum_plafond', 'leasing_no', 'branch_id', 'credittype_id', 'user_id', 'approval'];
 
     public $incrementing = false;
 

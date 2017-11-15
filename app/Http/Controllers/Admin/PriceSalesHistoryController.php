@@ -70,7 +70,7 @@ class PriceSalesHistoryController extends Controller
         if (!$saleshistory) {
             return redirect()->back()->withInput()->withErrors('cannot create Sales');
         } else {
-            return redirect('admin/pricesaleshistory')->with('success', 'Successfully create sales history');
+            return redirect('pricesaleshistory')->with('success', 'Successfully create sales history');
         }
     }
 
@@ -128,7 +128,7 @@ class PriceSalesHistoryController extends Controller
         if (!$pricesaleshistory) {
             return redirect()->back()->withInput()->withErrors('cannot update customer');
         } else {
-            return redirect('admin/pricesaleshistory')->with('success', 'Successfully update Price Sales');
+            return redirect('pricesaleshistory')->with('success', 'Successfully update Price Sales');
         }
     }
 

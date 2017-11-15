@@ -14,7 +14,6 @@
                 <div class="form-group{{ $errors->has('credit_ceiling_request') ? ' has-error' : '' }}">
                     {!! Form::label('credit_ceiling_request', "Plafond Credit Request") !!}
                     {!! Form::text('credit_ceiling_request', null, ['class'=>'form-control detail-purchasing','required','autofocus','id'=>'credit_ceiling_request', 'onkeyup'=>'formatNumber(this)', 'onkeypress'=>'formatNumber(this)']) !!}
-                    {{-- {!! Form::text('detail_qty',null, ['class'=>'form-control detail-purchasing','id'=>'detail_qty','onkeyup'=>'formatNumber(this)','onkeypress'=>'formatNumber(this)']) !!} --}}
                     @if ($errors->has('credit_ceiling_request'))
                         <span class="help-block">
                             <strong>{{ $errors->first('credit_ceiling_request') }}</strong>
@@ -80,11 +79,6 @@
        </div>
     </div>
     <!-- /.box-body -->
-    <div class="box-footer">
-        <button type="submit" class="btn btn-primary">Save
-        </button>
-    </div>
-    {!! Form::close() !!}
 </div>
 
 {{-- Customer --}}
@@ -336,7 +330,8 @@
                     </div>
 
                     <div class="input-group{{ $errors->has('collateral_name') ? ' has-error' : '' }}">
-                        {!! Form::text('collateral_name', $cash->customercollateral->type, ['class'=>'form-control','id'=>'collateral_name', 'readonly' => 'true', 'placeholder' => 'Motor Type']) !!}
+                        
+                        {!! Form::text('collateral_name', null, ['class'=>'form-control','id'=>'collateral_name', 'readonly' => 'true', 'placeholder' => 'Motor Type']) !!}
                         <span class="input-group-btn">
                             <button type="button" class="btn btn-default" onclick="AddVehicleCollateral()">
                                 <i class="fa fa-plus" aria-hidden="true"></i>
@@ -392,5 +387,16 @@
             <ul class="list-inline">
             </ul>
         </div>
+    </div>
+    <div class="box-footer">
+        @if($edit)
+            <button type="submit" class="btn btn-primary">
+                Update
+            </button>
+        @else
+            <button type="submit" class="btn btn-primary">
+                Save
+            </button>
+        @endif
     </div>
 </div>

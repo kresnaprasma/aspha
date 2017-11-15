@@ -16,7 +16,7 @@
     					<button class="btn btn-box-tool" data-widget="collapse" data-toogle="tooltip" title="Collapse"><i class="fa fa-minus"></i></button>
     				</div>
     			</div>
-                {!! Form::model($customer, ['route'=>['admin.customer.update',$customer->id],'id'=>'formCreateCustomer','method'=>'PATCH']) !!}
+                {!! Form::model($customer, ['route'=>['customer.update',$customer->id],'id'=>'formCreateCustomer','method'=>'PATCH']) !!}
     			<div class="box-body">
                     <form role="form">
                         @include('admin.customer._form',['edit'=>true])

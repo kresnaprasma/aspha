@@ -97,7 +97,7 @@ class CashfixController extends Controller
         if (!$cashfix) {
             return redirect()->back()->withInput()->withErrors('cannot create Dana Tunai');
         }else{
-            return redirect('/admin/approve')->with('success', 'Successfully create Dana Tunai');
+            return redirect('/approve')->with('success', 'Successfully create Dana Tunai');
         }
     }
 
@@ -214,7 +214,7 @@ class CashfixController extends Controller
         if (!$cash) {
             return redirect()->back()->withInput()->withErrors('Cant update cashfix' );
         }else{
-            return redirect('/admin/loan/cashfix')->with('success', 'Successfully update cashfix');
+            return redirect('/loan/cashfix')->with('success', 'Successfully update cashfix');
         }
     }
 

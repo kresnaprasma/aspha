@@ -152,7 +152,7 @@ class MokasController extends Controller
         if (!$mokas) {
             return redirect()->back()->withInput()->withError('cannot create mokas');
         }else{
-            return redirect('/admin/mokas')->with('success', 'Successfully create mokas');
+            return redirect('/mokas')->with('success', 'Successfully create mokas');
         }
     }
 
@@ -221,7 +221,7 @@ class MokasController extends Controller
         if (!$mokas) {
             return redirect()->back()->withInput()->withError('Cannot Update Mokas');
         }else{
-            return redirect('/admin/mokas')->with('success', 'Success update Mokas');
+            return redirect('/mokas')->with('success', 'Success update Mokas');
         }
     }
 

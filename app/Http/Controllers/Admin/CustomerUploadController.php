@@ -18,7 +18,7 @@ class CustomerUploadController extends Controller
      */
     public function index()
     {
-        return view('admin.loan.customerupload.index');
+        return view('loan.customerupload.index');
     }
 
     /**
@@ -28,7 +28,7 @@ class CustomerUploadController extends Controller
      */
     public function create()
     {
-        return view( 'admin.loan.customerupload.create' );
+        return view( 'loan.customerupload.create' );
     }
 
     /**
@@ -127,6 +127,6 @@ class CustomerUploadController extends Controller
         Storage::disk('local')->delete($entries->filename);
         $entries->delete();
         Session::flash('message', 'Succesfully deleted!');
-        return redirect('/admin/fileentry'); 
+        return redirect('/fileentry'); 
     }
 }

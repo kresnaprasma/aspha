@@ -2,7 +2,7 @@
 
 @section('content')
 
-    {!! Form::model($mokas = new \App\Mokas, ['route'=>'admin.mokas.store','id'=>'formMokas']) !!}
+    {!! Form::model($mokas = new \App\Mokas, ['route'=>'mokas.store','id'=>'formMokas']) !!}
     <div class="row">
         <div class="col-md-12">
             @include('admin.mokas._formtab',['edit'=>false])
@@ -14,7 +14,7 @@
 
 @section('scripts')
     @include('admin.mokas._js')
-    <script src="http://demo.itsolutionstuff.com/plugin/jquery.js"></script>
+    {{-- <script src="http://demo.itsolutionstuff.com/plugin/jquery.js"></script> --}}
     
     <script type="text/javascript">
     $(document).ready(function() {
@@ -22,7 +22,7 @@
             var merkID = $(this).val();
             if(merkID) {
                 $.ajax({
-                    url: '/admin/mokas/type/'+merkID,
+                    url: '/mokas/type/'+merkID,
                     type: "GET",
                     dataType: "json",
                     success:function(data) {

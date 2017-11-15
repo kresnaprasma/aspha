@@ -96,7 +96,7 @@ class EmployeeController extends Controller
         if (empty($emp)) {
             return redirect()->back()->withInput()->withError('cannot create Employee');
         }else{
-            return redirect('admin/human-resource/employee')->with('success', 'Successfully create Employee');
+            return redirect('/human-resource/employee')->with('success', 'Successfully create Employee');
         }
     }
 
@@ -183,7 +183,7 @@ class EmployeeController extends Controller
         if (empty($emp)) {
             return redirect()->back()->withInput()->withError('cannot update Employee');
         }else{
-            return redirect('admin/human-resource/employee')->with('success', 'Successfully update Employee');
+            return redirect('/human-resource/employee')->with('success', 'Successfully update Employee');
         }
     }
 

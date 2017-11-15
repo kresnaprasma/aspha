@@ -15,7 +15,7 @@
 				<div class="box-body">
 					<div class="col-md-12 box-body-header">
 					   <div class="col-md-8">
-					      <a href="{{ route('admin.master.supplier.create') }}" class="btn btn-default">
+					      <a href="{{ route('master.supplier.create') }}" class="btn btn-default">
 					      	<i class="fa fa-plus" aria-hidden="true"></i> New
 					      </a>
 					      <button type="button" class="btn btn-default" onclick="deleteSupplier()">
@@ -27,7 +27,7 @@
 				   		</div>
 					</div>
 
-					{!! Form::open(['route'=>'admin.master.supplier.delete', 'id'=>'formDeleteSupplier']) !!}
+					{!! Form::open(['route'=>'master.supplier.delete', 'id'=>'formDeleteSupplier']) !!}
 					<div>
 
 					    @if ($message = Session::get('success'))
@@ -100,7 +100,7 @@
 	        	tableSupplier.$('tr.selected').removeClass('selected');
 	        	$(this).addClass('selected');
 	        	var id = $(this).find('#idTableSupplier').val();
-	          	window.location.href = "/admin/master/supplier/"+id+"/edit";
+	          	window.location.href = "/master/supplier/"+id+"/edit";
 	      	}
     	});
     	function deleteSupplier() {

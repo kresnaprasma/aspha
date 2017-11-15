@@ -34,7 +34,7 @@
 				   		</div>
 					</div>
 
-					{!! Form::open(['route'=>'admin.master.role.delete', 'id'=>'formDeleteRole']) !!}
+					{!! Form::open(['route'=>'master.role.delete', 'id'=>'formDeleteRole']) !!}
 					
 					<table class="table table-bordered table-striped table-color" id="tableRole">
 						<thead>
@@ -102,7 +102,7 @@
     	}
 
     	function editRole(id, name) {
-      		$("#editRoleForm").attr('action', '/admin/master/role/' + id);
+      		$("#editRoleForm").attr('action', '/master/role/' + id);
       		$("#nameRole").val(name);
       		$("#editRoleModal").modal("show");
     	}

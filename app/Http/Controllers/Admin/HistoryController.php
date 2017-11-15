@@ -21,7 +21,7 @@ class HistoryController extends Controller
     public function index()
     {
         $history = History::all();
-        return view('admin.loan.history.index', compact('history'));
+        return view('loan.history.index', compact('history'));
     }
 
     /**
@@ -33,7 +33,7 @@ class HistoryController extends Controller
     {
         $customer_list = Customer::pluck('name', 'customer_no');
         $cash_list = Cash::pluck('cash_no', 'id');
-        return view('admin.loan.history.create', compact('customer_list', 'cash_list'));
+        return view('loan.history.create', compact('customer_list', 'cash_list'));
     }
 
     /**
@@ -65,7 +65,7 @@ class HistoryController extends Controller
         if (!$history) {
             return redirect()->back()->withInput()->withErrors('cannot create history');
         }else{
-            return redirect('/admin/loan/history')->with('success', 'Successfully create History');
+            return redirect('/loan/history')->with('success', 'Successfully create History');
         }
     }
 
@@ -92,7 +92,7 @@ class HistoryController extends Controller
         $customer_list = Customer::pluck('name', 'customer_no');
         $cash_list = Cash::pluck('cash_no', 'id');
 
-        return view('admin.loan.history.edit', compact('history', 'customer_list', 'cash_list'));
+        return view('loan.history.edit', compact('history', 'customer_list', 'cash_list'));
     }
 
     /**
@@ -120,7 +120,7 @@ class HistoryController extends Controller
         if (!$history) {
             return redirect()->back()->withInput()->withErrors('Cant update History');
         }else{
-            return redirect('admin/loan/history')->with('Success', 'Successfully update History');
+            return redirect('loan/history')->with('Success', 'Successfully update History');
         }
     }
 

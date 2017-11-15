@@ -87,7 +87,7 @@ class CustomerController extends Controller
         if (!$customer) {
             return redirect()->back()->withInput()->withError('cannot create customer');
         }else{
-            return redirect(/*'/admin/loan/create'*/)->back()->with('success', 'Successfully create customer');
+            return redirect('/customer')->with('success', 'Successfully create customer');
         }
     }
 
@@ -142,7 +142,7 @@ class CustomerController extends Controller
         if (!$customer) {
             return redirect()->back()->withInput()->withError('cannot update customer');
         }else{
-            return redirect('/admin/customer')->with('success', 'Successfully update customer');
+            return redirect('/customer')->with('success', 'Successfully update customer');
         }
     }
 

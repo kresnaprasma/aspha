@@ -9,7 +9,7 @@
 				<h4 class="modal-title" id="CreateColor">Create Branch</h4>
 			</div>
 			<div class="modal-body">
-				{!! Form::open(['route'=> 'admin.master.branch.store']) !!}
+				{!! Form::open(['route'=> 'master.branch.store']) !!}
 					<div class="form-group">
 						{!! Form::label('name', 'Name') !!}
 						{!! Form::text('name', null,['class'=>'form-control']) !!}
@@ -49,7 +49,7 @@
 				<h4 class="modal-title" id="EditType">Edit Branch</h4>
 			</div>
 			<div class="modal-body">
-				{!! Form::open(['url'=> '/admin/master/branch/','method'=>"PATCH",'id'=>'editBranchForm']) !!}
+				{!! Form::open(['url'=> '/master/branch/','method'=>"PATCH",'id'=>'editBranchForm']) !!}
 					<div class="form-group">
 						{!! Form::label('name', 'Name') !!}
 						{!! Form::text('name', null,['class'=>'form-control', 'id'=>'nameBranch']) !!}

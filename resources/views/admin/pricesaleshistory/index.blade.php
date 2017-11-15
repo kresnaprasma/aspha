@@ -14,7 +14,7 @@
 				<div class="box-body">
 					<div class="col-md-12 box-body-header">
 						<div class="col-md-8">
-							<a href="{{ route('admin.pricesaleshistory.create') }}" class="btn btn-default">
+							<a href="{{ route('pricesaleshistory.create') }}" class="btn btn-default">
 					    		<i class="fa fa-plus" aria-hidden="true"></i> New
 					    	</a>
 							<button type="button" class="btn btn-default" onclick="deletePriceSalesHistory()">
@@ -39,7 +39,7 @@
 			            </div>
 		            </div>
 
-		            {!! Form::open(['route'=>'admin.pricesaleshistory.delete', 'id'=>'formDeletePriceSalesHistory']) !!}
+		            {!! Form::open(['route'=>'pricesaleshistory.delete', 'id'=>'formDeletePriceSalesHistory']) !!}
 		            <table class="table table-bordered table-striped table-color" id="tablePriceSalesHistory">
 		            	<thead>
 		            		<th><input type="checkbox" id="check_all" /></th>
@@ -99,7 +99,7 @@
 
 		        var id = $(this).find('#idTablePriceSalesHistory').val();
 
-		        window.location.href = "/admin/pricesaleshistory/"+id+"/edit";
+		        window.location.href = "/pricesaleshistory/"+id+"/edit";
 	    	}
 	    });
 

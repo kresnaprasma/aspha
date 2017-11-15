@@ -17,8 +17,8 @@ class CreateSalesTable extends Migration
             $table->string('id')->index();
             $table->string('sales_no')->unique();
 
-            $table->string('customer_name');
-            $table->foreign('customer_name')->references('name')->on('customers');
+            $table->string('customer_no');
+            $table->foreign('customer_no')->references('customer_no')->on('customers');
             
             $table->string('mokas_number');
             $table->boolean('ktp');

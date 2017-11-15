@@ -1,7 +1,7 @@
 @extends('layout.admin')
 
 @section('content')
-    {!! Form::model($pricesaleshistory ,['route'=>['admin.pricesaleshistory.update', $pricesaleshistory->id],'id'=>'formPriceSalesHistory', 'method'=>'PUT']) !!}
+    {!! Form::model($pricesaleshistory ,['route'=>['pricesaleshistory.update', $pricesaleshistory->id],'id'=>'formPriceSalesHistory', 'method'=>'PUT']) !!}
     <div class="row">
         <div class="col-md-12">
             @include('admin.pricesaleshistory._form',['edit'=>true])
@@ -12,7 +12,7 @@
 
 @section('scripts')
     @include('admin.pricesaleshistory._js')
-    <script src="http://demo.itsolutionstuff.com/plugin/jquery.js"></script>
+    {{-- <script src="http://demo.itsolutionstuff.com/plugin/jquery.js"></script> --}}
     
     <script type="text/javascript">
     $(document).ready(function() {
@@ -20,7 +20,7 @@
             var merkID = $(this).val();
             if(merkID) {
                 $.ajax({
-                    url: '/admin/pricesaleshistory/type/'+merkID,
+                    url: '/pricesaleshistory/type/'+merkID,
                     type: "GET",
                     dataType: "json",
                     success:function(data) {

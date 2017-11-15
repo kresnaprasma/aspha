@@ -1,6 +1,6 @@
 <div class="box-body">
 	<div class="row">
-		{!! Form::open(['route'=>'api.uploadmokas.store', 'files'=>true, 'enctype'=>'multipart/form-data', 'class'=>'dropzone', 'id'=>'uploadmokas']) !!}
+		{!! Form::open(['route'=>'api.uploadmokas.store', 'files'=>true, 'enctype'=>'multipart/form-data', 'class'=>'dropzone', 'id'=>'FormUploadmokas']) !!}
 	</div>
 	{!! Form::close() !!}
 
@@ -15,7 +15,7 @@
     
     <div class="row">
         <div class="col-md-12" style="margin-top:10px;">
-	        <div class="col-md-4">
+	        <div class="col-md-4" id="upload-mokas">
 	            <strong>Upload</strong>
 	        </div>
 	        <div class="col-md-8">    

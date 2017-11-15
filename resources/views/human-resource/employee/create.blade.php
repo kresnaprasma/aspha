@@ -33,7 +33,7 @@
       
       if (checkload == true) {
         $.ajax({
-          url: '/api/human-resource/employee/'+id,
+          url: '/api/v1/human-resource/employee/'+id,
           type: 'DELETE',
           success: function(response){
             e = e || window.event;

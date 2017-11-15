@@ -9,7 +9,7 @@
 					<h4 class="modal-title" id="CreateColor">Create Type</h4>
 				</div>
 				<div class="modal-body">
-					{!! Form::open(['route'=>'admin.master.type.store']) !!}
+					{!! Form::open(['route'=>'master.type.store']) !!}
 						<div class="form-group">
 							{!! Form::label('id', 'Code Type:') !!}
 							{!! Form::text('id', null, ['class'=>'form-control']) !!}

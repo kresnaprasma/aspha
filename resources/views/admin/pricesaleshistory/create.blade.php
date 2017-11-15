@@ -2,7 +2,7 @@
 
 @section('content')
 
-    {!! Form::model($pricesaleshistory = new \App\PriceSalesHistory, ['route'=>'admin.pricesaleshistory.store','id'=>'formPriceSalesHistory']) !!}
+    {!! Form::model($pricesaleshistory = new \App\PriceSalesHistory, ['route'=>'pricesaleshistory.store','id'=>'formPriceSalesHistory']) !!}
     <div class="row">
         <div class="col-md-12">
             @include('admin.pricesaleshistory._form',['edit'=>false])
@@ -14,7 +14,7 @@
 
 @section('scripts')
     @include('admin.pricesaleshistory._js')
-    <script src="http://demo.itsolutionstuff.com/plugin/jquery.js"></script>
+    {{-- <script src="http://demo.itsolutionstuff.com/plugin/jquery.js"></script> --}}
     
     <script type="text/javascript">
     $(document).ready(function() {

@@ -34,7 +34,7 @@
 				   		</div>
 					</div>
 
-					{!! Form::open(['route'=>'admin.master.permission.delete', 'id'=>'formDeletePermission']) !!}
+					{!! Form::open(['route'=>'master.permission.delete', 'id'=>'formDeletePermission']) !!}
 					
 					<table class="table table-bordered table-striped table-color" id="tablePermission">
 						<thead>
@@ -112,7 +112,7 @@
     	}
 
     	function editPermission(id, name, role) {
-      		$("#editPermissionForm").attr('action', '/admin/master/permission/' + id);
+      		$("#editPermissionForm").attr('action', '/master/permission/' + id);
       		$("#namePermission").val(name);
       		$("#rolePermission").val(JSON.parse(role));
       		$("#editPermissionModal").modal("show");

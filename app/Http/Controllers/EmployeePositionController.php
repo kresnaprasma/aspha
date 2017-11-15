@@ -61,7 +61,7 @@ class EmployeePositionController extends Controller
         if (empty($position)) {
             return redirect()->back()->withInput()->withError('cannot create Position Employee');
         }else{
-            return redirect('admin/human-resource/position')->with('success', 'Successfully create Position Employee');
+            return redirect('/human-resource/position')->with('success', 'Successfully create Position Employee');
         }
     }
 
@@ -115,7 +115,7 @@ class EmployeePositionController extends Controller
         if (empty($position)) {
             return redirect()->back()->withInput()->withError('cannot update Position Employee');
         }else{
-            return redirect('admin/human-resource/position')->with('success', 'Successfully update Position Employee');
+            return redirect('/human-resource/position')->with('success', 'Successfully update Position Employee');
         }
     }
 

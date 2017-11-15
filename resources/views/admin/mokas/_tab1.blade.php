@@ -92,6 +92,7 @@
         <div class="row">
             <div class="col-md-4 col-lg-offset-1">
                 <div class="form-group">
+                    {!! Form::label('merk_id', 'Motor Type') !!}
                     <div class="input-group">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                         <select name="merk_id" id="merk_id" class="form-control">

@@ -6,9 +6,9 @@
     	<div class="col-md-12">
     		<div class="box box-primary">
     			<div class="box-header with-border">
-    				<h3 class="box-title">Customer - <b>{{ App\Customer::Maxno() }}</b></h3>
+    				<h3 class="box-title">Leasing - <b>{{ App\Leasing::Maxno() }}</b></h3>
     				<div class="box-tools pull-right">
-                        <a href="/admin/customer/">
+                        <a href="/admin/master/leasing/">
                             {{-- <i aria-hidden="true"></i>
                             <b>Back</b> --}}
                             <span class="glyphicon glyphicon-chevron-left"></span>
@@ -16,10 +16,10 @@
     					<button class="btn btn-box-tool" data-widget="collapse" data-toogle="tooltip" title="Collapse"><i class="fa fa-minus"></i></button>
     				</div>
     			</div>
-                {!! Form::model($customer = new \App\Customer, ['route'=>'customer.store','id'=>'formCreateCustomer']) !!}
+                {!! Form::model($leasing, ['route'=>['master.leasing.update',$leasing->id],'id'=>'formCreateLeasing','method'=>'PATCH', 'class'=>'form-horizontal']) !!}
     			<div class="box-body">
                     <form role="form">
-                        @include('admin.customer._form',['edit'=>true])
+                        @include('admin.master.leasing._form',['edit'=>true])
                     </form>
               <!-- /.box-body -->
 

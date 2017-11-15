@@ -14,7 +14,7 @@
 				<div class="box-body">
 					<div class="col-md-12 box-body-header">
 						<div class="col-md-8">
-							<a href="{{ route('admin.sales.create') }}" class="btn btn-default">
+							<a href="{{ route('sales.create') }}" class="btn btn-default">
 					    		<i class="fa fa-plus" aria-hidden="true"></i> New
 					    	</a>
 							<button type="button" class="btn btn-default" onclick="deleteSales()">
@@ -39,7 +39,7 @@
 			            </div>
 		            </div>
 
-		            {!! Form::open(['route'=>'admin.sales.delete', 'id'=>'formDeleteSales']) !!}
+		            {!! Form::open(['route'=>'sales.delete', 'id'=>'formDeleteSales']) !!}
 		            <table class="table table-bordered table-striped table-color" id="tableSales">
 		            	<thead>
 		            		<th><input type="checkbox" id="check_all" /></th>
@@ -95,7 +95,7 @@
 
 		        var id = $(this).find('#idtableSales').val();
 
-		        window.location.href = "/admin/sales/"+id+"/edit";
+		        window.location.href = "/sales/"+id+"/edit";
 	    	}
 	    });
 

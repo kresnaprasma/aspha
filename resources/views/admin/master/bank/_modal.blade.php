@@ -9,7 +9,7 @@
 				<h4 class="modal-title" id="CreateColor">Create Bank</h4>
 			</div>
 			<div class="modal-body">
-				{!! Form::open(['route'=> 'admin.master.bank.store']) !!}
+				{!! Form::open(['route'=> 'master.bank.store']) !!}
 					<div class="form-group">
 						{!! Form::label('name', 'Name') !!}
 						{!! Form::text('name', null,['class'=>'form-control']) !!}
@@ -37,7 +37,7 @@
 				<h4 class="modal-title" id="EditType">Edit Bank</h4>
 			</div>
 			<div class="modal-body">
-				{!! Form::open(['url'=> '/admin/master/bank/','method'=>"PATCH",'id'=>'editBankForm']) !!}
+				{!! Form::open(['url'=> '/master/bank/','method'=>"PATCH",'id'=>'editBankForm']) !!}
 					<div class="form-group">
 						{!! Form::label('name', 'Name') !!}
 						{!! Form::text('name', null,['class'=>'form-control','id'=>'nameBank']) !!}
@@ -59,7 +59,7 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
+					<span aria-hidden="true">&times;</spapdate Merkn>
 				</button>
 				<h4 class="modal-title" id="CreateMerk">Please Confirm</h4>
 			</div>
@@ -71,9 +71,7 @@
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            	<button type="submit" class="btn btn-danger" onclick="DeleteBank()">
-            		<i class="fa fa-times-circle"></i> Yes
-            	</button>
+            	<button type="submit" class="btn btn-danger" onclick=DeleteBank()><i class="fa fa-times-circle"></i> Yes
 			</div>
 		</div>
 	</div>

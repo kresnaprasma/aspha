@@ -23,7 +23,7 @@
 
 					<div class="col-md-12 box-body-header">
 					   <div class="col-md-8">
-					      <a href="{{ route('admin.master.user.create') }}" class="btn btn-default">
+					      <a href="{{ route('master.user.create') }}" class="btn btn-default">
 					      	<i class="fa fa-plus" aria-hidden="true"></i> New
 					      </a>
 					      <button type="button" class="btn btn-default" onclick="deleteUser()">
@@ -35,7 +35,7 @@
 				   		</div>
 					</div>
 
-					{!! Form::open(['route'=>'admin.master.user.delete', 'id'=>'formDeleteUser']) !!}
+					{!! Form::open(['route'=>'master.user.delete', 'id'=>'formDeleteUser']) !!}
 				
 					
 						<table class="table table-bordered table-striped table-color" id="tableUser">
@@ -90,7 +90,7 @@
 	        	tableUser.$('tr.selected').removeClass('selected');
 	        	$(this).addClass('selected');
 	        	var id = $(this).find('#idTableUser').val();
-	          	window.location.href = "/admin/master/user/"+id+"/edit";
+	          	window.location.href = "/master/user/"+id+"/edit";
 	      	}
     	});
 

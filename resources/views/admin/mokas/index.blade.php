@@ -14,7 +14,7 @@
 				<div class="box-body">
 					<div class="col-md-12 box-body-header">
 						<div class="col-md-8">
-							<a href="{{ route('admin.mokas.create') }}" class="btn btn-default">
+							<a href="{{ route('mokas.create') }}" class="btn btn-default">
 					    		<i class="fa fa-plus" aria-hidden="true"></i> New
 					    	</a>
 							<button type="button" class="btn btn-default" onclick="deleteMokas()">
@@ -39,7 +39,7 @@
 			            </div>
 		            </div>
 
-		            {!! Form::open(['route'=>'admin.mokas.delete', 'id'=>'formDeleteMokas']) !!}
+		            {!! Form::open(['route'=>'mokas.delete', 'id'=>'formDeleteMokas']) !!}
 		            <table class="table table-bordered table-striped table-color" id="tableMokas">
 		            	<thead>
 		            		<th><input type="checkbox" id="check_all" /></th>
@@ -103,7 +103,7 @@
 
 		        var id = $(this).find('#idTableMokas').val();
 
-		        window.location.href = "/admin/mokas/"+id+"/edit";
+		        window.location.href = "/mokas/"+id+"/edit";
 	    	}
 	    });
 

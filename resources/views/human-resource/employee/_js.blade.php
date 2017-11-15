@@ -1,6 +1,6 @@
 <script type="text/javascript">
   var checkload = true;
-	var upload_url = "/api/profile/";
+	var upload_url = "/api/v1/profile/";
   var id_employee = 0;
 	/*dropzone*/
 	var myDropzone = new Dropzone(document.body, { 
@@ -70,7 +70,7 @@
 
 	function createNo(){
 		$.ajax({
-      url: '/api/human-resource/employee/create-nip',
+      url: '{{ route('api.human-resource.employee.createnip') }}',
       type: 'POST',
       success: function(response){
         console.log(response);
@@ -88,7 +88,7 @@
     var id = $("input[name=id]").val();
     
     $.ajax({
-      url: '/api/human-resource/employee/'+id,
+      url: '/api/v1/human-resource/employee/'+id,
       type: 'GET',
       success: function(response){
         $('#profile_img').attr('src', upload_url+response.data.employee_pictures[0].id + '?' + new Date().getTime());

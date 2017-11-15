@@ -1,7 +1,7 @@
 @extends('layout.admin')
 
 @section('content')
-    {!! Form::model($cash ,['route'=>['admin.cash.update', $cash->id],'id'=>'formCash', 'method'=>'PUT']) !!}
+    {!! Form::model($cash ,['route'=>['cash.update', $cash->id],'id'=>'formCash', 'method'=>'PUT']) !!}
     <div class="row">
         <div class="col-md-12">
             @include('admin.cash._form',['edit'=>true])

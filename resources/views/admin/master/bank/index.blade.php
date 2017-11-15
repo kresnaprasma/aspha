@@ -15,7 +15,7 @@
 				<div class="box-body">
 					<div class="col-md-12 box-body-header">
 					   <div class="col-md-8">
-					      <button type="button" class="btn btn-default" onclick="addBank()">
+					      <button type="button" class="btn btn-default" onclick="AddBank()">
 					      	<i class="fa fa-plus" aria-hidden="true"></i> New
 					      </button>
 					      <button type="button" class="btn btn-default" onclick="deleteBank()">
@@ -28,7 +28,7 @@
 					         <ul class="dropdown-menu">
 					            <li><a href="#">Print</a></li>
 					            <li><a href="#">Import</a></li>
-					            <li><a href="{{ url('admin/loan/xls') }}">Export</a></li>
+					            <li><a href="{{ url('loan/xls') }}">Export</a></li>
 					            <li role="separator" class="divider"></li>
 					            <li><a href="#">Find</a></li>
 					         </ul>
@@ -39,7 +39,7 @@
 				   		</div>
 					</div>
 
-					{!! Form::open(['route'=>'admin.master.bank.delete', 'id'=>'formDeleteBank']) !!}
+					{!! Form::open(['route'=>'master.bank.delete', 'id'=>'formDeleteBank']) !!}
 					<div>
 
 					    @if ($message = Session::get('success'))
@@ -79,7 +79,7 @@
 		</div>
 	</div>
 
-	
+	@include('admin.master.bank._modal')
 @stop
 
 
@@ -106,17 +106,16 @@
 	          	var name = $(this).find('#nameTableBank').val();
 	          	var alias = $(this).find('#aliasTableBank').val();
 
-	          	editBank(id, name, alias);
+	          	EditBank(id, name, alias);
 	      	}
     	});
 
-    	function addBank() {
+    	function AddBank() {
       		$("#createBankModal").modal("show");
     	}
 
-    	function editBank(id, name, alias) {
-    		console.log(id+name+alias);
-      		$("#editBankForm").attr('action', '/admin/master/bank/' + id);
+    	function EditBank(id, name, alias) {
+      		$("#editBankForm").attr('action', '/master/bank/' + id);
       		$("#nameBank").val(name);
       		$("#aliasBank").val(alias)
       		$("#editBankModal").modal("show");

@@ -126,6 +126,6 @@ class RoleController extends Controller
             $user->delete();
         }
 
-        return redirect('/admin/master/role')->with('success', 'Successfully delete Role');
+        return redirect('/master/role')->with('success', 'Successfully delete Role');
     }
 }

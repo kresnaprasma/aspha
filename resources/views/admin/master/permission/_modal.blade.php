@@ -9,7 +9,7 @@
 				<h4 class="modal-title" id="CreateColor">Create Role</h4>
 			</div>
 			<div class="modal-body">
-				{!! Form::open(['route'=> 'admin.master.permission.store']) !!}
+				{!! Form::open(['route'=> 'master.permission.store']) !!}
 					<div class="form-group">
 						{!! Form::label('name', 'Name') !!}
 						{!! Form::text('name', null,['class'=>'form-control']) !!}
@@ -37,7 +37,7 @@
 				<h4 class="modal-title" id="EditType">Edit Role</h4>
 			</div>
 			<div class="modal-body">
-				{!! Form::open(['url'=> '/admin/master/permission/','method'=>"PATCH",'id'=>'editPermissionForm']) !!}
+				{!! Form::open(['url'=> '/master/permission/','method'=>"PATCH",'id'=>'editPermissionForm']) !!}
 					<div class="form-group">
 						{!! Form::label('name', 'Name') !!}
 						{!! Form::text('name', null,['class'=>'form-control','id'=>'namePermission']) !!}
@@ -66,7 +66,7 @@
 			<div class="modal-body">
 				<p class="lead">
             	<i class="fa fa-question-circle fa-lg"></i>  
-            		Are you sure you want to delete Permission's?
+            		Are you sure you want to delete Permissions?
           		</p>
 			</div>
 			<div class="modal-footer">

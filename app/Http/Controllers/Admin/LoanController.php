@@ -103,7 +103,7 @@ class LoanController extends Controller
         if (!$custcoll || !$cash) {
             return redirect()->back()->withInput()->withErrors('Cannot Create Loan');
         }else{
-            return redirect('admin/loan/')->with('success', 'Successfully create Loan');
+            return redirect('loan/')->with('success', 'Successfully create Loan');
         }
 
     }
@@ -174,7 +174,7 @@ class LoanController extends Controller
             return redirect()->back()->withInput()->withErrors('
                 Cant update Customer Collateral' );
         }else{
-            return redirect('/admin/loan/')->with('success', 'Successfully update Customer Collateral');
+            return redirect('/loan/')->with('success', 'Successfully update Customer Collateral');
         }
     }
 

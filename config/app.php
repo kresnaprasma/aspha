@@ -183,6 +183,7 @@ return [
         Maatwebsite\Excel\ExcelServiceProvider::class,
         EloquentFilter\ServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
+        Barryvdh\Cors\ServiceProvider::class,
     ],
 
     /*

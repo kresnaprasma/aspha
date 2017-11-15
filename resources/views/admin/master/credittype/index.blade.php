@@ -8,12 +8,11 @@
           <h3 class="box-title">Credit Type</h3>
           <div class="box-tools pull-right">
             <button class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse"><i class="fa fa-minus"></i></button>
-            {{-- <button class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove"><i class="fa fa-times"></i></button> --}}
           </div>
         </div>
 
         <div class="box-body">
-          <div class="col-md-12 box-body-header">  
+          <div class="col-md-12 box-body-header">
             <div class="col-md-8">
               <button type="button" class="btn btn-default" onclick="AddCreditType()">
                 <i class="fa fa-plus" aria-hidden="true"></i> New
@@ -40,7 +39,7 @@
             </div>
           </div>
 
-          {!! Form::open(['route'=>'admin.master.credittype.delete', 'id'=>'formDeleteCreditType']) !!}
+          {!! Form::open(['route'=>'master.credittype.delete', 'id'=>'formDeleteCreditType']) !!}
           <table class="table table-bordered table-striped table-color" id="tableCreditType">
             <thead>
               <th><input type="checkbox" id="check_all"/></th>
@@ -104,7 +103,7 @@
     }
 
     function EditCreditType(id, name) {
-      $("#editCreditType").attr('action', '/admin/master/credittype/' + id);
+      $("#editCreditType").attr('action', '/master/credittype/' + id);
       $('#idCreditType').val(id);
       $("#nameCreditType").val(name);
       $("#editCreditTypeModal").modal("show");

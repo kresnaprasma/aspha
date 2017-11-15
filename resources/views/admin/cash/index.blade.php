@@ -15,7 +15,7 @@
 				<div class="box-body">
 					<div class="col-md-12 box-body-header">
 					   <div class="col-md-8">
-					      <a href="{{ route('admin.cash.create') }}" class="btn btn-default">
+					      <a href="{{ route('cash.create') }}" class="btn btn-default">
 					      	<i class="fa fa-plus" aria-hidden="true"></i> New
 					      </a>
 					      <button type="button" class="btn btn-default" onclick="deleteCash()">
@@ -27,7 +27,7 @@
 				   		</div>
 					</div>
 
-					{!! Form::open(['route'=>'admin.cash.delete', 'id'=>'formDeleteCash']) !!}
+					{!! Form::open(['route'=>'cash.delete', 'id'=>'formDeleteCash']) !!}
 					<div>
 
 					    @if ($message = Session::get('success'))
@@ -108,7 +108,7 @@
 	        	tableCash.$('tr.selected').removeClass('selected');
 	        	$(this).addClass('selected');
 	        	var id = $(this).find('#idTableCash').val();
-	          	window.location.href = "/admin/cash/"+id+"/edit";
+	          	window.location.href = "/cash/"+id+"/edit";
 	      	}
     	});
 

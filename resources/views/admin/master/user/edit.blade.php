@@ -2,7 +2,7 @@
 
 @section('content')
   <section class="content">
-    {!! Form::model($user, ['route' => ['admin.master.user.update', $user->id],'class'=>'form-horizontal','id'=>'formCreateUser','method'=>'PATCH']) !!}
+    {!! Form::model($user, ['route' => ['master.user.update', $user->id],'class'=>'form-horizontal','id'=>'formCreateUser','method'=>'PATCH']) !!}
       @include('admin.master.user._form')
     {!! Form::close() !!}
   </section>

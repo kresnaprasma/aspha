@@ -21,7 +21,7 @@ class CustomerCollateralController extends Controller
     {
         $custcoll = Customercollateral::all();
 
-        return view('admin.loan.custcoll.index', compact('custcoll'));
+        return view('loan.custcoll.index', compact('custcoll'));
     }
 
     /**
@@ -32,7 +32,7 @@ class CustomerCollateralController extends Controller
     public function create()
     {
         $customercollateral_id = Customercollateral::Maxno();
-        return view('admin.loan.custcoll.create', compact('customercollateral_id'));
+        return view('loan.custcoll.create', compact('customercollateral_id'));
     }
 
 
@@ -74,7 +74,7 @@ class CustomerCollateralController extends Controller
         if (!$custcoll) {
             return redirect()->back()->withInput()->withErrors('cannot create Cust. Collateral');
         }else{
-            return redirect('/admin/loan/custcoll')->with('success', 'Successfully create Cust. Collateral');
+            return redirect('/loan/custcoll')->with('success', 'Successfully create Cust. Collateral');
         }
     }
 
@@ -99,7 +99,7 @@ class CustomerCollateralController extends Controller
     {
         $custcoll = Customercollateral::find($id);
 
-        return view('admin.loan.custcoll.edit', compact('custcoll'));
+        return view('loan.custcoll.edit', compact('custcoll'));
     }
 
     /**
@@ -131,7 +131,7 @@ class CustomerCollateralController extends Controller
             return redirect()->back()->withInput()->withErrors('
                 Cant update Customer Collateral' );
         }else{
-            return redirect('/admin/loan/custcoll')->with('success', 'Successfully update Customer Collateral');
+            return redirect('/loan/custcoll')->with('success', 'Successfully update Customer Collateral');
         }
     }
 

@@ -39,7 +39,7 @@
 				   		</div>
 					</div>
 
-					{!! Form::open(['route'=>'admin.master.branch.delete', 'id'=>'formDeleteBranch']) !!}
+					{!! Form::open(['route'=>'master.branch.delete', 'id'=>'formDeleteBranch']) !!}
 					<div>
 
 					    @if ($message = Session::get('success'))
@@ -135,7 +135,7 @@
 
     	function editBranch(id,name,email,address,phone,fax){
     		console.log(id+name+email+address+phone+fax);
-      		$("#editBranchForm").attr('action', '/admin/master/branch/' + id);
+      		$("#editBranchForm").attr('action', '/master/branch/' + id);
 
       		$("#nameBranch").val(name);
       		$("#emailBranch").val(email);

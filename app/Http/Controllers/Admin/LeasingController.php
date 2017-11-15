@@ -20,7 +20,7 @@ class LeasingController extends Controller
     {
         $leasing = Leasing::all();
 
-        return view('admin.loan.leasing.index', compact('leasing'));
+        return view('admin.master.leasing.index', compact('leasing'));
     }
 
     /**
@@ -31,7 +31,7 @@ class LeasingController extends Controller
     public function create()
     {
         $branch_list = Branch::pluck('name', 'id');
-        return view('admin.loan.leasing.create', compact('branch_list'));
+        return view('admin.master.leasing.create', compact('branch_list'));
     }
 
     /**
@@ -70,7 +70,7 @@ class LeasingController extends Controller
         if (!$leasing) {
             return redirect()->back()->withInput()->withErrors('cannot create Leasing');
         }else{
-            return redirect('/admin/loan/leasing')->with('success', 'Successfully create Leasing');
+            return redirect('/master/leasing')->with('success', 'Successfully create Leasing');
         }
         
     }
@@ -98,7 +98,7 @@ class LeasingController extends Controller
 
         $branch_list = Branch::pluck('name', 'id');
 
-        return view('admin.loan.leasing.edit', compact('leasing', 'branch_list'));
+        return view('admin.master.leasing.edit', compact('leasing', 'branch_list'));
     }
 
     /**
@@ -128,7 +128,7 @@ class LeasingController extends Controller
             return redirect()->back()->withInput()->withErrors('
                 Cant update leasing' );
         }else{
-            return redirect('/admin/loan/leasing')->with('success', 'Successfully update leasing');
+            return redirect('/master/leasing')->with('success', 'Successfully update leasing');
         }
     }
 

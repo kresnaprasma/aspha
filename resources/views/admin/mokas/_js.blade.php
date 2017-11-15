@@ -1,17 +1,17 @@
 <script type="text/javascript">
 
     var checkload = true;
-    var customercollateral_no = $('[name=customercollateral_no]').val();
+    var mokas_no = $('[name=mokas_no]').val();
 
     Dropzone.autoDiscover = false;
 
-    var myDropzone = new Dropzone('div#uploadcollateral', {
-        url: "http://localhost:8000/api/v1/uploaddanatunai",
+    var myDropzone =  {
+        url: "http://localhost:8000/api/v1/uploadmokas",
         paramName: 'image',
         parallelUploads: 10,
         maxFilesize: 8,
         previewTemplate: '<div style="display:none"></div>',
-        clickable: '.upload-collateral',
+        clickable: '#FormUploadmokas',
 
         init: function(){
             var myDropzones = this;
@@ -24,7 +24,7 @@
         success: function(file, response, value){
             $('#uploadcollateral').append('<li><a href="/uploaddanatunai/show/'+response.data.nameslug+'" target="_blank">'+get_mime(response.data.mime)+response.data.filename+'<a><span class="pull-right"><a onclick="deleteUpload(this, '+response.data.id+')"><i class="fa fa-times fa-red" aria-hidden="true"></i></a></span></li>');
         }
-    });
+    };
 
     
 

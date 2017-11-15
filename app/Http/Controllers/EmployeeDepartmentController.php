@@ -57,7 +57,7 @@ class EmployeeDepartmentController extends Controller
         if (empty($dept)) {
             return redirect()->back()->withInput()->withError('cannot create Department');
         }else{
-            return redirect('admin/human-resource/department')->with('success', 'Successfully create Department');
+            return redirect('human-resource/department')->with('success', 'Successfully create Department');
         }
     }
 
@@ -109,7 +109,7 @@ class EmployeeDepartmentController extends Controller
         if (empty($dept)) {
             return redirect()->back()->withInput()->withError('cannot update Department');
         }else{
-            return redirect('admin/human-resource/department')->with('success', 'Successfully update Department');
+            return redirect('human-resource/department')->with('success', 'Successfully update Department');
         }
     }
 
