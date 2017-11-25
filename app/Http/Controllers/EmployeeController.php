@@ -60,7 +60,7 @@ class EmployeeController extends Controller
         }
 
         $emp = Employee::find($request->input('id'));
-
+        
         $emp->nip = $request->input('nip');
         $emp->name = $request->input('name');
         $emp->alias = $request->input('alias');

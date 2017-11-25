@@ -19,17 +19,25 @@ class CreateSalesTable extends Migration
 
             $table->string('customer_no');
             $table->foreign('customer_no')->references('customer_no')->on('customers');
+
+            $table->integer('branch_id')->unsigned();
+            $table->foreign('branch_id')->references('id')->on('branches');
             
             $table->string('mokas_number');
+            $table->foreign('mokas_number')->references('mokas_no')->on('mokas');
+
             $table->boolean('ktp');
             $table->boolean('kk');
             $table->string('bank_id');
             $table->string('rek_number');
-            $table->double('others_cost');
+            $table->string('others_cost');
 
 
             $table->enum('payment_method', ['cash', 'credit']);
-            
+            $table->string('down_payment');
+            $table->string('tenor')->nullable();
+            $table->string('payment')->nullable();
+
             $table->string('leasing_no')->nullable();
             $table->foreign('leasing_no')->references('leasing_no')->on('leasings');
             $table->string('cashier');

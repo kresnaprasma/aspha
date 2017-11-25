@@ -37,7 +37,7 @@
                     @else 
                         {!! Form::text('nip',null, ['class'=>'form-control', 'id'=>'nip','autofocus']) !!}
                     @endif
-                    {!! Form::hidden('id', null, ['id'=>'id_employee']) !!}
+                    {!! Form::text('id', null, ['id'=>'id_employee']) !!}
                     @if ($errors->has('nip'))
                         <span class="help-block">
                             <strong>{{ $errors->first('nip') }}</strong>

@@ -10,7 +10,7 @@ class CreateHumanResourcesTable extends Migration
      * Run the migrations.
      *
      * @return void
-     */
+     */ 
     public function up()
     {
         Schema::create('employee_departments', function(Blueprint $table){

@@ -61,7 +61,7 @@
 									</td>
 									<td>{{ $cf->cash_no }}</td>
 									<td>
-										<a class="btn btn-small btn-success" href="{{ URL::to('admin/approve/' . $cf->id) }}">Show</a>
+										<a class="btn btn-small btn-success" href="{{ URL::to('/approve/' . $cf->id) }}">Show</a>
 									</td>
 								</tr>
 							@endforeach

@@ -7,13 +7,7 @@ use Illuminate\Support\Facades\DB;
 
 class MokasChecklist extends Model
 {
-    protected $fillable = ['mokascheck_no', 'mokas_no', 'mesin', 'karburator', 'tutup_oli',
-		'kabel_busi', 'knalpot', 'standar', 'kickstater', 'pijakan_rem', 'pijakan_perseneleng', 'footstep_depan', 
-		'footstep_belakang', 'rantai', 'tutup_rantai','swingarm', 'gear_belakang','rem_depan', 'rem_belakang',
-		'shock_depan', 'shock_belakang','velg_depan', 'velg_belakang', 'tanki_bensin', 'cakram_rem', 'tutup_tanki_bensin', 
-		'kunci_kontak', 'speedo_meter', 'riting_depan','riting_belakang', 'lampu_depan', 'lampu_belakang', 
-		'stang', 'spion', 'slebor_depan', 'slebor_belakang', 'fairing', 'front_guard_sayap', 'body', 
-		'stripbody', 'stnk', 'toolkit', 'filter_udara', 'pegangan_belakang', 'peredam_gas', 'klakson' ];
+    protected $fillable = ['mokascheck_no', 'mokas_no', 'mesin', 'knalpot', 'tutup_oli', 'kabel_busi', 'standar', 'karburator', 'kickstater', 'pijakan_rem', 'pijakan_perseneleng', 'footstep_depan', 'footstep_belakang', 'rantai', 'tutup_rantai','swingarm', 'gear_belakang','rem_depan', 'rem_belakang', 'shock_depan', 'shock_belakang','velg_depan', 'velg_belakang', 'tanki_bensin', 'cakram_rem', 'tutup_tanki_bensin', 'kunci_kontak', 'speedo_meter', 'riting_depan','riting_belakang', 'lampu_depan', 'lampu_belakang', 'stang', 'spion', 'slebor_depan', 'slebor_belakang', 'fairing', 'front_guard_sayap', 'body', 'stripbody', 'stnk', 'toolkit', 'filter_udara', 'pegangan_belakang', 'peredam_gas', 'klakson' ];
 
 	public $incrementing = false;
 

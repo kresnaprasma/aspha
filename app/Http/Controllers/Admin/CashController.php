@@ -75,7 +75,7 @@ class CashController extends Controller
      */
     public function store(Request $request)
     {
-        // return $request->all();
+
         $validator = Validator::make($request->all(), [
             'id' => 'required',
             'credit_ceiling_request' => 'required',
@@ -89,45 +89,38 @@ class CashController extends Controller
             return redirect()->back()->withInput()->withErrors($validator);
         }
 
-        $cash = Cash::find($request->input('id'));
+        $cash = Cash::find($request->input('id_cash'));
 
         $cash->credit_ceiling_request = $request->input('credit_ceiling_request');
         $cash->tenor_request = $request->input('tenor_request');
         $cash->customer_no = $request->input('customer_no');
         $cash->leasing_no = $request->input('leasing_no');
         $cash->branch_id = $request->input('branch_id');
-        $cash->credit_type = $request->input('credit_type');
+        $cash->credittype_id = $request->input('credittype_id');
         $cash->maximum_plafond = $request->input('maximum_plafond');
-        $cash->user_id = auth()->user()->id;
-        $cash->approval = $request->input('approval');
+        $cash->user_id = /*auth()->user()->id*/'2';
+        $cash->approval = false;
         $cash->save();
 
 
-        // if ($cash->credit_ceiling_request <= $cash->maximum_plafond) {
-        //     $cash->save();
-        // }else{
-        //     return redirect()->back()->withInput()->withErrors('cannot create Dana Tunai');
-        // }
+        $cc = Customercollateral::find($request->input('id_collateral'));
 
+        $cc->stnk = $request->input('stnk');
+        $cc->bpkb = $request->input('bpkb');
+        $cc->machine_number = $request->input('machine_number');
+        $cc->chassis_number = $request->input('chassis_number');
+        $cc->vehicle_color = $request->input('vehicle_color');
+        $cc->vehicle_cc  = $request->input('vehicle_cc');
+        $cc->collateral_name = $request->input('collateral_name');
+        $cc->vehicle_date = $request->input('vehicle_date');
+        $cc->stnk_due_date = $request->input('stnk_due_date');
+        $cc->customer_no = $request->input('customer_no');
+        $cc->save();
 
-        // $cc = Customercollateral::find($request->input('id'));
-
-        // $cc->stnk = $request->input('stnk');
-        // $cc->bpkb = $request->input('bpkb');
-        // $cc->machine_number = $request->input('machine_number');
-        // $cc->chassis_number = $request->input('chassis_number');
-        // $cc->vehicle_color = $request->input('vehicle_color');
-        // $cc->vehicle_cc  = $request->input('vehicle_cc');
-        // $cc->collateral_name = $request->input('collateral_name');
-        // $cc->vehicle_date = $request->input('vehicle_date');
-        // $cc->stnk_due_date = $request->input('stnk_due_date');
-        // $cc->customer_no = $request->input('customer_no');
-        // $cc->save();
-
-        if (empty($cash)) {
+        if (empty($cash || $cc)) {
             return redirect()->back()->withInput()->withErrors('cannot create Dana Tunai');
         }else{
-            return redirect('/cash')->with('success', 'Successfully create Dana Tunai');
+          return redirect('/cash')->with('success', 'Successfully create Dana Tunai');
         }
     }
 
@@ -198,11 +191,31 @@ class CashController extends Controller
         }
 
         $cash = Cash::find($id);
-        $cash->update($request->all());
+        
+        $cash->credit_ceiling_request = $request->input('credit_ceiling_request');
+        $cash->tenor_request = $request->input('tenor_request');
+        $cash->customer_no = $request->input('customer_no');
+        $cash->leasing_no = $request->input('leasing_no');
+        $cash->branch_id = $request->input('branch_id');
+        $cash->credittype_id = $request->input('credittype_id');
+        $cash->maximum_plafond = $request->input('maximum_plafond');
+        $cash->user_id = /*auth()->user()->id*/'2';
+        $cash->approval = false;
 
         $col_id = $cash->CustomerCollateral->id;
         $cc = Customercollateral::find($col_id);
-        $cc->update($request->all());
+
+        $cc->stnk = $request->input('stnk');
+        $cc->bpkb = $request->input('bpkb');
+        $cc->machine_number = $request->input('machine_number');
+        $cc->chassis_number = $request->input('chassis_number');
+        $cc->vehicle_color = $request->input('vehicle_color');
+        $cc->vehicle_cc  = $request->input('vehicle_cc');
+        $cc->collateral_name = $request->input('collateral_name');
+        $cc->vehicle_date = $request->input('vehicle_date');
+        $cc->stnk_due_date = $request->input('stnk_due_date');
+        $cc->customer_no = $request->input('customer_no');
+        $cc->save();
 
         if (!$cash) {
             return redirect()->back()->withInput()->withErrors('Cant update cash');

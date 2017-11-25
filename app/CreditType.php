@@ -10,6 +10,6 @@ class CreditType extends Model
 
     public function cash()
     {
-    	return $this->hasMany('App\Cash', 'id');
+    	return $this->hasMany('App\Cash');
     }
 }

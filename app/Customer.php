@@ -26,6 +26,11 @@ class Customer extends Model
         return $this->hasMany('App\Cash', 'customer_no', 'customer_no');
     }
 
+        public function sales()
+    {
+        return $this->hasMany('App\Sales');
+    }
+
     public function scopeMaxno($query)
     {
         $year=substr(date('Y'), 2);

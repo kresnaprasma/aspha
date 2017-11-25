@@ -73,6 +73,6 @@ class Cash extends Model
 
     public function credittype()
     {
-        return $this->belongsTo('App\CreditType', 'id', 'id');
+        return $this->belongsTo('App\CreditType', 'credittype_id', 'id');
     }
 }

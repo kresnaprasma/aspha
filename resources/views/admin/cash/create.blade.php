@@ -15,11 +15,13 @@
 @section('scripts')
     @include('admin.cash._js')
     <script type="text/javascript">
-
     	window.onbeforeunload = function (e) {
-    		var cash_code = $('input[name=cash_no]').val();
-            var collateral_code = $('input[name=customercollateral_no]').val();
 
+    		var cash_code = $('#id_cash').val();
+            var collateral_code = $('input[name=customercollateral_no]').val();
+            // var collateral_code = $('#id_customercollateral').val();
+            
+            // var id = $('#id_cash').val();
     		if(checkload == true) {
     			$.ajax({
     				url: '/api/v1/cash/'+cash_code,
@@ -52,7 +54,11 @@
                 });
             }
     	}
-        createCashNo();
-        createCollateralNo();
+        @if(!$errors->any())
+            createCashNo();
+            createCollateralNo();
+        @else
+
+        @endif
     </script>
 @stop

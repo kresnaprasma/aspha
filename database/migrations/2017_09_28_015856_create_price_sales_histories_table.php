@@ -15,13 +15,14 @@ class CreatePriceSalesHistoriesTable extends Migration
     {
         Schema::create('price_sales_histories', function (Blueprint $table) {
             $table->string('id')->index();
+            $table->primary('id');
             $table->string('pricesaleshistory_no')->unique();
 
-            $table->string('merk_id');
-            $table->string('type_id');
+            $table->integer('merk_id')->unsigned();
+            $table->integer('type_id')->unsigned();
 
-            $table->double('discount');
-            $table->double('price_sale');
+            $table->string('discount');
+            $table->string('price_sale');
             $table->string('user_id');
             $table->timestamps();
         });

@@ -15,6 +15,7 @@ class CreateCustomercollateralsTable extends Migration
     {
         Schema::create('customercollaterals', function (Blueprint $table) {
             $table->string('id')->index();
+            $table->primary('id');
             $table->string('customercollateral_no')->unique();
             $table->string('stnk')->nullable();
             $table->string('bpkb')->nullable();
@@ -26,10 +27,10 @@ class CreateCustomercollateralsTable extends Migration
             $table->string('collateral_name')->nullable();
             $table->foreign('collateral_name')->references('id')->on('types');
 
-            $table->date('vehicle_date')->nullable();
+            $table->string('vehicle_date')->nullable();
             $table->date('stnk_due_date')->nullable();
 
-            $table->string('customer_no');
+            $table->string('customer_no')->nullable();
             $table->foreign('customer_no')->references('customer_no')->on('customers');
             $table->timestamps();
         });

@@ -1,8 +1,13 @@
 {{-- Dana Tunai  --}}
 <div class="box box-primary">
     <div class="box-header with-border">
-        <h3 class="box-title">Cash - <b>{{ App\Cash::Maxno() }}</b>
-            {!! Form::hidden('cash_no', old('cash_no'), ['class'=>'form-control']) !!}
+        <h3 class="box-title">Dana Tunai </b>
+            @if($edit)
+                {!! Form::hidden('cash_no', old('cash_no'), ['class'=>'form-control']) !!}
+            @else
+                {!! Form::hidden('cash_no', null, ['class'=>'form-control']) !!}
+            @endif
+                {!! Form::hidden('id_cash', null, ['class'=>'form-control', 'id'=>'id_cash']) !!}
         </h3>
         <div class="box-tools pull-right">
             <button class="btn btn-box-tool" data-widget="collapse" data-toogle="tooltip" title="Collapse"><i class="fa fa-minus"></i></button>
@@ -11,9 +16,19 @@
     <div class="box-body">
         <div class="row">
             <div class="col-md-4 col-offset-md-1">
+                <div class="form-group{{ $errors->has('cash_no') ? ' has-error' : '' }}">
+                    {!! Form::label('cash_no', "Cash No.") !!}
+                    {!! Form::text('cash_no', old('cash_no'), ['class'=>'form-control','required','id'=>'cash_no', 'readonly' => 'true']) !!}
+                    @if ($errors->has('cash_no'))
+                        <span class="help-block">
+                            <strong>{{ $errors->first('cash_no') }}</strong>
+                        </span>
+                    @endif
+                </div>
+
                 <div class="form-group{{ $errors->has('credit_ceiling_request') ? ' has-error' : '' }}">
                     {!! Form::label('credit_ceiling_request', "Plafond Credit Request") !!}
-                    {!! Form::text('credit_ceiling_request', null, ['class'=>'form-control detail-purchasing','required','autofocus','id'=>'credit_ceiling_request', 'onkeyup'=>'formatNumber(this)', 'onkeypress'=>'formatNumber(this)']) !!}
+                    {!! Form::text('credit_ceiling_request', old('credit_ceiling_request'), ['class'=>'form-control detail-purchasing','required','autofocus','id'=>'credit_ceiling_request', 'onkeyup'=>'formatNumber(this)', 'onkeypress'=>'formatNumber(this)']) !!}
                     @if ($errors->has('credit_ceiling_request'))
                         <span class="help-block">
                             <strong>{{ $errors->first('credit_ceiling_request') }}</strong>
@@ -163,7 +178,12 @@
 <div class="box box-primary">
     <div class="box-header with-border">
         <h3 class="box-title">Collateral</b>
-             {!! Form::hidden('customercollateral_no', old('customercollateral_no'), ['class'=>'form-control']) !!}
+            @if($edit)
+                {{-- {!! Form::text('customercollateral_no', $cash->customercollateral['customercollateral_no'], ['class'=>'form-control']) !!} --}}
+            @else
+                {!! Form::hidden('customercollateral_no', null, ['class'=>'form-control']) !!}
+                {!! Form::hidden('id_collateral', null, ['class'=>'form-control', 'id'=>'id_customercollateral']) !!}
+            @endif
         </h3>
         <div class="box-tools pull-right">
             <button class="btn btn-box-tool" data-widget="collapse" data-toogle="tooltip" title="Collapse"><i class="fa fa-minus"></i></button>
@@ -173,6 +193,15 @@
         <div class="row">
             @if($edit)
                 <div class="col-md-4 col-offset-md-1">
+                    <div class="form-group{{ $errors->has('customercollateral_no') ? ' has-error' : '' }}">
+                        {!! Form::label('customercollateral_no', "Customer Collateral No.") !!}
+                        {!! Form::text('customercollateral_no', $cash->customercollateral->customercollateral_no, ['class'=>'form-control','id'=>'customercollateral_no', 'readonly'=>'true']) !!}
+                        @if ($errors->has('customercollateral_no'))
+                        <span class="help-block">
+                            <strong>{{ $errors->first('customercollateral_no') }}</strong>
+                        </span>
+                        @endif
+                    </div>
                     <div class="form-group{{ $errors->has('stnk') ? ' has-error' : '' }}">
                         {!! Form::label('stnk', "Stnk No.") !!}
                         {!! Form::text('stnk', $cash->customercollateral->stnk, ['class'=>'form-control','id'=>'stnk']) !!}
@@ -212,7 +241,9 @@
                         </span>
                         @endif
                     </div>
-
+                </div>
+                <!-- /.col -->
+                <div class="col-md-4">
                     <div class="form-group{{ $errors->has('vehicle_color') ? ' has-error' : '' }}">
                         {!! Form::label('vehicle_color', "Vehicle Color") !!}
                         {!! Form::select('vehicle_color', $vehicle_colorlist, $cash->customercollateral->vehicle_color, ['class'=>'form-control','id'=>'vehicle_color']) !!}
@@ -222,9 +253,6 @@
                         </span>
                         @endif
                     </div>
-                </div>
-                <!-- /.col -->
-                <div class="col-md-4">
                     <div class="form-group{{ $errors->has('vehicle_cc') ? ' has-error' : '' }}">
                         {!! Form::label('vehicle_cc', "Vehicle CC") !!}
                         {!! Form::select('vehicle_cc', $vehicle_cclist, $cash->customercollateral->vehicle_cc, ['class'=>'form-control','id'=>'vehicle_cc']) !!}
@@ -247,7 +275,7 @@
 
                     <div class="form-group{{ $errors->has('vehicle_date') ? ' has-error' : '' }}">
                         {!! Form::label('vehicle_date', "Vehicle Date") !!}
-                        {!! Form::selectYear('vehicle_date', 2009, date('Y'), $cash->customercollateral->vehicle_date, ['class'=>'form-control','id'=>'vehicle_date']) !!}
+                        {!! Form::text('vehicle_date', $cash->customercollateral->vehicle_date, ['class'=>'form-control','id'=>'vehicle_date']) !!}
                         @if ($errors->has('vehicle_date'))
                         <span class="help-block">
                             <strong>{{ $errors->first('vehicle_date') }}</strong>
@@ -267,6 +295,15 @@
                 </div>
             @else
                 <div class="col-md-4 col-offset-md-1">
+                    <div class="form-group{{ $errors->has('customercollateral_no') ? ' has-error' : '' }}">
+                        {!! Form::label('customercollateral_no', "Customer Collateral No.") !!}
+                        {!! Form::text('customercollateral_no', old('customercollateral_no'), ['class'=>'form-control','id'=>'customercollateral_no', 'readonly'=>'true']) !!}
+                        @if ($errors->has('customercollateral_no'))
+                        <span class="help-block">
+                            <strong>{{ $errors->first('customercollateral_no') }}</strong>
+                        </span>
+                        @endif
+                    </div>
                     <div class="form-group{{ $errors->has('stnk') ? ' has-error' : '' }}">
                         {!! Form::label('stnk', "Stnk No.") !!}
                         {!! Form::text('stnk', old('stnk'), ['class'=>'form-control','id'=>'stnk']) !!}
@@ -306,7 +343,9 @@
                         </span>
                         @endif
                     </div>
-
+                </div>
+                <!-- /.col -->
+                <div class="col-md-4">
                     <div class="form-group{{ $errors->has('vehicle_color') ? ' has-error' : '' }}">
                         {!! Form::label('vehicle_color', "Vehicle Color") !!}
                         {!! Form::select('vehicle_color', $vehicle_colorlist, old('vehicle_color'), ['class'=>'form-control','id'=>'vehicle_color']) !!}
@@ -316,9 +355,6 @@
                         </span>
                         @endif
                     </div>
-                </div>
-                <!-- /.col -->
-                <div class="col-md-4">
                     <div class="form-group{{ $errors->has('vehicle_cc') ? ' has-error' : '' }}">
                         {!! Form::label('vehicle_cc', "Vehicle CC") !!}
                         {!! Form::select('vehicle_cc', $vehicle_cclist, old('vehicle_cc'), ['class'=>'form-control','id'=>'vehicle_cc']) !!}
@@ -346,7 +382,7 @@
 
                     <div class="form-group{{ $errors->has('vehicle_date') ? ' has-error' : '' }}">
                         {!! Form::label('vehicle_date', "Manufactur Year") !!}
-                        {!! Form::selectYear('vehicle_date', 2009, date('Y'), old('vehicle_date'), ['class'=>'form-control','id'=>'vehicle_date', 'readonly' => 'true']) !!}
+                        {!! Form::text('vehicle_date', old('vehicle_date'), ['class'=>'form-control','id'=>'vehicle_date', 'readonly' => 'true']) !!}
                         @if ($errors->has('vehicle_date'))
                         <span class="help-block">
                             <strong>{{ $errors->first('vehicle_date') }}</strong>
@@ -380,23 +416,25 @@
         </div>
     </div>
     <div class="box-body">
-        <button type="button" class="btn btn-default start upload-collateral dz-clickable">
-            <i class="fa fa-upload" aria-hidden="true"> Upload</i>
-        </button>
-        <div id="uploadcollateral">
-            <ul class="list-inline">
-            </ul>
-        </div>
+        @if($edit)
+            <div id="uploadcollateral">
+                <ul class="list-inline"></ul>
+            </div>
+        @else
+            <button type="button" class="btn btn-default start upload-collateral dz-clickable">
+                <i class="fa fa-upload" aria-hidden="true"> Upload</i>
+            </button>
+            <div id="uploadcollateral">
+                <ul class="list-inline"></ul>
+            </div>
+        @endif
     </div>
+
     <div class="box-footer">
         @if($edit)
-            <button type="submit" class="btn btn-primary">
-                Update
-            </button>
+            <button type="button" class="btn btn-primary" onclick="save()">Update</button>
         @else
-            <button type="submit" class="btn btn-primary">
-                Save
-            </button>
+            <button type="button" class="btn btn-primary" onclick="save()">Save</button>
         @endif
     </div>
 </div>

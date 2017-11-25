@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Validator;
 
 use App\Customercollateral;
@@ -90,7 +90,7 @@ class CustomerCollateralController extends Controller
      */
     public function show($id)
     {
-        $customercollateral = CustomerCollateral::find($id);
+        $customercollateral = CustomerCollateral::where('customercollateral_no', $id)->first();
 
         if (!$customercollateral) {
             return response()->json([
@@ -162,13 +162,30 @@ class CustomerCollateralController extends Controller
         ];
     }
 
-    public function getCollateralNo()
+    public function getCollateralNo(Request $request)
     {
         $customercollateral = new Customercollateral();
         $customercollateral->id = Uuid::uuid4()->getHex();
         $customercollateral->customercollateral_no = Customercollateral::Maxno();
+        $customercollateral->machine_number = Uuid::uuid4()->getHex();
+        $customercollateral->chassis_number = Uuid::uuid4()->getHex();
         $customercollateral->save();
 
-        return $customercollateral;
+        return Response::json([
+            'error' => false,
+            'code' => 200,
+            'customercollateral_id' => $customercollateral->id,
+            'customercollateral_no' => $customercollateral->customercollateral_no,
+            'customercollateral_stnk' => $customercollateral->stnk,
+            'customercollateral_bpkb' => $customercollateral->bpkb,
+            'customercollateral_machine_number' => $customercollateral->machine_number,
+            'customercollateral_chassis_number' => $customercollateral->chassis_number,
+            'customercollateral_vehicle_color' => $customercollateral->vehicle_color,
+            'customercollateral_vehicle_cc' => $customercollateral->vehicle_cc,
+            'customercollateral_collateral_name' => $customercollateral->collateral_name,
+            'customercollateral_vehicle_date' => $customercollateral->vehicle_date,
+            'customercollateral_stnk_due_date' => $customercollateral->stnk_due_date,
+            'customercollateral_customer_no' => $customercollateral->customer_no,
+        ], 200);
     }
 }

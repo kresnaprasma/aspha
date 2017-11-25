@@ -1,5 +1,40 @@
 <script type="text/javascript">
 
+    var pricesaleshistoryTable = $('#tablePriceSalesHistory').DataTable({
+        "dom": "rtip",
+            "pageLength": 10,
+            "retrieve": true,
+    });
+
+    $("#searchDtbox").keyup(function() {
+        pricesaleshistoryTable.search($(this).val()).draw();
+    });
+    $('#tablePriceSalesHistory tbody').on('dblclick', 'tr', function () {
+        if ( $(this).hasClass('selected') ) {
+            $(this).removeClass('selected');
+        } else {
+            pricesaleshistoryTable.$('tr.selected').removeClass('selected');
+            $(this).addClass('selected');
+
+            var saleshistory_list = $(this).find('#idtablePriceSalesHistory').val();
+
+            $.ajax({
+                url: 'http://localhost:8000/api/v1/pricesaleshistory/'+ saleshistory_list,
+                type: 'GET',
+                dataType: 'json',
+                success: function (response) {
+                    $('#discountMokas').val(response.data.pricesaleshistory_discount);
+                    $('#selling_priceMokas').val(response.data.pricesaleshistory_sellingprice);
+                },
+                error: function(response) {
+                    alert(response);
+                }
+            });
+
+            $('#viewPriceSalesHistoryModal').modal('hide');
+        }
+    });
+
     var checkload = true;
     var mokas_no = $('[name=mokas_no]').val();
 
@@ -26,53 +61,25 @@
         }
     };
 
-    
-
-    var pricesaleshistoryTable = $('#tablePriceSalesHistory').DataTable({
-        "dom": "rtip",
-            "pageLength": 10,
-            "retrieve": true,
-    });
-
-    $("#searchDtbox").keyup(function() {
-        pricesaleshistoryTable.search($(this).val()).draw();
-    });
-    $('#tablePriceSalesHistory tbody').on('dblclick', 'tr', function () {
-        if ( $(this).hasClass('selected') ) {
-            $(this).removeClass('selected');
-        } else {
-            pricesaleshistoryTable.$('tr.selected').removeClass('selected');
-            $(this).addClass('selected');
-
-            // var saleshistory_list = $(this).find('#idtablePriceSalesHistory').val();
-            // $.ajax({
-            //     url: 'http://localhost:8000/api/v1/mokas/'+ mokas_list,
-            //     type: 'GET',
-            //     dataType: 'json',
-            //     success: function (response) {
-            //         $('#mokas_noSales').val(response.data.mokas_no);
-            //         $('#discountSales').val(response.data.discount);
-            //         $('#selling_priceSales').val(response.data.selling_price);
-            //         $('#type_idSales').val(response.data.type_id);
-            //         $('#stnkSales').val(response.data.stnk);
-            //         $('#bpkbSales').val(response.data.bpkb);
-            //         $('#machine_numberSales').val(response.data.machine_number);
-            //         $('#chassis_numberSales').val(response.data.chassis_number);
-            //         $('#manufacture_yearSales').val(response.data.manufacture_year);
-            //         $('#stnk_due_dateSales').val(response.data.stnk_due_date);
-            //         $('#platSales').val(response.data.plat);
-            //     },
-            //     error: function(response) {
-            //         alert(response);
-            //     }
-            // });
-
-            // $('#viewPriceSalesHistoryModal').modal('hide');
-        }
-    });
 
     function AddPriceSalesHistory() {
         $('#viewPriceSalesHistoryModal').modal('show');
+    }
+
+    function getChecklist(checklist) {
+        $.ajax({
+            url: 'http://localhost:8000/api/v1/mokaschecklist/'+ checklist,
+            type: 'GET',
+            dataType: 'json',
+            success: function (response) {
+                console.log(response.data.mokaschecklist_no);
+                $('#mokascheckform').val(response.data.mokaschecklist_no);
+                $('#mokasform').val(response.data.mokaschecklist_mokas_no);
+            },
+            error: function(response){
+                alert(response);
+            }
+        })     
     }
 
     function formatNumber(input)

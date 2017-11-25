@@ -8,7 +8,7 @@
     			<div class="box-header with-border">
     				<h3 class="box-title">Customer - <b>{{ App\Customer::Maxno() }}</b></h3>
     				<div class="box-tools pull-right">
-                        <a href="/admin/customer/">
+                        <a href="/customer/">
                             {{-- <i aria-hidden="true"></i>
                             <b>Back</b> --}}
                             <span class="glyphicon glyphicon-chevron-left"></span>

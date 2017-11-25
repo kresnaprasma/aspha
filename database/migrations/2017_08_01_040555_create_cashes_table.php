@@ -16,9 +16,9 @@ class CreateCashesTable extends Migration
         Schema::create('cashes', function (Blueprint $table) {
             $table->string('id')->index();
             $table->string('cash_no')->unique();
-            $table->double('credit_ceiling_request')->nullable();
+            $table->string('credit_ceiling_request')->nullable();
             $table->string('tenor_request')->nullable();
-            $table->double('plafond_maximum');
+            $table->string('maximum_plafond')->nullable();
 
             $table->string('customer_no')->nullable();
             $table->foreign('customer_no')->references('customer_no')->on('customers');

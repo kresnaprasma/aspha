@@ -11,8 +11,8 @@ use App\Cash;
 
 use Ramsey\Uuid\Uuid;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Response;
 
 use Auth;
 
@@ -25,11 +25,7 @@ class CashController extends Controller
      */
     public function index()
     {
-        $cashes = cash::all();
-
-        return response()->json([
-            'data'=>$this->transformCollection($cashes)
-        ], 200);
+        //
     }
 
     /**
@@ -40,39 +36,7 @@ class CashController extends Controller
      */
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'vehicle_color'=> 'required',
-            'vehicle_cc' => 'required',
-            'stnk_due_date' => 'required',
-            'tenor' => 'required',
-            'price_request' => 'required',  
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json(
-                [
-                'status'=>'404',
-                'message'=>$validator->errors(),
-                'data'=>[]
-                ], 404
-            );
-        }
-
-        $cash = cash::create($request->all());
-
-        if (!$cash) {
-            return response()->json([
-                'status'=> '404',
-                'message' => 'cannot save this data',
-                'data' => []
-            ],404);
-        }else{
-            return response()->json([
-                'status'=> '200',
-                'message' => 'cash Created Succesfully',
-                'data' => [$this->transform($cash)]
-            ],200);
-        }
+        //
     }
 
     /**
@@ -83,17 +47,17 @@ class CashController extends Controller
      */
     public function show($id)
     {
-        $cash = cash::find($id);
+        $cash = Cash::where('cash_no', $id)->first();
 
         if (!$cash) {
-            return response()->json([
+            return Response()->json([
                 'error'=>[
                     'message' => 'cash does not exist'
                 ]
             ], 404);
         }
 
-        return response()->json([
+        return Response()->json([
             'data'=>$this->transform($cash)
         ], 200);
     }
@@ -132,7 +96,7 @@ class CashController extends Controller
      */
     public function destroy($id)
     {
-        $cash = cash::where('cash_no', $id)->first();
+        $cash = Cash::where('id', $id)->first();
         $cash->delete();
         return $cash;
     }
@@ -156,14 +120,34 @@ class CashController extends Controller
         ];
     }
 
-    public function getNo()
+    public function getNo(Request $request)
     {
         $cash = new Cash();
         $cash->id = Uuid::uuid4()->getHex();
         $cash->cash_no = Cash::Maxno();
-        $cash->user_id = Auth::guard('api')->user('id');
+        $cash->credit_ceiling_request = '0';
+        $cash->tenor_request = '3';
+        $cash->maximum_plafond = '0';
+        $cash->leasing_no = 'LSN17110001';
+        $cash->branch_id = '1';
+        $cash->credittype_id = '1';
+        $cash->user_id = '2';
+        $cash->approval = false;
         $cash->save();
 
-        return $cash;
+        return Response::json([
+            'error' => false,
+            'code' => 200,
+            'cash_id' => $cash->id,
+            'cash_no' => $cash->cash_no,
+            'cash_credit_ceiling_request' => $cash->credit_ceiling_request,
+            'cash_tenor_request' => $cash->tenor_request,
+            'cash_maximum_plafond' => $cash->maximum_plafond,
+            'cash_leasing_no' => $cash->leasing_no,
+            'cash_branch_id' => $cash->branch_id,
+            'cash_credittype_id' => $cash->credittype_id,
+            'cash_user_id' => $cash->user_id,
+            'cash_approval' => $cash->approval,
+        ], 200);
     }
 }

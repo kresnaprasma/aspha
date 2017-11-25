@@ -1,7 +1,7 @@
 {{-- Dana Tunai  --}}
 <div class="box box-primary">
     <div class="box-header with-border">
-        <h3 class="box-title">Cash </h3>
+        <h3 class="box-title">Cash Approval Form </h3>
         <div class="box-tools pull-right">
             <button class="btn btn-box-tool" data-widget="collapse" data-toogle="tooltip" title="Collapse"><i class="fa fa-minus"></i></button>
         </div>
@@ -82,7 +82,6 @@
 
                 <div class="form-group{{ $errors->has('cashfix_no') ? ' has-error' : '' }}">
                     {!! Form::label('cashfix_no', "No. Pinjaman Fix") !!}
-                    {{-- {!! Form::text('cashfix_no', old('cashfix_no'), ['class'=>'form-control','required','autofocus','id'=>'cashfix_no']) !!} --}}
                     {!! Form::text('cashfix_no', $plafondnumber, ['class'=>'form-control', 'readonly'=>'true']) !!}
                     @if ($errors->has('cashfix_no'))
                         <span class="help-block">
@@ -113,7 +112,7 @@
 
                 <div class="form-group{{ $errors->has('payment') ? ' has-error' : '' }}">
                     {!! Form::label('payment', "Angsuran") !!}
-                    {!! Form::text('payment', old('payment'), ['class'=>'form-control','required','id'=>'payment']) !!}
+                    {!! Form::text('payment', old('payment'), ['class'=>'form-control detail-purchasing','required','autofocus','id'=>'payment', 'onkeyup'=>'formatNumber(this)', 'onkeypress'=>'formatNumber(this)']) !!}
                     @if ($errors->has('payment'))
                         <span class="help-block">
                             <strong>{{ $errors->first('payment') }}</strong>
@@ -128,7 +127,7 @@
 
                 <div class="form-group{{ $errors->has('plafond_approve') ? ' has-error' : '' }}">
                     {!! Form::label('plafond_approve', "Plafond Approve") !!}
-                    {!! Form::text('plafond_approve', old('plafond_approve'), ['class'=>'form-control','required','id'=>'plafond_approve']) !!}
+                    {!! Form::text('plafond_approve', old('plafond_approve'), ['class'=>'form-control detail-purchasing','required','autofocus', 'onkeyup'=>'formatNumber(this)', 'onkeypress'=>'formatNumber(this)','id'=>'plafond_approve']) !!}
                     @if ($errors->has('plafond_approve'))
                         <span class="help-block">
                             <strong>{{ $errors->first('plafond_approve') }}</strong>

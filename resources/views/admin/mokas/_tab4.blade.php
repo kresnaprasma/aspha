@@ -1,10 +1,14 @@
 @if($edit)
 	<div class="box-body">
 		<div class="row">
+            <div class="form-group">
+                {!! Form::text('mokascheck_no', old('mokascheck_no'), ['class'=>'form-control', 'readonly'=>'true', 'id'=>'mokascheckform']) !!}
+                {!! Form::text('mokas_no', old('mokas_no'), ['class'=>'form-control', 'readonly'=>'true', 'id'=>'mokasform']) !!}
+            </div>
 	    	<div class="col-md-3">
     			<div class="checkbox">
     				<label>
-    					{!! Form::checkbox('mesin', 1) !!} Mesin
+    					{!! Form::checkbox($mokas->mokas_checklists['mesin'], 1) !!} Mesin
     				</label>
     			</div>
     			<div class="checkbox">
@@ -233,8 +237,9 @@
 	</div>
 @else
 	<div class="box-header">
-		<h3 class="box-title">Checklist - <b>{{ App\MokasChecklist::Maxno() }}</b>
-            {!! Form::hidden('mokascheck_no', old('mokascheck_no'), ['class'=>'form-control']) !!}
+		<h3 class="box-title">Motor Checklist</b>
+            {!! Form::hidden('mokascheck_no', App\MokasChecklist::Maxno(), ['class'=>'form-control', 'readonly'=>'true']) !!}
+            {!! Form::hidden('mokas_no', App\Mokas::Maxno(), ['class'=>'form-control', 'readonly'=>'true']) !!}
         </h3>
 	</div>
 	<div class="box-body">
@@ -242,57 +247,57 @@
 	    	<div class="col-md-3">
     			<div class="checkbox">
     				<label>
-    					{!! Form::checkbox('Mesin', 1) !!} Mesin
+    					{!! Form::checkbox('mesin', 1) !!} Mesin
     				</label>
     			</div>
     			<div class="checkbox">
     				<label>
-    					{!! Form::checkbox('Karburator', 1) !!} Karburator
+    					{!! Form::checkbox('karburator', 1) !!} Karburator
     				</label>
     			</div>
     			<div class="checkbox">
     				<label>
-    					{!! Form::checkbox('Tutup Oli', 1) !!} Tutup Oli
+    					{!! Form::checkbox('tutup_oli', 1) !!} Tutup Oli
     				</label>
     			</div>
     			<div class="checkbox">
     				<label>
-    					{!! Form::checkbox('Kabel Busi', 1) !!} Kabel Busi
+    					{!! Form::checkbox('kabel_busi', 1) !!} Kabel Busi
     				</label>
     			</div>
     			<div class="checkbox">
     				<label>
-    					{!! Form::checkbox('Knalpot', 1) !!} Knalpot
+    					{!! Form::checkbox('knalpot', 1) !!} Knalpot
     				</label>
     			</div>
     			<div class="checkbox">
     				<label>
-    					{!! Form::checkbox('Standar', 1) !!} Standar
+    					{!! Form::checkbox('standar', 1) !!} Standar
     				</label>
     			</div>
     			<div class="checkbox">
     				<label>
-    					{!! Form::checkbox('Kick Stater', 1) !!} Kick Stater
+    					{!! Form::checkbox('kickstater', 1) !!} Kick Stater
     				</label>
     			</div>
     			<div class="checkbox">
     				<label>
-    					{!! Form::checkbox('Pijakan Rem', 1) !!} Pijakan Rem
+    					{!! Form::checkbox('pijakan_rem', 1) !!} Pijakan Rem
     				</label>
     			</div>
     			<div class="checkbox">
     				<label>
-    					{!! Form::checkbox('Pijakan Perseneleng', 1) !!} Pijakan Perseneleng
+    					{!! Form::checkbox('pijakan_perseneleng', 1) !!} Pijakan Perseneleng
     				</label>
     			</div>
     			<div class="checkbox">
     				<label>
-    					{!! Form::checkbox('Foot Step Depan', 1) !!} Foot Step Depan
+    					{!! Form::checkbox('footstep_depan', 1) !!} Foot Step Depan
     				</label>
     			</div>
     			<div class="checkbox">
     				<label>
-    					{!! Form::checkbox('Foot Step Belakang', 1) !!} Foot Step Belakang
+    					{!! Form::checkbox('footstep_belakang', 1) !!} Foot Step Belakang
     				</label>
     			</div>
     		</div>
@@ -304,94 +309,94 @@
     			</div>
     			<div class="checkbox">
     				<label>
-    					{!! Form::checkbox('tutup rantai', 1) !!} Tutup Rantai
+    					{!! Form::checkbox('tutup_rantai', 1) !!} Tutup Rantai
     				</label>
     			</div>
     			<div class="checkbox">
     				<label>
-    					{!! Form::checkbox('swing arm', 1) !!} Swing Arm
+    					{!! Form::checkbox('swingarm', 1) !!} Swing Arm
     				</label>
     			</div>
     			<div class="checkbox">
     				<label>
-    					{!! Form::checkbox('gear belakang', 1) !!} Gear Belakang
+    					{!! Form::checkbox('gear_belakang', 1) !!} Gear Belakang
     				</label>
     			</div>
     			<div class="checkbox">
     				<label>
-    					{!! Form::checkbox('rem depan', 1) !!} Rem Depan
+    					{!! Form::checkbox('rem_depan', 1) !!} Rem Depan
     				</label>
     			</div>	
     			<div class="checkbox">
     				<label>
-    					{!! Form::checkbox('rem belakang', 1) !!} Rem Belakang
+    					{!! Form::checkbox('rem_belakang', 1) !!} Rem Belakang
     				</label>
     			</div>
     			<div class="checkbox">
     				<label>
-    					{!! Form::checkbox('shock depan', 1) !!} Shock Depan
+    					{!! Form::checkbox('shock_depan', 1) !!} Shock Depan
     				</label>
     			</div>
     			<div class="checkbox">
     				<label>
-    					{!! Form::checkbox('shock belakang', 1) !!} Shock Belakang
+    					{!! Form::checkbox('shock_belakang', 1) !!} Shock Belakang
     				</label>
     			</div>
     			<div class="checkbox">
     				<label>
-    					{!! Form::checkbox('velg depan', 1) !!} Velg Depan
+    					{!! Form::checkbox('velg_depan', 1) !!} Velg Depan
     				</label>
     			</div>
     			<div class="checkbox">
     				<label>
-    					{!! Form::checkbox('velg belakang', 1) !!} Velg Belakang
+    					{!! Form::checkbox('velg_belakang', 1) !!} Velg Belakang
     				</label>
     			</div>
     			<div class="checkbox">
     				<label>
-    					{!! Form::checkbox('tanki bensin', 1) !!} Tanki Bensin
+    					{!! Form::checkbox('tanki_bensin', 1) !!} Tanki Bensin
     				</label>
     			</div>
 	    	</div>
 	    	<div class="col-md-3">  
 	    		<div class="checkbox">
     				<label>
-    					{!! Form::checkbox('cakram rem', 1) !!} Cakram Rem
+    					{!! Form::checkbox('cakram_rem', 1) !!} Cakram Rem
     				</label>
     			</div>
     			<div class="checkbox">
     				<label>
-    					{!! Form::checkbox('tutup tanki bensin', 1) !!} Tutup Tanki Bensin
+    					{!! Form::checkbox('tutup_tanki_bensin', 1) !!} Tutup Tanki Bensin
     				</label>
     			</div>
     			<div class="checkbox">
     				<label>
-    					{!! Form::checkbox('kunci kontak', 1) !!} Kunci Kontak
+    					{!! Form::checkbox('kunci_kontak', 1) !!} Kunci Kontak
     				</label>
     			</div>
     			<div class="checkbox">
     				<label>
-    					{!! Form::checkbox('speedo meter', 1) !!} Speedo Meter
+    					{!! Form::checkbox('speedo_meter', 1) !!} Speedo Meter
     				</label>
     			</div>
     			<div class="checkbox">
     				<label>
-    					{!! Form::checkbox('riting depan', 1) !!} Riting Depan
+    					{!! Form::checkbox('riting_depan', 1) !!} Riting Depan
     				</label>
     			</div>
     			<div class="checkbox">
     				<label>
-    					{!! Form::checkbox('riting belakang', 1) !!} Riting Belakang
+    					{!! Form::checkbox('riting_belakang', 1) !!} Riting Belakang
     				</label>
     			</div>			
     			<div class="checkbox">
     				<label>
-    					{!! Form::checkbox('lampu depan', 1) !!} Lampu Depan
+    					{!! Form::checkbox('lampu_depan', 1) !!} Lampu Depan
     				</label>
     			</div>
     			<div class="checkbox">
     				<label>
-    					{!! Form::checkbox('lampu belakang', 1) !!} Lampu Belakang
+    					{!! Form::checkbox('lampu_belakang', 1) !!} Lampu Belakang
     				</label>
     			</div>
     			<div class="checkbox">
@@ -406,14 +411,14 @@
     			</div>
     			<div class="checkbox"> 
     				<label>
-    					{!! Form::checkbox('slebor depan', 1) !!} Slebor Depan
+    					{!! Form::checkbox('slebor_depan', 1) !!} Slebor Depan
     				</label>
     			</div>
     		</div>
     		<div class="col-md-3">
     			<div class="checkbox">
     				<label>
-    					{!! Form::checkbox('slebor belakang', 1) !!} Slebor Belakang
+    					{!! Form::checkbox('slebor_belakang', 1) !!} Slebor Belakang
     				</label>
     			</div>
     			<div class="checkbox">
@@ -423,7 +428,7 @@
     			</div>
     			<div class="checkbox">
     				<label>
-    					{!! Form::checkbox('front guard sayap', 1) !!} Front Guard Sayap
+    					{!! Form::checkbox('front_guard_sayap', 1) !!} Front Guard Sayap
     				</label>
     			</div>
     			<div class="checkbox"> 
@@ -433,32 +438,32 @@
     			</div>
     			<div class="checkbox"> 
     				<label>
-    					{!! Form::checkbox('Strip body', 1) !!} Strip Body
+    					{!! Form::checkbox('stripbody', 1) !!} Strip Body
     				</label>
     			</div>
     			<div class="checkbox"> 
     				<label>
-    					{!! Form::checkbox('STNK', 1) !!} STNK
+    					{!! Form::checkbox('stnk', 1) !!} STNK
     				</label>
     			</div>
     			<div class="checkbox"> 
     				<label>
-    					{!! Form::checkbox('tool kit', 1) !!} Tool Kit
+    					{!! Form::checkbox('toolkit', 1) !!} Tool Kit
     				</label>
     			</div>
     			<div class="checkbox"> 
     				<label>
-    					{!! Form::checkbox('filter udara', 1) !!} Filter Udara
+    					{!! Form::checkbox('filter_udara', 1) !!} Filter Udara
     				</label>
     			</div>
     			<div class="checkbox"> 
     				<label>
-    					{!! Form::checkbox('pegangan belakang', 1) !!} Pegangan Belakang
+    					{!! Form::checkbox('pegangan_belakang', 1) !!} Pegangan Belakang
     				</label>
     			</div>
     			<div class="checkbox"> 
     				<label>
-    					{!! Form::checkbox('peredam gas', 1) !!} Peredam Gas
+    					{!! Form::checkbox('peredam_gas', 1) !!} Peredam Gas
     				</label>
     			</div>
     			<div class="checkbox"> 

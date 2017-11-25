@@ -5,7 +5,7 @@
 		<div class="col-md-12">
 			<div class="box box-primary">
 				<div class="box-header with-border">
-				   <h3 class="box-title">Dana Tunai Approve</h3>
+				   <h3 class="box-title">Datun Inbox</h3>
 				   <div class="box-tools pull-right">
 				      <button class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse"><i class="fa fa-minus"></i></button>
 				      <button class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove"><i class="fa fa-times"></i></button>
@@ -108,7 +108,7 @@
 	        	tableApprove.$('tr.selected').removeClass('selected');
 	        	$(this).addClass('selected');
 	        	var id = $(this).find('#idTableApprove').val();
-	          	window.location.href = "/admin/approve/"+id+"/edit";
+	          	window.location.href = "/approve/"+id+"/edit";
 	          	/*window.location.href = "/admin/approve/create";*/
 	      	}
     	});

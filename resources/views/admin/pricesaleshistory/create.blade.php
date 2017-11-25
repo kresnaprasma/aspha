@@ -22,7 +22,7 @@
             var merkID = $(this).val();
             if(merkID) {
                 $.ajax({
-                    url: '/admin/pricesaleshistory/type/'+merkID,
+                    url: '/pricesaleshistory/type/'+merkID,
                     type: "GET",
                     dataType: "json",
                     success:function(data) {

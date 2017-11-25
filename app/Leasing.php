@@ -56,4 +56,9 @@ class Leasing extends Model
     {
         return $this->hasMany('App\Cashfix', 'leasing_no');
     }
+
+    public function sales()
+    {
+        return $this->hasMany('App\Sales', 'leasing_no');
+    }
 }

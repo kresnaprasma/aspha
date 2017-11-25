@@ -59,44 +59,44 @@
         }
     });
 
-        var tableVehicleCollateral = $('#tableVehicleCollateral').DataTable({
-            'sDom': 'rt',
-            'columnDefs': [{
-                'targets': [],
-                'orderable': false
-            }]
-        });
+    var tableVehicleCollateral = $('#tableVehicleCollateral').DataTable({
+        'sDom': 'rt',
+        'columnDefs': [{
+            'targets': [],
+            'orderable': false
+        }]
+    });
 
-        $('#searchDtbox').keyup(function() {
-            tableVehicleCollateral.search($(this).val()).draw();
-        });
-        $('#tableVehicleCollateral tbody').on('dblclick', 'tr', function() {
-            if ( $(this).hasClass('selected')) {
-                $(this).removeClass('selected');
+    $('#searchDtbox').keyup(function() {
+        tableVehicleCollateral.search($(this).val()).draw();
+    });
+    $('#tableVehicleCollateral tbody').on('dblclick', 'tr', function() {
+        if ( $(this).hasClass('selected')) {
+            $(this).removeClass('selected');
 
-                var vehiclecollateral_list = $(this).find('#idtableVehicleCollateral').val();
+            var vehiclecollateral_list = $(this).find('#idtableVehicleCollateral').val();
 
-                    $.ajax({
-                        url: 'http://localhost:8000/api/v1/vehiclecollateral/'+vehiclecollateral_list,
-                        type: 'GET',
-                        dataType: 'json',
-                            success: function (response) {
-                                console.log(response.data.id);
-                                $('#collateral_name').val(response.data.type_id);
-                                $('#vehicle_date').val(response.data.vehicle_date);
-                                $('#maxplafondCash').val(response.data.vehicle_price);
-                            },
-                            error: function(response){
-                                alert(response);
-                        }
-                    })
-                $('#tableVehicleCollateral').modal('hide');
-                
-                } else {
-                    tableVehicleCollateral.$('tr.selected').removeClass('selected');
-                    $(this).addClass('selected');
-                }
-        });
+                $.ajax({
+                    url: 'http://localhost:8000/api/v1/vehiclecollateral/'+vehiclecollateral_list,
+                    type: 'GET',
+                    dataType: 'json',
+                        success: function (response) {
+                            console.log(response.data.collateral_id);
+                            $('#collateral_name').val(response.data.type_id);
+                            $('#vehicle_date').val(response.data.vehicle_date);
+                            $('#maxplafondCash').val(response.data.vehicle_price);
+                        },
+                        error: function(response){
+                            alert(response);
+                    }
+                })
+            
+            } else {
+                tableVehicleCollateral.$('tr.selected').removeClass('selected');
+                $(this).addClass('selected');
+            }
+        $('#viewVehicleModal').modal('hide');
+    });
 
 
     $(".customer_select2").select2({
@@ -134,47 +134,6 @@
         $('#viewVehicleModal').modal('show');
     }
 
-    // function getVehicleList() {
-    //     var tableVehicleCollateral = $('#tableVehicleCollateral').DataTable({
-    //         'sDom': 'rt',
-    //         'columnDefs': [{
-    //             'targets': [],
-    //             'orderable': false
-    //         }]
-    //     });
-
-    //     $('#searchDtbox').keyup(function() {
-    //         tableVehicleCollateral.search($(this).val()).draw();
-    //     });
-    //     $('#tableVehicleCollateral tbody').on('dblclick', 'tr', function() {
-    //         if ( $(this).hasClass('selected')) {
-    //             $(this).removeClass('selected');
-    //         } else {
-    //             tableVehicleCollateral.$('tr.selected').removeClass('selected');
-    //             $(this).addClass('selected');
-
-    //             // var id = $(this).find('#idtableVehicleCollateral').val();
-    //             // window.location.href = "/admin/master/vehiclecollateral/"+id+"/edit";
-    //             var vehiclecollateral_list = $(this).find('#idtableVehicleCollateral').val();
-
-    //             $.ajax({
-    //                 url: 'http://localhost:8000/api/v1/vehiclecollateral/'+vehiclecollateral_list,
-    //                 type: 'GET',
-    //                 dataType: 'json',
-    //                     success: function (response) {
-    //                         console.log(response.data.id);
-    //                         $('#collateral_name').val(response.data.type_id);
-    //                         $('#stnk_due_date').val(response.data.vehicle_date);
-    //                         $('#maximum_plafond').val(response.data.vehicle_price);
-    //                     },
-    //                     error: function(response){
-    //                         alert(response);
-    //                 }
-    //             })
-    //         }
-    //     });
-    // }
-
     $('#addcustomerloan').click(function() {
         $.ajax({
             type: 'post',
@@ -202,8 +161,11 @@
             url: '/api/v1/cash/no',
             type: 'GET',
             success: function(response) {
-                console.log(response.cash_no);                
+                console.log(response);
+                $('#id_cash').val(response.cash_id);              
                 $('input[name=cash_no]').val(response.cash_no);
+                $('input[name=credit_ceiling_request]').val(response.cash_credit_ceiling_request);
+                id_cash = response.cash_id;
             }
         })   
     }
@@ -213,11 +175,20 @@
             url: '/api/v1/customercollateral/no',
             type: 'GET',
             success: function(response){
-                console.log(response.customercollateral_no);
+                console.log(response);
+                $('#id_customercollateral').val(response.customercollateral_id);
                 $('input[name=customercollateral_no]').val(response.customercollateral_no);
                 $('input[name=customer_no]').val(response.customer_no);
+                id_customercollateral = response.customercollateral_id;
             }
         })
+    }
+
+    function save() {
+        checkload = false;
+        
+        $('.form-control').prop('disabled',false);
+        $('#formCash').submit();
     }
 
     function deleteUpload(value, id) {
@@ -266,8 +237,7 @@
         $('#UploadColalteral ul').append(markup);
     }
 
-    function formatNumber(input)
-    {
+    function formatNumber(input){
         var num = input.value.replace(/\,/g,'');
         if(!isNaN(num))
         {

@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\DB;
 
 class Sales extends Model
 {
-    protected $fillable = ['sales_no', 'customer_no', 'mokas_number', 'ktp', 'kk', 'bank_id', 'rek_number', 'others_cost', 'payment_method', 'down_payment', 'tenor', 'payment', 'mokas_number', 'leasing_no', 'cashier'];
+    protected $fillable = ['sales_no', 'customer_no', 'branch_id', 'mokas_number', 'ktp', 'kk', 'bank_id', 'rek_number', 'others_cost', 'payment_method', 'down_payment', 'tenor', 'payment', 'leasing_no', 'cashier'];
 
     public $incrementing = false;
 
@@ -46,5 +46,20 @@ class Sales extends Model
     public function types()
     {
         return $this->belongsTo('App\Type');
+    }
+
+    public function leasings()
+    {
+        return $this->belongsTo('App\Leasing', 'leasing_no', 'leasing_no');
+    }
+
+    public function customers()
+    {
+        return $this->belongsTo('App\Customer', 'customer_no', 'customer_no');
+    }
+
+    public function mokas()
+    {
+        return $this->belongsTo('App\Mokas', 'mokas_number', 'mokas_no');
     }
 }

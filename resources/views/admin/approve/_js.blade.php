@@ -17,7 +17,6 @@
             success: function (response) {
                 console.log(response.data.customer_no);
                 $('#customernoCash').val(response.data.customer_no);
-                /*$('#branchidCash').val(response.data.customer_branch_id);*/
                 $('#customernoLoan').val(response.data.customer_no);
                 $('#nameLoan').val(response.data.customer_name);
                 $('#identity_numberLoan').val(response.data.customer_identity_number);
@@ -39,7 +38,6 @@
             success: function (response){
                 console.log(response.data.customer_no);
                 $('#customernoCash').val(response.data.customer_no);
-                /*$('#branchidCash').val(response.data.customer_branch_id);*/
                 $('#customernoLoan').val(response.data.customer_no);
                 $('#nameLoan').val(response.data.customer_name);
                 $('#identity_numberLoan').val(response.data.customer_identity_number);
@@ -53,4 +51,30 @@
             }
         })
     })
+
+    function formatNumber(input){
+        var num = input.value.replace(/\,/g,'');
+        if(!isNaN(num))
+        {
+            if(num.indexOf('.') > -1)
+            {
+                num = num.split('.');
+                num[0] = num[0].toString().split('').reverse().join('').replace(/(?=\d*\.?)(\d{3})/g,'$1,').split('').reverse().join('').replace(/^[\,]/,'');
+                if(num[1].length > 2)
+                {
+                    num[1] = num[1].substring(0,num[1].length-1);
+                }
+                input.value = num[0]+'.'+num[1];
+            }
+            else
+            {
+                input.value = num.toString().split('').reverse().join('').replace(/(?=\d*\.?)(\d{3})/g,'$1,').split('').reverse().join('').replace(/^[\,]/,'');
+            }
+        }
+        else
+        {
+            alert('You may only enter decimals!');
+            input.value = input.value.substring(0,input.value.length-1);
+        }
+    }
 </script>

@@ -104,14 +104,29 @@
     });
 
 
+    $('#discountSales').attr('disabled', 'disabled');
+    $('#selling_priceSales').attr('disabled', 'disabled');
+    $('#nameSales').attr('disabled', 'disabled');
+    $('#identity_numberSales').attr('disabled', 'disabled');
+    $('#addressSales').attr('disabled', 'disabled');   
+
+    $('#bpkbSales').attr('disabled', 'disabled');
+    $('#stnkSales').attr('disabled', 'disabled');
+    $('#machine_numberSales').attr('disabled', 'disabled');
+    $('#chassis_numberSales').attr('disabled', 'disabled');
+    $('#type_idSales').attr('disabled', 'disabled');
+    $('#manufacture_yearSales').attr('disabled', 'disabled');
+    $('#stnk_due_dateSales').attr('disabled', 'disabled');
+    $('#platSales').attr('disabled', 'disabled');
+
     $('#tenorSales').attr('disabled', 'disabled');
     $('#leasingSales').attr('disabled', 'disabled');
     $('#paymentSales').attr('disabled', 'disabled');
     $('#down_paymentSales').attr('disabled', 'disabled');
 
-    $('select[id="cash_methodSales"]').on('change', function(){
+    $('select[id="payment_methodSales"]').on('change', function(){
         var payment = $(this).val();
-            if (payment == "Credit") {
+            if (payment == "credit") {
                 $('#tenorSales').removeAttr('disabled');
                 $('#leasingSales').removeAttr('disabled');
                 $('#paymentSales').removeAttr('disabled');
@@ -123,7 +138,7 @@
             }
     });
 
-    $("#customer_list").select2({
+    $("#customer_no").select2({
         tags: 'true',
         placeholder: 'Search Customer',
         allowClear: true

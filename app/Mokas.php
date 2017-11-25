@@ -62,8 +62,13 @@ class Mokas extends Model
     {
         return $this->hasMany('App\PriceHistory');
     }
+    
+    public function sales()
+    {
+        return $this->hasMany('App\Sales');
+    }
 
-    public function checklist()
+    public function mokaschecklist()
     {
         return $this->hasOne('App\MokasChecklist');
     }

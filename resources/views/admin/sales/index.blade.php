@@ -46,7 +46,7 @@
 		            		<th>Sales No.</th>
 		            		<th>Cust. Name</th>
 		            		<th>Mokas No.</th>
-		            		<th>Payment_Method</th>
+		            		<th>Payment Method</th>
 		            		<th>Leasing</th>
 		            		<th>Cashier</th>
 		            	</thead>
@@ -57,10 +57,10 @@
 		            			<input type="checkbox" id="idTableSales" name="id[]" class="checkin" value="{{ $sa->id }}">
 		            			</td>
 		            			<td>{{ $sa->sales_no }}</td>
-		            			<td>{{ $sa->customer_name }}</td>
-		            			<td>{{ $sa->mokas_number }}</td>
+		            			<td>{{ $sa->customers['name'] }}</td>
+		            			<td>{{ $sa->mokas->types['name'] }}</td>
 		            			<td>{{ $sa->payment_method }}</td>
-		            			<td>{{ $sa->leaisng_no }}</td>
+		            			<td>{{ $sa->leasings['name'] }}</td>
 		            			<td>{{ $sa->cashier }}</td>
 		            		</tr>
 		            		@endforeach
@@ -93,8 +93,8 @@
 		        salesTable.$('tr.selected').removeClass('selected');
 		        $(this).addClass('selected');
 
-		        var id = $(this).find('#idtableSales').val();
-
+		        var id = $(this).find('#idTableSales').val();
+		        
 		        window.location.href = "/sales/"+id+"/edit";
 	    	}
 	    });

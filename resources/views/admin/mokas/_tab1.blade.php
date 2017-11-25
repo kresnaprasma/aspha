@@ -5,15 +5,18 @@
     <div class="box-body">
         <div class="row">
             <div class="col-md-4 col-lg-offset-1">
-                <div class="form-group">
+                {{-- <div class="form-group">
                     {!! Form::text('mokas_no', old('mokas_no'), ['class'=>'form-control', 'readonly'=>'true']) !!}
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                     {!! Form::label('merk_id', 'Merk:') !!}
-                    {!! Form::text('merk_id', $mokas->merks->name, ['class'=>'form-control', 'readonly'=>'true']) !!}
+                    {!! Form::text('merk_id', $mokas->merks['name'], ['class'=>'form-control', 'readonly'=>'true']) !!}
+                </div> --}}
+                <div class="form-group">
+                    {!! Form::text('mokas_no', old('mokas_no'), ['class'=>'form-control', 'readonly'=>'true']) !!}
                 </div>
                 <div class="form-group">
                     {!! Form::label('type_id', 'Type:') !!}
-                    {!! Form::text('merk_id', $mokas->types->name, ['class'=>'form-control', 'readonly'=>'true']) !!}
+                    {!! Form::text('merk_id', $mokas->types['name'], ['class'=>'form-control', 'readonly'=>'true', 'id'=>'merkMokas']) !!}
                 </div>
                 <div class="form-group{{ $errors->has('sales_id') ? ' has-error' : '' }}">
                     {!! Form::label('sales_id', "Sales Id") !!}
@@ -140,7 +143,7 @@
 
                 <div class="form-group{{ $errors->has('selling_price') ? ' has-error' : '' }}">
                     {!! Form::label('selling_price', "Selling Price") !!}
-                    {!! Form::text('selling_price', old('selling_price'), ['class'=>'form-control detail-purchasing','required','autofocus','id'=>'selling_price', 'onkeyup'=>'formatNumber(this)', 'onkeypress'=>'formatNumber(this)']) !!}
+                    {!! Form::text('selling_price', old('selling_price'), ['class'=>'form-control detail-purchasing','required','autofocus','id'=>'selling_priceMokas', 'onkeyup'=>'formatNumber(this)', 'onkeypress'=>'formatNumber(this)']) !!}
                     @if ($errors->has('selling_price'))
                         <span class="help-block">
                             <strong>{{ $errors->first('selling_price') }}</strong>
@@ -152,7 +155,7 @@
             <div class="col-md-4">
                 <div class="form-group{{ $errors->has('discount') ? ' has-error' : '' }}">
                     {!! Form::label('discount', "Discount") !!}
-                    {!! Form::text('discount', old('discount'), ['class'=>'form-control detail-purchasing','required','autofocus','id'=>'discount', 'onkeyup'=>'formatNumber(this)', 'onkeypress'=>'formatNumber(this)']) !!}
+                    {!! Form::text('discount', old('discount'), ['class'=>'form-control detail-purchasing','required','autofocus','id'=>'discountMokas', 'onkeyup'=>'formatNumber(this)', 'onkeypress'=>'formatNumber(this)']) !!}
                     @if ($errors->has('discount'))
                         <span class="help-block">
                             <strong>{{ $errors->first('discount') }}</strong>

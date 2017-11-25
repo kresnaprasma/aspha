@@ -20,11 +20,8 @@
 		                @endif
 		            </div>
 		            <div class="form-group">
-		            	<div class="input-group">
-		            		{!! Form::label('mokas_number', 'Id Mokas') !!}
-							{!! Form::text('mokas_number', old('mokas_number'), ['class'=>'form-control','required', 'placeholder' => 'Mokas Code', 'id'=>'mokas_noSales', 'readonly'=>'true']) !!}
-		            		}
-		                </div>
+	            		{!! Form::label('mokas_number', 'Id Mokas') !!}
+						{!! Form::text('mokas_number', old('mokas_number'), ['class'=>'form-control','required', 'placeholder' => 'Mokas Code', 'id'=>'mokas_noSales', 'readonly'=>'true']) !!}
 		            </div>
 		            <div class="form-group{{ $errors->has('branch_id') ? ' has-error' : '' }}">
 						{!! Form::label('branch_id', 'Branch') !!}
@@ -105,12 +102,12 @@
 		<div class="box-body">
 			<div class="row">
 				<div class="col-md-6">
-					<div class="form-group{{ $errors->has('cash_method') ? ' has-error' : '' }}">
-		                {!! Form::label('cash_method', "Payment Method") !!}
-		                {!! Form::select('cash_method', ['Cash'=>'Cash','Credit'=>'Credit'], old('cash_method'), ['class'=>'form-control','required', 'id'=>'cash_methodSales', 'placeholder'=>'-- Select Payment Method --']) !!}
-		                @if ($errors->has('cash_method'))
+					<div class="form-group{{ $errors->has('payment_method') ? ' has-error' : '' }}">
+		                {!! Form::label('payment_method', "Payment Method") !!}
+		                {!! Form::select('payment_method', ['cash'=>'cash','credit'=>'credit'], old('payment_method'), ['class'=>'form-control','required', 'id'=>'cash_methodSales', 'placeholder'=>'-- Select Payment Method --']) !!}
+		                @if ($errors->has('payment_method'))
 		                    <span class="help-block">
-		                        <strong>{{ $errors->first('cash_method') }}</strong>
+		                        <strong>{{ $errors->first('payment_method') }}</strong>
 		                    </span>
 		                @endif
 		            </div>
@@ -197,7 +194,7 @@
 	            <div class="col-md-4 col-offset-md-1">
 	                <div class="form-group{{ $errors->has('stnk') ? ' has-error' : '' }}">
 	                    {!! Form::label('stnk', "Stnk No.") !!}
-	                    {!! Form::text('stnk', old('stnk'), ['class'=>'form-control','id'=>'stnkSales', 'readonly'=>'true']) !!}
+	                    {!! Form::text('stnk', $sales->mokas->stnk, ['class'=>'form-control','id'=>'stnkSales', 'readonly'=>'true']) !!}
 	                    @if ($errors->has('stnk'))
 	                    <span class="help-block">
 	                        <strong>{{ $errors->first('stnk') }}</strong>
@@ -207,7 +204,7 @@
 
 	                <div class="form-group{{ $errors->has('bpkb') ? ' has-error' : '' }}">
 	                    {!! Form::label('bpkb', "Bpkb No.") !!}
-	                    {!! Form::text('bpkb', old('bpkb'), ['class'=>'form-control','id'=>'bpkbSales', 'readonly'=>'true']) !!}
+	                    {!! Form::text('bpkb', $sales->mokas->bpkb, ['class'=>'form-control','id'=>'bpkbSales', 'readonly'=>'true']) !!}
 	                    @if ($errors->has('bpkb'))
 	                    <span class="help-block">
 	                        <strong>{{ $errors->first('bpkb') }}</strong>
@@ -217,7 +214,7 @@
 
 	                <div class="form-group{{ $errors->has('machine_number') ? ' has-error' : '' }}">
 	                    {!! Form::label('machine_number', "Machine No.") !!}
-	                    {!! Form::text('machine_number', old('machine_number'), ['class'=>'form-control','id'=>'machine_numberSales', 'readonly'=>'true']) !!}
+	                    {!! Form::text('machine_number', $sales->mokas->machine_number, ['class'=>'form-control','id'=>'machine_numberSales', 'readonly'=>'true']) !!}
 	                    @if ($errors->has('machine_number'))
 	                    <span class="help-block">
 	                        <strong>{{ $errors->first('machine_number') }}</strong>
@@ -227,7 +224,7 @@
 
 	                <div class="form-group{{ $errors->has('chassis_number') ? ' has-error' : '' }}">
 	                    {!! Form::label('chassis_number', "Chassis No.") !!}
-	                    {!! Form::text('chassis_number', old('chassis_number'), ['class'=>'form-control','id'=>'chassis_numberSales', 'readonly'=>'true']) !!}
+	                    {!! Form::text('chassis_number', $sales->mokas->chassis_number, ['class'=>'form-control','id'=>'chassis_numberSales', 'readonly'=>'true']) !!}
 	                    @if ($errors->has('chassis_number'))
 	                    <span class="help-block">
 	                        <strong>{{ $errors->first('chassis_number') }}</strong>
@@ -239,7 +236,7 @@
 	            <div class="col-md-4">
 	            	<div class="form-group{{ $errors->has('type_id') ? ' has-error' : '' }}">
 	                    {!! Form::label('type_id', "Type") !!}
-	                    {!! Form::text('type_id', old('type_id'), ['class'=>'form-control','id'=>'type_idSales', 'readonly'=>'true']) !!}
+	                    {!! Form::text('type_id', $sales->mokas->types['name'], ['class'=>'form-control','id'=>'type_idSales', 'readonly'=>'true']) !!}
 	                    @if ($errors->has('type_id'))
 	                    <span class="help-block">
 	                        <strong>{{ $errors->first('type_id') }}</strong>
@@ -248,7 +245,7 @@
 	                </div>
 	                <div class="form-group{{ $errors->has('manufacture_year') ? ' has-error' : '' }}">
 	                    {!! Form::label('manufacture_year', "Manufactur Year") !!}
-	                    {!! Form::text('manufacture_year', old('manufacture_year'), ['class'=>'form-control','id'=>'manufacture_yearSales', 'readonly' => 'true']) !!}
+	                    {!! Form::text('manufacture_year', $sales->mokas->manufacture_year, ['class'=>'form-control','id'=>'manufacture_yearSales', 'readonly' => 'true']) !!}
 	                    @if ($errors->has('manufacture_year'))
 	                    <span class="help-block">
 	                        <strong>{{ $errors->first('manufacture_year') }}</strong>
@@ -258,7 +255,7 @@
 
 	                <div class="form-group{{ $errors->has('stnk_due_date') ? ' has-error' : '' }}">
 	                    {!! Form::label('stnk_due_date', "Masa Berlaku STNK") !!}
-	                    {!! Form::date('stnk_due_date', old('stnk_due_date'), ['class'=>'form-control','id'=>'stnk_due_dateSales', 'readonly'=>'true']) !!}
+	                    {!! Form::date('stnk_due_date', $sales->mokas->stnk_due_date, ['class'=>'form-control','id'=>'stnk_due_dateSales', 'readonly'=>'true']) !!}
 	                    @if ($errors->has('stnk_due_date'))
 	                    <span class="help-block">
 	                        <strong>{{ $errors->first('stnk_due_date') }}</strong>
@@ -267,7 +264,7 @@
 	                </div>
 	                 <div class="form-group{{ $errors->has('plat') ? ' has-error' : '' }}">
 	                    {!! Form::label('plat', "Plat") !!}
-	                    {!! Form::text('plat', old('plat'), ['class'=>'form-control','id'=>'platSales', 'readonly'=>'true']) !!}
+	                    {!! Form::text('plat', $sales->mokas->plat, ['class'=>'form-control','id'=>'platSales', 'readonly'=>'true']) !!}
 	                    @if ($errors->has('plat'))
 	                    <span class="help-block">
 	                        <strong>{{ $errors->first('plat') }}</strong>
@@ -275,7 +272,7 @@
 	                    @endif
 	                </div>            	
 	            </div>
-	            <div class="col-md-4">
+	            {{-- <div class="col-md-4">
 	            	<div class="form-group{{ $errors->has('picture') ? ' has-error' : '' }}">
 	                    {!! Form::label('picture', "Motor View") !!}
 	                    <img src="storage/MotorBekas/zeus-helmet-logo.png" class="img-responsive" alt="">
@@ -285,7 +282,7 @@
 	                    </span>
 	                    @endif
 	                </div>
-	            </div>
+	            </div> --}}
 	            
 	        </div>
 	    </div>
@@ -295,23 +292,24 @@
 	{{-- Upload Sales --}}
 	<div class="box box-primary">
 	    <div class="box-header with-border">
-	        <h3 class="box-title">Attachment Upload</b></h3>
-	        <input type="text" class="dial" id="dial" value="0" data-width="48" data-height="48" data-fgColor="#0788a5" data-bgColor="#3e4043" style="display: none;" />
+	        <h3 class="box-title">Upload List</b></h3>
+	        {{-- <input type="text" class="dial" id="dial" value="0" data-width="48" data-height="48" data-fgColor="#0788a5" data-bgColor="#3e4043" style="display: none;" />
 	        <div class="box-tools pull-right">
 	            <button class="btn btn-box-tool" data-widget="collapse" data-toogle="tooltip" title="Collapse"><i class="fa fa-minus"></i></button>
-	        </div>
+	        </div> --}}
 	    </div>
 	    <div class="box-body">
-	        <button type="button" class="btn btn-default start upload-collateral dz-clickable">
+
+	        {{-- <button type="button" class="btn btn-default start upload-collateral dz-clickable">
 	            <i class="fa fa-upload" aria-hidden="true"> Upload</i>
 	        </button>
 	        <div id="uploadcollateral">
 	            <ul class="list-inline">
 	            </ul>
-	        </div>
+	        </div> --}}
 	    </div>
 	    <div class="box-footer">
-			{!! Form::submit('save' , ['class' =>'btn btn-primary']) !!}
+			{!! Form::submit('update' , ['class' =>'btn btn-primary']) !!}
 		</div>
 	</div>
 @else
@@ -335,21 +333,25 @@
 		                    </span>
 		                @endif
 		            </div>
-		            <div class="col-md-3">
-		            	<div class="checkbox">
-			            	<label>
-			            		{!! Form::checkbox('ktp',1) !!} <b>KTP</b>
-			            	</label>
-			            </div>
-		            </div>  
-		            <div class="col-md-3">
-			            <div class="checkbox">
-			            	<label>
-			            		{!! Form::checkbox('kk',1) !!} <b>KK</b>
-			            	</label>
+		            <div class="col-md-6">
+		            	{!! Form::label('kelengkapan', 'Kelengkapan Berkas / Dokumen') !!}
+		            	<div class="col-md-3">
+			            	<div class="checkbox">
+				            	<label>
+				            		{!! Form::checkbox('ktp',1) !!} <b>KTP</b>
+				            	</label>
+				            </div>
+			            </div>  
+			            <div class="col-md-3">
+				            <div class="checkbox">
+				            	<label>
+				            		{!! Form::checkbox('kk',1) !!} <b>KK</b>
+				            	</label>
+				            </div>
 			            </div>
 		            </div>
 		            <div class="form-group">
+		            	{!! Form::label('mokas_number', 'Kode Motor Bekas') !!}
 		            	<div class="input-group">
 							{!! Form::text('mokas_number', old('mokas_number'), ['class'=>'form-control','required', 'placeholder' => 'Mokas Code', 'id'=>'mokas_noSales', 'readonly'=>'true']) !!}
 							<span class="input-group-btn">
@@ -390,7 +392,7 @@
 				<div class="col-md-6">
 					<div class="form-group">
 		                <div class="input-group">
-		                    {!!Form::select('customer_list', $customer_list, old('customer_list'), ['class'=>'form-control', 'placeholder'=>'Select Customer','id'=>'customer_list', 'onchange'=>'getCustomerList(this.value)']) !!}
+		                    {!!Form::select('customer_no', $customer_list, old('customer_no'), ['class'=>'form-control', 'placeholder'=>'Select Customer','id'=>'customer_no', 'onchange'=>'getCustomerList(this.value)']) !!}
 		                    <span class="input-group-btn">
 		                        <button type="button" class="btn btn-default" onclick="AddCustomer()">
 		                            <i class="fa fa-plus" aria-hidden="true"></i>
@@ -443,12 +445,12 @@
 		<div class="box-body">
 			<div class="row">
 				<div class="col-md-6">
-					<div class="form-group{{ $errors->has('cash_method') ? ' has-error' : '' }}">
-		                {!! Form::label('cash_method', "Payment Method") !!}
-		                {!! Form::select('cash_method', ['Cash'=>'Cash','Credit'=>'Credit'], old('cash_method'), ['class'=>'form-control','required', 'id'=>'cash_methodSales', 'placeholder'=>'-- Select Payment Method --']) !!}
-		                @if ($errors->has('cash_method'))
+					<div class="form-group{{ $errors->has('payment_method') ? ' has-error' : '' }}">
+		                {!! Form::label('payment_method', "Payment Method") !!}
+		                {!! Form::select('payment_method', ['cash'=>'cash','credit'=>'credit'], old('payment_method'), ['class'=>'form-control','required', 'id'=>'payment_methodSales', 'placeholder'=>'-- Select Payment Method --']) !!}
+		                @if ($errors->has('payment_method'))
 		                    <span class="help-block">
-		                        <strong>{{ $errors->first('cash_method') }}</strong>
+		                        <strong>{{ $errors->first('payment_method') }}</strong>
 		                    </span>
 		                @endif
 		            </div>
@@ -463,7 +465,7 @@
 		            </div>
 		            <div class="form-group{{ $errors->has('down_payment') ? ' has-error' : '' }}">
 		                {!! Form::label('down_payment', "Down Payment") !!}
-		                {!! Form::text('down_payment', null, ['class'=>'form-control detail-purchasing','required','autofocus','id'=>'down_paymentSales', 'onkeyup'=>'formatNumber(this)', 'onkeypress'=>'formatNumber(this)']) !!}
+		                {!! Form::text('down_payment', old('down_payment'), ['class'=>'form-control detail-purchasing','required','autofocus','id'=>'down_paymentSales', 'onkeyup'=>'formatNumber(this)', 'onkeypress'=>'formatNumber(this)']) !!}
 		                @if ($errors->has('down_payment'))
 		                    <span class="help-block">
 		                        <strong>{{ $errors->first('down_payment') }}</strong>

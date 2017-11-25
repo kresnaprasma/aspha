@@ -47,4 +47,7 @@ Route::group([
 
 	Route::resource('profile', 'Api\ProfilePictureController');
 	Route::resource('/human-resource/employee', 'Api\EmployeeController',['as'=>'api.human-resource']);
+
+	Route::resource('pricesaleshistory', 'Api\PricelistController');
+	Route::resource('mokaschecklist', 'Api\MokasChecklistController');
 });

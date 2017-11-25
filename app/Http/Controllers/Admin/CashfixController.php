@@ -154,7 +154,7 @@ class CashfixController extends Controller
     {
         $cashfix = Cashfix::find($id);
         $cash = Cash::find($id);
-        $collateral_id = Customerocllateral::find($id);
+        $collateral_id = Customercollateral::find($id);
         $customer_id = Customer::find($id);
         $customer_list = Customer::pluck('name', 'customer_no');
         $branch_list = Branch::pluck('name', 'id');

@@ -15,6 +15,7 @@ class CreateMokasTable extends Migration
     {
         Schema::create('mokas', function (Blueprint $table) {
             $table->string('id')->index();
+            $table->primary('id');
             $table->string('mokas_no')->unique();
             $table->string('merk_id');
             $table->string('type_id');

@@ -44,7 +44,7 @@ class SalesController extends Controller
 
         $customer_list = Customer::pluck('name', 'customer_no');
         $branch_list = Branch::pluck('name', 'id');
-        $leasing_list = Leasing::pluck('name', 'id');
+        $leasing_list = Leasing::pluck('name', 'leasing_no');
         $banks = Bank::pluck('name', 'id');
 
         $mokas = Mokas::all();
@@ -71,41 +71,40 @@ class SalesController extends Controller
      */
     public function store(Request $request)
     {
-        // return $request->all();
-        $validator = validator::make($request->all(), [
+        $validator = Validator::make($request->all(), [
             'customer_name' => 'required',
             'mokas_number' => 'required',
             'ktp' => 'required',
             'kk' => 'required',
-            'rek_number' => 'required',
         ]);
 
-        if ($validator->fails()) {
-            $messages = $validator->messages();
-            
-            return redirect()->back()->withInput()->withErrors($validator);
-        }
+        // if ($validator->fails()) {
+        //     return redirect()->back()->withInput()->withErrors($validator);
+        // }
 
-        $sales = Sales::create($request->all());
+        $sales = new Sales();
+        $sales->id = Uuid::uuid4()->getHex();
+        $sales->sales_no = Sales::Maxno();
+        $sales->customer_no = $request->input('customer_no');
+        $sales->mokas_number = $request->input('mokas_number');
+        $sales->ktp = $request->input('ktp');
+        $sales->kk = $request->input('kk');
+        $sales->bank_id = $request->input('bank_id');
+        $sales->rek_number = $request->input('rek_number');
+        $sales->others_cost = $request->input('others_cost');
+        $sales->payment_method = $request->input('payment_method');
+        $sales->down_payment = $request->input('down_payment');
+        $sales->tenor = $request->input('tenor');
+        $sales->payment = $request->input('payment');
+        $sales->branch_id = $request->input('branch_id');
+        $sales->leasing_no = $request->input('leasing_no');
+        $sales->cashier = $request->input('cashier');
+        $sales->save();
 
-        // $sales = new Sales();
-        // $sales->id = Uuid::uuid4()->getHex();
-        // $sales->sales_no = Sales::Maxno();
-        // $sales->customer_name = $request->input('customer_name');
-        // $sales->mokas_number = $request->input('mokas_number');
-        // $sales->ktp = $request->input('ktp');
-        // $sales->kk = $request->input('kk');
-        // $sales->rek_number = $request->input('rek_number');
-        // $sales->other_cost = $request->input('other_cost');
-        // $sales->payment_method = $request->input('payment_method');
-        // $sales->branch_id = $request->input('branch_id');
-        // $sales->leaisng_no = $request->input('leaisng_no');
-        // $sales->save();
-
-        if (!$sales) {
-            return redirect()->back()->withInput()->withError('cannot create sales');
+        if (empty($sales)) {
+            return redirect()->back()->withInput()->withError('cannot create Sales');
         }else{
-            return redirect('/sales')->with('success', 'Successfully create sales');
+            return redirect('/sales')->with('success', 'Successfully create Sales');
         }
     }
 
@@ -129,11 +128,11 @@ class SalesController extends Controller
     public function edit($id)
     {
         $sales = Sales::find($id);
-        
+       
         $banks = Bank::pluck('name', 'id');
         $branch_list = Branch::pluck('name', 'id');
         $customer_list = Customer::pluck('name', 'customer_no');
-        $leasing_list = Leasing::pluck('name', 'id');
+        $leasing_list = Leasing::pluck('name', 'leasing_no');
         
         $vehicle_colorlist = ['WHITE'=>'WHITE', 'SILVER'=>'SILVER', 'BLACK'=>'BLACK', 'GREY'=>'GREY', 
             'RED'=>'RED', 'BLUE-NAVY'=>'BLUE-NAVY', 'BLUE'=>'BLUE', 
@@ -160,11 +159,10 @@ class SalesController extends Controller
     public function update(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
-            'customer_name' => 'required',
+            'customer_no' => 'required',
             'mokas_number' => 'required',
             'ktp' => 'required',
             'kk' => 'required',
-            'rek_number' => 'required',
         ]);
 
         if ($validator->fails()) {
