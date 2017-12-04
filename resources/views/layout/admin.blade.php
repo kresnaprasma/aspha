@@ -146,6 +146,53 @@
           background-color: #7F6091;
         }
         /*end profile hrm*/
+
+        .dropzone {
+            border: 2px dashed #EB7260;
+            box-shadow: 0 0 0 5px #373b44;
+            padding: 20px;
+            background: #373b44;
+            color: #fff;
+            text-align: center;
+        }
+
+        .dropzone h3 {
+            color: white;
+            text-align: center;
+            line-height: 3em;
+            margin-top: 20px;
+        }
+
+        .dz-clickable {
+            cursor: pointer;
+            
+        }
+
+        .dz-drag-hover {
+            border: 2px solid #EB7260;
+        }
+
+        .dz-preview, .dz-processing, .dz-image-preview, .dz-success, .dz-complete {
+            background-color: rgba(0, 0, 0, .5);
+            padding: 5px;
+        }
+
+        .dz-preview {
+            width: auto !important;
+        }
+
+        .dz-image {
+            text-align: center;
+            /*border: 1px solid #EB7260;*/
+        }
+
+        .dz-details {
+            padding: 10px;
+        }
+
+        .dz-success-mark, .dz-error-mark,  {
+            display: none;
+        }
     </style>
 </head>
 <body class="skin-blue">
@@ -196,7 +243,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/4.2.0/min/dropzone.min.js"></script>
 
 <script src="{{ asset ("/assets/js/style.js") }}"></script>
-
 <script src="{{ asset ("/assets/pickadate/picker.js")}}"></script>
 <script src="{{ asset ("/assets/pickadate/picker.date.js")}}"></script>
 <script src="{{ asset ("/assets/pickadate/picker.time.js")}}"></script>

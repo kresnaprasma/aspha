@@ -5,12 +5,6 @@
     <div class="box-body">
         <div class="row">
             <div class="col-md-4 col-lg-offset-1">
-                {{-- <div class="form-group">
-                    {!! Form::text('mokas_no', old('mokas_no'), ['class'=>'form-control', 'readonly'=>'true']) !!}
-                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                    {!! Form::label('merk_id', 'Merk:') !!}
-                    {!! Form::text('merk_id', $mokas->merks['name'], ['class'=>'form-control', 'readonly'=>'true']) !!}
-                </div> --}}
                 <div class="form-group">
                     {!! Form::text('mokas_no', old('mokas_no'), ['class'=>'form-control', 'readonly'=>'true']) !!}
                 </div>

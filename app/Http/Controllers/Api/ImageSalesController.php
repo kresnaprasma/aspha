@@ -53,7 +53,7 @@ class ImageSalesController extends Controller
         ]);
 
         $file = Input::file('image');
-        $mokas_no = $request->input('mokas_no');
+        $sales_no = $request->input('sales_no');
 
         $input = array('image' => $file);
         $mime = array('image' => 'jpeg, png, jpg, gif, pdf, application/vnd.ms-excel' );
@@ -74,7 +74,7 @@ class ImageSalesController extends Controller
         $allowedName = $this->createUniqueFilename($image->filename,$ext);
         $filenameExt = $allowedName.'.'.$ext;
         
-        $image->mokas_no = $mokas_no;
+        $image->sales_no = $sales_no;
         $image->save();
 
         $uploadSuccess = Storage::disk('local')->put('/SalesMokas/'.$filenameExt, File::get($file));

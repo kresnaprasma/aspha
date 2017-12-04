@@ -76,18 +76,18 @@ class CashController extends Controller
     public function store(Request $request)
     {
 
-        $validator = Validator::make($request->all(), [
-            'id' => 'required',
-            'credit_ceiling_request' => 'required',
-            'stnk' => 'required',
-            'bpkb' => 'required',
-            'machine_number' => 'required',
-            'chassis_number' => 'required'
-        ]);
+        // $validator = Validator::make($request->all(), [
+        //     'id' => 'required',
+        //     'credit_ceiling_request' => 'required',
+        //     'stnk' => 'required',
+        //     'bpkb' => 'required',
+        //     'machine_number' => 'required',
+        //     'chassis_number' => 'required'
+        // ]);
 
-        if ($validator->fails()) {
-            return redirect()->back()->withInput()->withErrors($validator);
-        }
+        // if ($validator->fails()) {
+        //     return redirect()->back()->withInput()->withErrors($validator);
+        // }
 
         $cash = Cash::find($request->input('id_cash'));
 
@@ -117,11 +117,11 @@ class CashController extends Controller
         $cc->customer_no = $request->input('customer_no');
         $cc->save();
 
-        if (empty($cash || $cc)) {
-            return redirect()->back()->withInput()->withErrors('cannot create Dana Tunai');
-        }else{
-          return redirect('/cash')->with('success', 'Successfully create Dana Tunai');
-        }
+        // if (empty($cash || $cc)) {
+        //     return redirect()->back()->withInput()->withErrors('cannot create Dana Tunai');
+        // }else{
+        //   return redirect('/cash')->with('success', 'Successfully create Dana Tunai');
+        // }
     }
 
     /**
@@ -253,9 +253,9 @@ class CashController extends Controller
         }
 
         if (!$cash) {
-            return redirect()->back()->withInput()->withErrors('cannot delete cash');
+            return redirect()->back()->withInput()->withErrors('Cannot delete approvement');
         }else{
-            return redirect()->back()->with('success', 'Successfully delete cash');
+            return redirect()->back()->with('success', 'Successfully delete Approvement');
         }
     }
 }

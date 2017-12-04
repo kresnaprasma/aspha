@@ -1,5 +1,5 @@
 <script type="text/javascript">
-
+ 
     var checkload = true;
     var customercollateral_no = $('[name=customercollateral_no]').val();
 

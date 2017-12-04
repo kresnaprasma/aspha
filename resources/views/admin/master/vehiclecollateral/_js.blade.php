@@ -1,4 +1,4 @@
-<script src="http://demo.itsolutionstuff.com/plugin/jquery.js"></script>
+
 	
 <script type="text/javascript">
 	$(document).ready(function() {

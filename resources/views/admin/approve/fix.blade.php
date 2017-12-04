@@ -25,6 +25,7 @@
 					</div>
 
 					<div>
+					{!! Form::open(['route'=>'approve.delete', 'id'=>'formDeleteApprove']) !!}
 					    @if ($message = Session::get('success'))
 				        	<div class="alert alert-success">
 	            				<p>{{ $message }}</p>
@@ -112,7 +113,7 @@
 		}
 
 		function DeleteApprove() {
-			$("#formDeleteAprove").submit();
+			$("#formDeleteApprove").submit();
 		}
 	</script>
 @stop

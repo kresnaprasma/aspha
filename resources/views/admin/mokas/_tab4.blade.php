@@ -3,7 +3,7 @@
 		<div class="row">
             <div class="form-group">
                 {!! Form::text('mokascheck_no', old('mokascheck_no'), ['class'=>'form-control', 'readonly'=>'true', 'id'=>'mokascheckform']) !!}
-                {!! Form::text('mokas_no', old('mokas_no'), ['class'=>'form-control', 'readonly'=>'true', 'id'=>'mokasform']) !!}
+                {!! Form::hidden('mokas_no', old('mokas_no'), ['class'=>'form-control', 'readonly'=>'true', 'id'=>'mokasform']) !!}
             </div>
 	    	<div class="col-md-3">
     			<div class="checkbox">
@@ -241,10 +241,14 @@
             {!! Form::hidden('mokascheck_no', App\MokasChecklist::Maxno(), ['class'=>'form-control', 'readonly'=>'true']) !!}
             {!! Form::hidden('mokas_no', App\Mokas::Maxno(), ['class'=>'form-control', 'readonly'=>'true']) !!}
         </h3>
+        <br/>
+        <br/>
+        <th><input type="checkbox" id="check_all" /> Select All</th>
 	</div>
 	<div class="box-body">
 		<div class="row">
 	    	<div class="col-md-3">
+
     			<div class="checkbox">
     				<label>
     					{!! Form::checkbox('mesin', 1) !!} Mesin

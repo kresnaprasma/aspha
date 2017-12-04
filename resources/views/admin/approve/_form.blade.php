@@ -2,6 +2,7 @@
 <div class="box box-primary">
     <div class="box-header with-border">
         <h3 class="box-title">Cash Approval Form </h3>
+        {!! Form::text('cash_id', $cash['id'], ['class'=>'form-control', 'id'=>'cash_id']) !!}
         <div class="box-tools pull-right">
             <button class="btn btn-box-tool" data-widget="collapse" data-toogle="tooltip" title="Collapse"><i class="fa fa-minus"></i></button>
         </div>

@@ -94,6 +94,10 @@ class CashfixController extends Controller
         $cashfix->approve = true;
         $cashfix->save();
 
+        $cash = Cash::find($request->input('cash_id'));
+        $cash->approval = true;
+        $cash->save();
+
         if (!$cashfix) {
             return redirect()->back()->withInput()->withErrors('cannot create Dana Tunai');
         }else{
@@ -210,6 +214,7 @@ class CashfixController extends Controller
         $cashfix->cash_no = $request->input('cash_no');
         $cashfix->approve = $request->input('approve', 1);
         $cashfix->save();
+
 
         if (!$cash) {
             return redirect()->back()->withInput()->withErrors('Cant update cashfix' );

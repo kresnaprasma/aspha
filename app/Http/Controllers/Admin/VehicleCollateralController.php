@@ -176,11 +176,11 @@ class VehicleCollateralController extends Controller
         }
 
         foreach ($request->input('id') as $key => $value) {
-            $customer = VehicleCollateral::find($value);
-            $customer->delete();   
+            $vehiclecollateral = VehicleCollateral::find($value);
+            $vehiclecollateral->delete();   
         }
 
-        if (!$customer) {
+        if (!$vehiclecollateral) {
             return redirect()->back()->withInput()->withError('cannot delete customer');
         }else{
             return redirect()->back()->with('success', 'Successfully delete customer');

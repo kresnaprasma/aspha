@@ -39,27 +39,46 @@
     var mokas_no = $('[name=mokas_no]').val();
 
     Dropzone.autoDiscover = false;
+    var myDropzone = new Dropzone ('div#upload-mokas',{
+        paramName           : "image", // The name that will be used to transfer the file
+        maxFilesize         : 2, // MB
+        dictDefaultMessage  : "Drop File here or Click to upload Image",
+        thumbnailWidth      : "200",
+        thumbnailHeight     : "200",
+        accept              : function(file, done) { done() },
+        success             : uploadSuccess,
+        complete            : uploadCompleted
+    });
 
-    var myDropzone =  {
-        url: "http://localhost:8000/api/v1/uploadmokas",
-        paramName: 'image',
-        parallelUploads: 10,
-        maxFilesize: 8,
-        previewTemplate: '<div style="display:none"></div>',
-        clickable: '#FormUploadmokas',
+    function uploadSuccess(data, file) {
+        var messageContainer    =   $('.dz-success-mark'),
+            message             =   $('<p></p>', {
+                'text' : 'Image Uploaded Successfully! Image Path is: '
+            }),
+            imagePath           =   $('<a></a>', {
+                'href'  :   JSON.parse(file).original_path,
 
-        init: function(){
-            var myDropzones = this;
-        },
-        accept: function(file, done){
-            console.log('Successfully Uploaded!');
-            done();
-        },
+                'target':   '_blank'
+            })
 
-        success: function(file, response, value){
-            $('#uploadcollateral').append('<li><a href="/uploaddanatunai/show/'+response.data.nameslug+'" target="_blank">'+get_mime(response.data.mime)+response.data.filename+'<a><span class="pull-right"><a onclick="deleteUpload(this, '+response.data.id+')"><i class="fa fa-times fa-red" aria-hidden="true"></i></a></span></li>');
+        imagePath.appendTo(message);
+        message.appendTo(messageContainer);
+        messageContainer.addClass('show');
+    }
+
+    function uploadCompleted(data) {
+        if(data.status != "success")
+        {
+            var error_message   =   $('.dz-error-mark'),
+                message         =   $('<p></p>', {
+                    'text' : 'Image Upload Failed'
+                });
+
+            message.appendTo(error_message);
+            error_message.addClass('show');
+            return;
         }
-    };
+    }
 
 
     function AddPriceSalesHistory() {
@@ -108,4 +127,17 @@
             input.value = input.value.substring(0,input.value.length-1);
         }
     }
+
+    $('#check_all').click(function(event) {
+      if(this.checked) {
+          $(':checkbox').each(function() {
+              this.checked = true;
+          });
+      }
+      else {
+        $(':checkbox').each(function() {
+              this.checked = false;
+          });
+      }
+    });
 </script>
